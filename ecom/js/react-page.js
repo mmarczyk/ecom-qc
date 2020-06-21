@@ -8,6 +8,7 @@ const Categories = () => {
         </div>
     );
 };
+
 const Search = () => {
   return (
     <div className="Search">

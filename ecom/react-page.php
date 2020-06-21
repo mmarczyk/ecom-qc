@@ -17,5 +17,6 @@ $vars = [
   '<?CATEGORIES?>' => $oPage->throwMenu( 3, $iContent, 1)
 ];
 
+
 $template = file_get_contents(__DIR__.'/react-page.html');
 print str_replace(array_keys($vars), array_values($vars), $template);
