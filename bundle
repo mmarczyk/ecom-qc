@@ -3,7 +3,7 @@
 
 $src = $argv[1];
 $dstJS = "ecom/js/react-page.js";
-$dstCSS = "ecom/css/react-page.css";
+$dstCSS = "ecom/style.css";
 
 $orderJS = [
     "view/header/Categories.js",

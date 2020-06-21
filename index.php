@@ -5,7 +5,7 @@ $config = [
   'title' => 'Tytuł z configa',
   'version' => '1.5',
   'dir_skin' => '/ecom/',
-  'style' => 'css/react-page.css'
+  'style' => 'style.css'
 ];
 
 $sTitle = 'Tytuł strony';
