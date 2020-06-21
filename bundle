@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+$src = $argv[1];
+$dstJS = "ecom/js/react-page.js";
+$dstCSS = "ecom/css/react-page.css";
+
+$orderJS = [
+    "view/header/Categories.js",
+    "view/header/Search.js",
+    "view/header/CartIcon.js",
+    "view/header/UserInfo.js",
+    "view/header/Logo.js",
+    "view/header/Header.js",
+    "App.js",
+    "index.js"
+];
+
+$orderCSS = [
+    "view/header/logo.css",
+    "view/header/search.css",
+    "view/header/userinfo.css",
+    "view/header/categories.css",
+    "view/header/header.css",
+    "style.css"
+];
+
+$bundle = function($src, $order, $dst) {
+    $bundle = [];
+
+    foreach($order as $file) {
+        $bundle[] = file_get_contents($src.$file);
+    }
+
+    file_put_contents($dst, implode("\n", $bundle));
+};
+
+$bundle($src, $orderJS, $dstJS);
+$bundle($src, $orderCSS, $dstCSS);
