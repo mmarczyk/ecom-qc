@@ -1,0 +1,21 @@
+.Header .Search {
+    position: absolute;
+    left: 0;
+    top: 2em;
+    width: 60%;
+    margin: 0 20%;}
+    .Header .Search .wrapper {
+        background: #ddd;
+        border-radius: 20px;
+        padding: 0 20px;}
+        .Header .Search input {
+            font-size: 16px;
+            outline: none;
+            border: none;
+            background: transparent;
+            line-height: 2.2em;
+            width: 100%;}
+            .Header .Search .wrapper:hover,
+            .Header .Search .wrapper:focus-within {
+                background: white;
+                border: 1px solid #ddd;}

@@ -1,0 +1,4 @@
+.Header {
+    position: relative;}
+    .Header > div {
+        display: inline-block;}

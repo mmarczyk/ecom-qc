@@ -1,0 +1,17 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 0;
+    margin: auto;
+    max-width: 1365px;}

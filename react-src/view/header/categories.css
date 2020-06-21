@@ -1,0 +1,33 @@
+.Categories{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9em;
+    margin-top: -15px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;}
+    .Categories a {
+        color: black;}
+    .Categories .nav {
+        display: none;}
+    .Categories div > ul > li {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 15px;
+        line-height: 2.5em;
+        cursor: pointer;}
+    .Categories div > ul li:hover > a {
+      border-bottom: 2px solid #000;}
+        .Categories div > ul > li > a {
+            padding-bottom: 8px;}
+        .Categories div > ul > li .sub1 {
+            position: absolute;
+            display: none;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            padding: 10px;
+            line-height: 2em;
+            font-size: 0.8em;
+            z-index: 9999999;}
+        .Categories div > ul > li:hover .sub1 {
+        display: block;}

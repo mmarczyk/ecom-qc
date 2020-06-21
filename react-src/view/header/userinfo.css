@@ -1,0 +1,12 @@
+.Header .UserInfo {
+    width: 50%;
+    text-align: right;}
+    .Header .UserInfo > div {
+        display: inline-block;
+        margin: 0 10px;}
+    .Header .UserInfo span {
+        font-size: 0.8em;
+        font-weight: 900;}
+    .Header .UserInfo i {
+        font-size: 1.8em;
+        vertical-align: middle;}

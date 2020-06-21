@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="<?LANGUAGE?>">
+<head>
+  <title><?TITLE?></title>
+  <meta name="Language" content="<?LANGUAGE?>" />
+  <meta name="Description" content="<?DESCRIPTION?>" />
+  <meta name="Generator" content="Quick.Cart v<?QUICKCART-VERSION?>" />
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  <link rel="stylesheet" href="<?CSS?>" />
+  <link rel="stylesheet" href="<?FONT-CSS?>"/>
+
+  <script>
+    var aCF = {
+      'sWarning' : '<?WARNING?>',
+      'sEmail' : '<?EMAIL?>',
+      'sInt' : '<?WRONG-VALUE?>'
+    };
+
+    var sDirImg = "<?IMG?>";
+    var sCategories = "<?CATEGORIES?>";
+  </script>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+    <body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <script type="text/babel" src="<?JS?>"></script>
+    </body>
+</html>
