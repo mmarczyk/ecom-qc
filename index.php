@@ -14,7 +14,7 @@ $sDescription = 'Opis strony';
 $lang = [
   'cf_no_word' => 'Wypełnij poprawnie wymagane pola',
   'cf_mail' => 'Podaj poprawny e-mail',
-  'cf_wrong_value' => 'Podaj poprawną wartość'
+  'cf_wrong_value' => 'Podaj poprawną wartość1'
 ];
 
 $iContent = 2;
