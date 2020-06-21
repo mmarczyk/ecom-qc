@@ -14,7 +14,7 @@ $vars = [
   '<?EMAIL?>' => $lang['cf_mail'],
   '<?WRONG-VALUE?>' => $lang['cf_wrong_value'],
   '<?IMG?>' => $config['dir_skin'].'img/',
-  '<?CATEGORIES?>' => $oPage->throwMenu( 3, $iContent, 1)
+  '<?CATEGORIES?>' => str_replace('"', '\"', $oPage->throwMenu( 3, $iContent, 1))
 ];
 
 

@@ -22,24 +22,24 @@ $oPage = new class{
     function throwMenu($ind, $content, $subs, $title = false) {
         if($ind === 3) {
             return ''.
-                '<div id=\"menu3\">'.
+                '<div id="menu3">'.
                     '.<ul>'.
-                        '<li class=\"l1 selected\">'.
-                            '<a href=\"./\">Kategoria 1</a>'.
+                        '<li class="l1 selected">'.
+                            '<a href="./">Kategoria 1</a>'.
                         '</li>'.
-                        '<li class=\"l2\">'.
-                            '<a href=\"./\">Kategoria 2</a>'.
-                            '<ul class=\"sub1\">'.
-                                '<li class=\"l1\">'.
-                                    '<a href=\"./\">Subkategoria 2.1</a>'.
+                        '<li class="l2">'.
+                            '<a href="./">Kategoria 2</a>'.
+                            '<ul class="sub1">'.
+                                '<li class="l1">'.
+                                    '<a href="./">Subkategoria 2.1</a>'.
                                 '</li>'.
-                                '<li class=\"lL\">'.
-                                    '<a href=\"./\">Subkategoria 2.2</a>'.
+                                '<li class="lL">'.
+                                    '<a href="./">Subkategoria 2.2</a>'.
                                 '</li>'.
                             '</ul>'.
                         '</li>'.
-                        '<li class=\"lL\">'.
-                            '<a href=\"./\">Kategoria 3</a>'.
+                        '<li class="lL">'.
+                            '<a href="./">Kategoria 3</a>'.
                         '</li>'.
                     '</ul>'.
                 '</div>';
