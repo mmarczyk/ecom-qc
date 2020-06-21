@@ -1,0 +1,6 @@
+.git-ftp-ignore
+.gitpod.Dockerfile
+.gitpod.yml
+bundle
+index.php
+react-src/
