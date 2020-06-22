@@ -1,4 +1,4 @@
 .Header {
-    position: relative;}
-    .Header > div {
+    border-bottom: 1px solid #ddd;}
+    .Header .container > div {
         display: inline-block;}

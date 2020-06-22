@@ -12,6 +12,9 @@ a:active {
 .App {
     font-family: sans-serif;
     text-align: center;
-    padding: 0;
+    padding: 0;}
+
+.container {
     margin: auto;
-    max-width: 1365px;}
+    max-width: 1365px;
+    position: relative;}

@@ -1,41 +1,41 @@
-.Header .Logo {
+.Logo {
     width: 50%;
     text-align: left;}
-    .Header .Logo img {
+    .Logo img {
         height: 100px;
         vertical-align: middle; }
-.Header .Search {
+.Search {
     position: absolute;
     left: 0;
     top: 2em;
     width: 60%;
     margin: 0 20%;}
-    .Header .Search .wrapper {
+    .Search .wrapper {
         background: #ddd;
         border-radius: 20px;
         padding: 0 20px;}
-        .Header .Search input {
+        .Search input {
             font-size: 16px;
             outline: none;
             border: none;
             background: transparent;
             line-height: 2.2em;
             width: 100%;}
-            .Header .Search .wrapper:hover,
-            .Header .Search .wrapper:focus-within {
+            .Search .wrapper:hover,
+            .Search .wrapper:focus-within {
                 background: white;
                 border: 1px solid #ddd;}
 
-.Header .UserInfo {
+.UserInfo {
     width: 50%;
     text-align: right;}
-    .Header .UserInfo > div {
+    .UserInfo > div {
         display: inline-block;
         margin: 0 10px;}
-    .Header .UserInfo span {
+    .UserInfo span {
         font-size: 0.8em;
         font-weight: 900;}
-    .Header .UserInfo i {
+    .UserInfo i {
         font-size: 1.8em;
         vertical-align: middle;}
 
@@ -43,7 +43,6 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 0.9em;
     margin-top: -15px;
-    border-bottom: 1px solid #ddd;
     width: 100%;}
     .Categories a {
         color: black;}
@@ -73,8 +72,8 @@
         .Categories div > ul > li:hover .sub1 {
         display: block;}
 .Header {
-    position: relative;}
-    .Header > div {
+    border-bottom: 1px solid #ddd;}
+    .Header .container > div {
         display: inline-block;}
 ul {
   margin: 0;
@@ -90,6 +89,9 @@ a:active {
 .App {
     font-family: sans-serif;
     text-align: center;
-    padding: 0;
+    padding: 0;}
+
+.container {
     margin: auto;
-    max-width: 1365px;}
+    max-width: 1365px;
+    position: relative;}
