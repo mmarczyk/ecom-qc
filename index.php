@@ -23,7 +23,7 @@ $oPage = new class{
         if($ind === 3) {
             return ''.
                 '<div id="menu3">'.
-                    '.<ul>'.
+                    '<ul>'.
                         '<li class="l1 selected">'.
                             '<a href="./">Kategoria 1</a>'.
                         '</li>'.
@@ -31,15 +31,29 @@ $oPage = new class{
                             '<a href="./">Kategoria 2</a>'.
                             '<ul class="sub1">'.
                                 '<li class="l1">'.
-                                    '<a href="./">Subkategoria 2.1</a>'.
+                                    '<a href="./1">Subkategoria 2.1</a>'.
                                 '</li>'.
                                 '<li class="lL">'.
                                     '<a href="./">Subkategoria 2.2</a>'.
+                                '</li>'.
+                                '<li class="l1">'.
+                                    '<a href="./">Subkategoria 2.3</a>'.
+                                '</li>'.
+                                '<li class="lL">'.
+                                    '<a href="./">Subkategoria 2.4</a>'.
                                 '</li>'.
                             '</ul>'.
                         '</li>'.
                         '<li class="lL">'.
                             '<a href="./">Kategoria 3</a>'.
+                            '<ul class="sub1">'.
+                                '<li class="l1">'.
+                                    '<a href="./">Subkategoria 3.1</a>'.
+                                '</li>'.
+                                '<li class="lL">'.
+                                    '<a href="./">Subkategoria 3.2</a>'.
+                                '</li>'.
+                            '</ul>'.
                         '</li>'.
                     '</ul>'.
                 '</div>';

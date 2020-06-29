@@ -18,9 +18,14 @@ $orderJS = [
 
 $orderCSS = [
     "view/header/logo.css",
+    "view/header/logo-tablet.css",
     "view/header/search.css",
+    "view/header/search-tablet.css",
+    "view/header/search-phone.css",
     "view/header/userinfo.css",
     "view/header/categories.css",
+    "view/header/categories-tablet.css",
+    "view/header/categories-phone.css",
     "view/header/header.css",
     "style.css"
 ];

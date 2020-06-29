@@ -4,6 +4,11 @@
     .Logo img {
         height: 100px;
         vertical-align: middle; }
+
+@media(max-width: 868px) {
+    .Logo img {
+        height: 70px;}
+}
 .Search {
     position: absolute;
     left: 0;
@@ -25,7 +30,17 @@
             .Search .wrapper:focus-within {
                 background: white;
                 border: 1px solid #ddd;}
-
+@media(max-width: 868px) {
+    .Search {
+        top: 1em;}
+}
+@media(max-width: 635px) {
+    .Search {
+        top: 4em;
+        width: 70%;
+        margin: 0;
+        left: 20%}
+}
 .UserInfo {
     width: 50%;
     text-align: right;}
@@ -47,7 +62,11 @@
     .Categories a {
         color: black;}
     .Categories .nav {
-        display: none;}
+        display: none;
+        font-size: 1.4em;
+        width: 20%;
+        text-align: center;
+        margin-bottom: 0.5em;}
     .Categories div > ul > li {
         display: inline-block;
         vertical-align: top;
@@ -70,11 +89,80 @@
             font-size: 0.8em;
             z-index: 9999999;}
         .Categories div > ul > li:hover .sub1 {
+            display: block;}
+@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
+    .Categories {
+        padding-bottom: 20px;}
+    .Categories div > ul > li > a {
+        padding: 0;}
+    .Categories a:not(:only-child):hover ~ .sub1 {
+        display: none;}
+    .Categories a:not(:only-child)::after {
+        content: "\ea5b";
+        pointer-events: none;
+        position: absolute;
+        bottom: -8px;
+        margin-left: -50px;
+        font-family: IcoFont;
+        font-size: 1.5em;}
+    .Categories div > ul li > ul.sub1 {
+        margin-top: 20px;}
+}
+@media(max-width: 635px) {
+    .Categories {
+        text-align: left;
+        margin-top: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;}
+    .Categories .nav {
+        display: inline-block;}
+    .Categories a:not(:only-child)::after {
+        content: "\ea5d";
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        font-family: IcoFont;
+        font-size: 1.5em;}
+    .Categories:hover div > ul {
         display: block;}
+    .Categories div > ul {
+        display: none;
+        background: white;
+        margin: 0;
+        width: 100%;
+        left: 0;
+        text-align: left;
+        z-index: 99999;
+        position: relative;}
+        .Categories div > ul li{
+            display: block;}
+        .Categories div > ul li:hover > a {
+            border: none;}
+        .Categories div > ul > li:hover .sub1 {
+            left: 0;}
+        .Categories a:not(:only-child):hover ~ .sub1 {
+            left: 100%;}
+        .Categories div > ul li > ul.sub1 {
+                top: 0;
+                left: 100%;
+                display:block;
+                border: none;
+                font-size: 1em;
+                line-height: inherit;
+                min-height: 100%;
+                padding: 0 15px;
+                box-sizing: border-box;
+                width: 100%;
+                transition: left 0.5s;}
+}
 .Header {
     border-bottom: 1px solid #ddd;}
     .Header .container > div {
         display: inline-block;}
+body {
+    margin: 0;
+    padding: 0;
+}
 ul {
   margin: 0;
   padding: 0;
