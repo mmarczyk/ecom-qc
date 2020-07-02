@@ -16,8 +16,8 @@ $vars = [
   '<?IMG?>' => $config['dir_skin'].'img/',
   '<?CATEGORIES?>' => str_replace('"', '\"', $oPage->throwMenu( 3, $iContent, 1)),
   '<?IMAGES?>' =>  
-    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 1 )).
-    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2 )),
+    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 1, false )).
+    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2, false )),
 ];
 
 
