@@ -42,10 +42,12 @@
     .Popular li > div {
         margin: 0 10px;
         text-align: right;}
+    .Popular .photo {
+        height: 135px;
+        margin-bottom: 8px;}
     .Popular li img {
         width: 100%;
         display: block;
-        margin-bottom: 8px;
         border-radius: 5px;
         box-shadow: 1px 1px 3px 1px #bbb;}
     .Popular li:hover img {
