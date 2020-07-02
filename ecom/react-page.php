@@ -22,7 +22,7 @@ $vars = [
 
 if( isset( $aData['iProducts'] ) ){
     $oProduct = Products::getInstance( );
-    $vars['<?PRODUCTS?>'] = str_replace('"', '\"', $oProduct->listProducts( $aData['iPage'], 10 ));
+    $vars['<?PRODUCTS?>'] = str_replace(['"', "\r\n"], ['\"',''], $oProduct->listProducts( $aData['iPage'], 10 ));
 }
 
 
