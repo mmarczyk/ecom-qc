@@ -23,6 +23,7 @@ $orderJS = [
 
 $orderCSS = [
     "view/content/homepage/topbanner.css",
+    "view/content/homepage/popular.css",
     "view/header/logo.css",
     "view/header/logo-tablet.css",
     "view/header/search.css",

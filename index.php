@@ -92,6 +92,91 @@ $oFile = new class{
     }
 };
 
+$oProduct = new class {
+    function listProducts( $iPage, $length ) {
+        return '<div id="products" class="productsList">'.
+                    '<div class="sort">Sortuj wg:'.
+                        '<ul>'.
+                            '<li>Domyślnie</li>'.
+                            '<li>'.
+                                '<a href="?akcesoria-podroznicze,8&amp;sSort=name">Nazwa</a>'.
+                            '</li>'.
+                            '<li>'.
+                                '<a href="?akcesoria-podroznicze,8&amp;sSort=price">Cena</a>'.
+                            '</li>'.
+                        '</ul>'.
+                    '</div>'.
+                    '<ul class="list">'.
+                        '<li class="l1 i1 column1">'.
+                            '<h2>'.
+                                '<a href="?8,expedition">Expedition</a>'.
+                            '</h2>'.
+                            '<div class="photo">'.
+                                '<a href="?8,expedition" tabindex="-1">'.
+                                    '<img src="files/top3.jpg" alt="Tetiami bauis tredi" />'.
+                                '</a>'.
+                            '</div>'.
+                            '<div class="description">'.
+                                'Proin elit. Vivamus eleifend augue id pede cursus ornare. Suspendisse malesuada.'.
+                            '</div>'.
+                            '<div class="basket">'.
+                                '<a href="?koszyk,15&amp;iProductAdd=8&amp;iQuantity=1" rel="nofollow" title="Do koszyka: Expedition">Do koszyka</a>'.
+                            '</div>'.
+                            '<div class="price">'.
+                                '<em>Cena:</em>'.
+                                '<strong>299.00</strong>'.
+                                '<span>zł</span>'.
+                            '</div>'.
+                        '</li>'.
+                        '<li class="l2 i0 column0">'.
+                            '<h2>'.
+                                '<a href="?7,mandi-(vibram-nubuck)">Mandi (Vibram, Nubuck)</a>'.
+                            '</h2>'.
+                            '<div class="photo">'.
+                                '<a href="?7,mandi-(vibram-nubuck)" tabindex="-1">'.
+                                    '<img src="files/top1.jpg" alt="Etiam quis velit" />'.
+                                '</a>'.
+                            '</div>'.
+                            '<div class="description">'.
+                                'Aliquam ac est et lectus viverra molestie. Nunc orci. Suspendisse in metus.'.
+                            '</div>'.
+                            '<div class="basket">'.
+                                '<a href="?koszyk,15&amp;iProductAdd=7&amp;iQuantity=1" rel="nofollow" title="Do koszyka: Mandi (Vibram, Nubuck)">Do koszyka</a>'.
+                            '</div>'.
+                            '<div class="price">'.
+                                '<em>Cena:</em>'.
+                                '<strong>64.00</strong>'.
+                                '<span>zł</span>'.
+                            '</div>'.
+                        '</li>'.
+                        '<li class="lL i1 column0">'.
+                            '<h2>'.
+                                '<a href="?2,myobelt-5-sb">Myobelt 5 SB</a>'.
+                            '</h2>'.
+                            '<div class="photo">'.
+                                '<a href="?2,myobelt-5-sb" tabindex="-1">'.
+                                    '<img src="files/top2.jpg" alt="Nam elementum" />'.
+                                '</a>'.
+                                '</div>'.
+                                '<div class="description">'.
+                                    'Morbi iaculis posuere massa. Ut volutpat, velit at ullamcorper consectetuer, erat leo accumsan metus, sit amet scelerisque odio '.
+                                    'felis sagittis turpis. Phasellus eget lacus. Ut consectetuer. Nam non eros eget dui tincidunt auctor.'.
+                                '</div>'.
+                                '<div class="basket">'.
+                                    '<a href="?koszyk,15&amp;iProductAdd=2&amp;iQuantity=1" rel="nofollow" title="Do koszyka: Myobelt 5 SB">Do koszyka</a>'.
+                                '</div>'.
+                            '<div class="price">'.
+                                '<em>Cena:</em>'.
+                                '<strong>99.00</strong>'.
+                                '<span>zł</span>'.
+                            '</div>'.
+                        '</li>'.
+                    '</ul>'.
+                '</div>'.
+            '</div>';
+    }
+};
+
 define('CUSTOMER_PAGE', 'React');
 
 require 'ecom/react-page.php';

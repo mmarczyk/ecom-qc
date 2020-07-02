@@ -1,0 +1,36 @@
+.Popular {
+    text-align: left;
+    max-width: 1100px;
+    margin: auto;}
+    .Popular > span {
+        padding-left: 10px;
+        font-size: 1.5em;
+        line-height: 2em;
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+    .Popular .sort,
+    .Popular .description,
+    .Popular li h2,
+    .Popular .basket,
+    .Popular em {
+        display: none;}
+    .Popular li {
+        display: inline-block;
+        margin-bottom: 20px;
+        width: 200px;
+        vertical-align: top;}
+    .Popular li > div {
+        margin: 0 10px;
+        text-align: right;}
+    .Popular li img {
+        width: 100%;
+        display: block;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px 1px #bbb;}
+    .Popular li:hover img {
+        box-shadow: 0 0 6px 4px #bbb;
+        opacity: 0.8;
+        transition: box-shadow 1s;}
+    .Popular li strong {
+        margin: 0 3px 0 5px;}

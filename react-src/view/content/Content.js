@@ -1,6 +1,6 @@
 const Content = () => {
   return (
-    <div className="Content">
+    <div className="Content container">
         <Homepage />
     </div>
   );
