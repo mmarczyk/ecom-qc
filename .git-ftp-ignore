@@ -3,5 +3,5 @@
 .gitpod.yml
 bundle
 index.php
-react-src/
-files/
+react-src*
+files*

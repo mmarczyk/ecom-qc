@@ -17,9 +17,13 @@ $vars = [
     '<?CATEGORIES?>' => str_replace('"', '\"', $oPage->throwMenu( 3, $iContent, 1)),
     '<?IMAGES?>' =>  
         str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 1, false )).
-        str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2, false )),
-    '<?PRODUCTS?>' => str_replace('"', '\"', $oProduct->listProducts( $aData['iPage'], 10 ))
+        str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2, false ))
 ];
+
+if( isset( $aData['iProducts'] ) ){
+    $oProduct = Products::getInstance( );
+    $vars['<?PRODUCTS?>'] = str_replace('"', '\"', $oProduct->listProducts( $aData['iPage'], 10 ));
+}
 
 
 $template = file_get_contents(__DIR__.'/react-page.html');
