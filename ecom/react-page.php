@@ -14,7 +14,10 @@ $vars = [
   '<?EMAIL?>' => $lang['cf_mail'],
   '<?WRONG-VALUE?>' => $lang['cf_wrong_value'],
   '<?IMG?>' => $config['dir_skin'].'img/',
-  '<?CATEGORIES?>' => str_replace('"', '\"', $oPage->throwMenu( 3, $iContent, 1))
+  '<?CATEGORIES?>' => str_replace('"', '\"', $oPage->throwMenu( 3, $iContent, 1)),
+  '<?IMAGES?>' =>  
+    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 1 )).
+    str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2 )),
 ];
 
 

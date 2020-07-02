@@ -12,11 +12,17 @@ $orderJS = [
     "view/header/UserInfo.js",
     "view/header/Logo.js",
     "view/header/Header.js",
+    "view/content/homepage/About.js",
+    "view/content/homepage/Popular.js",
+    "view/content/homepage/TopBanner.js",
+    "view/content/homepage/Homepage.js",
+    "view/content/Content.js",
     "App.js",
     "index.js"
 ];
 
 $orderCSS = [
+    "view/content/homepage/topbanner.css",
     "view/header/logo.css",
     "view/header/logo-tablet.css",
     "view/header/search.css",

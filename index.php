@@ -17,6 +17,10 @@ $lang = [
   'cf_wrong_value' => 'Podaj poprawną wartość1'
 ];
 
+$aData = [
+    'iPage' => 1
+];
+
 $iContent = 2;
 $oPage = new class{
     function throwMenu($ind, $content, $subs, $title = false) {
@@ -57,6 +61,33 @@ $oPage = new class{
                         '</li>'.
                     '</ul>'.
                 '</div>';
+        }
+    }
+};
+
+$oFile = new class{
+    function listImagesByTypes( $iLink, $iType = 1, $bLinks = true ) {
+        if($iType == 1) {
+            return '<ul class="imagesList" id="imagesList'.$iType.'">'.
+                        '<li class="l1">'.
+                            ( isset( $bLinks ) ? '<a href="files/_demo_03.jpg" class="quickbox['.$iLink.']" title="">' : null).
+                                '<img src="files/top1.jpg" alt="" />'.
+                            ( isset( $bLinks ) ? '</a>' : null).
+                        '</li>'.
+                    '</ul>';
+        } else {
+            return '<ul class="imagesList" id="imagesList'.$iType.'">'.
+                        '<li class="l2">'.
+                            ( isset( $bLinks ) ? '<a href="files/_demo_04.jpg" class="quickbox['.$iLink.']" title="">' : null).
+                                '<img src="files/top2.jpg" alt="" />'.
+                            ( isset( $bLinks ) ? '</a>' : null).
+                        '</li>'.
+                        '<li class="lL">'.
+                            ( isset( $bLinks ) ? '<a href="files/_demo_05.jpg" class="quickbox['.$iLink.']" title="Etiam quis velit">' : null).
+                                '<img src="files/top3.jpg" alt=""/>'.
+                            ( isset( $bLinks ) ? '</a>' : null).
+                        '</li>'.
+                    '</ul>';
         }
     }
 };

@@ -1,0 +1,20 @@
+.TopBanner {
+    height: 300px;
+    margin: 20px 0;}
+    .TopBanner > div {
+        height: 100%;}
+    .TopBanner img {
+        max-height: 100%;
+        border-radius: 5px;}
+    .TopBanner .imagesList {
+        height: 100%;
+        display: inline-block;}
+        .TopBanner #imagesList1 li {
+            height: 100%;}
+    .TopBanner #imagesList2 {
+        margin-left: 10px;}
+    .TopBanner #imagesList2 li:first-child {
+        height: 67%;
+        margin-bottom: 5%;}
+    .TopBanner #imagesList2 li:last-child {
+        height: 30%;}
