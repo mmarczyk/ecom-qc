@@ -21,9 +21,27 @@ $aData = [
     'iPage' => 1
 ];
 
+$GLOBALS['aMenuTypes'][3] = $sTitle;
+
 $iContent = 2;
 $oPage = new class{
+    public $mData;
+    public $aPages;
+
     function throwMenu($ind, $content, $subs, $title = false) {
+        $this->mData = [
+            0 => [
+                6 => true,
+                7 => true,
+                8 => true,
+            ],
+            7 => [
+                14 => true,
+                13 => true
+            ]
+        ];
+        $this->aPages = unserialize(file_get_contents("aPages.dat"));
+
         if($ind === 3) {
             return ''.
                 '<div id="menu3">'.
