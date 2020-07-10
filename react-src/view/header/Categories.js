@@ -2,7 +2,6 @@ const Categories = () => {
     function renderMenu(item) {
         let content = [];
         item.forEach(element => {
-            console.log(element);
             if(element.sSubContent) {
                 content.push(
                     <li>

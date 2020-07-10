@@ -3,56 +3,11 @@ if (!defined('CUSTOMER_PAGE')) {
     exit;
 }
 
-class PagesWrapper
-{
-    private $oPage;
+require_once __DIR__."/utils/PagesExt.php";
+require_once __DIR__."/utils/FilesExt.php";
 
-    public function __construct($oPage)
-    {
-        $this->oPage = $oPage;    
-    }
-
-    public function getSubMenuData( $iPageParent, $iPageCurrent, $iDepth = 1 ){
-        if( isset( $this->oPage ) ) {
-            if( isset( $this->oPage->mData[$iPageParent] ) ){
-                $aJson = [];
-
-                foreach( $this->oPage->mData[$iPageParent] as $iPage => $bValue ){
-                    $aData = $this->oPage->aPages[$iPage];
-
-                    $aData['sSubContent'] = isset( $this->oPage->aPagesChildrens[$iPage] ) ? $this->getSubMenuData( $iPage, $iPageCurrent, $iDepth + 1 ) : null;
-                    $aData['iDepth'] = $iDepth;
-
-                    $aJson[] = $aData;
-                }
-
-                return $aJson;
-            }
-        }
-    } // end function throwSubMenu
-    
-    public function getMenuData($iType, $iPageCurrent = null, $iDepthLimit = 1) {
-        $this->oPage->throwMenu($iType, $iPageCurrent, $iDepthLimit);
-        if( isset( $this->oPage->mData[0] ) ){
-            $aJson = [
-                'title' => $GLOBALS['aMenuTypes'][$iType],
-                'items' => []
-            ];
-
-            foreach( $this->oPage->mData[0] as $iPage => $bValue ){
-                $aData = $this->oPage->aPages[$iPage];
-
-                $aData['sSubContent'] = isset( $this->oPage->mData[$iPage] ) ? $this->getSubMenuData( $iPage, $iPageCurrent, 1 ) : null;
-                $aData['iDepth'] = 0;
-
-                $aJson['items'][] = $aData;
-            } // end foreach
-
-            return $aJson;
-        }
-    }
-}
-$oPagesData = new PagesWrapper($oPage);
+$oPage = PagesExt::getInstance();
+$oFile = FilesExt::getInstance();
 
 $vars = [
     '<?LANGUAGE?>' => $config['language'],
@@ -82,11 +37,12 @@ $vars = [
                 )
             ];
         },
-        $oPagesData->getMenuData(3, $iContent, 1)['items']
+        $oPage->getMenuData(3, $iContent, 1)['items']
     )),
-    '<?IMAGES?>' =>  
-        str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 1, false )).
-        str_replace('"', '\"', $oFile->listImagesByTypes( $aData['iPage'], 2, false ))
+    '<?IMAGES?>' =>  json_encode([
+        'left' => $oFile->getImageDataByTypes( $aData['iPage'], 1, false ),
+        'right' => $oFile->getImageDataByTypes( $aData['iPage'], 2, false )
+    ])
 ];
 
 if( isset( $aData['iProducts'] ) ){
@@ -97,3 +53,7 @@ if( isset( $aData['iProducts'] ) ){
 
 $template = file_get_contents(__DIR__.'/react-page.html');
 print str_replace(array_keys($vars), array_values($vars), $template);
+print "<!--";
+var_dump($oFile->getImageDataByTypes( $aData['iPage'], 1, false ));
+var_dump($oFile->getImageDataByTypes( $aData['iPage'], 2, false ));
+print "//-->";
