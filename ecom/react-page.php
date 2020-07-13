@@ -5,9 +5,10 @@ if (!defined('CUSTOMER_PAGE')) {
 
 require_once __DIR__."/utils/PagesExt.php";
 require_once __DIR__."/utils/FilesExt.php";
+require_once __DIR__."/utils/ProductsExt.php";
 
 $oPage = PagesExt::getInstance();
-$oFile = FilesExt::getInstance();
+$oFile = FilesExt::getInstance($iContent);
 
 $vars = [
     '<?LANGUAGE?>' => $config['language'],
@@ -23,10 +24,13 @@ $vars = [
     '<?IMG?>' => $config['dir_skin'].'img/',
     '<?CATEGORIES?>' => json_encode(array_map(
         function($aEntry) {
-            return [
+            $result = [
                 'sName' => $aEntry['sName'],
                 'sLinkName' => $aEntry['sLinkName'],
-                'sSubContent' => array_map(
+                'sSubContent' => null
+            ];
+            if(isset($aEntry['sSubContent'])) {
+                $result['sSubContent'] = array_map(
                     function($aSubEntry){
                         return [
                             'sName' => $aSubEntry['sName'],
@@ -34,8 +38,10 @@ $vars = [
                         ];
                     },
                     $aEntry['sSubContent']
-                )
-            ];
+                );
+            }
+
+            return $result;
         },
         $oPage->getMenuData(3, $iContent, 1)['items']
     )),
@@ -46,14 +52,22 @@ $vars = [
 ];
 
 if( isset( $aData['iProducts'] ) ){
-    $oProduct = Products::getInstance( );
-    $vars['<?PRODUCTS?>'] = str_replace(['"', "\r\n"], ['\"',''], $oProduct->listProducts( $aData['iPage'], 10 ));
+    $oProduct = ProductsExt::getInstance( );
+    $vars['<?PRODUCTS?>'] = json_encode(array_map(
+        function($aEntry) {
+            return [
+                'sName' => $aEntry['sName'],
+                'mPrice' => $aEntry['mPrice'],
+                'sLinkName' => $aEntry['sLinkName'],
+                'sImage' => [
+                    'sFileName' => DIR_FILES.$aEntry['sImage']['iSizeValue1'].'/'.$aEntry['sImage']['sFileName']
+                ]
+            ];
+        },
+        $oProduct->getAllProductListData( $aData['iPage'], 10 )
+    ));
 }
 
 
 $template = file_get_contents(__DIR__.'/react-page.html');
 print str_replace(array_keys($vars), array_values($vars), $template);
-print "<!--";
-var_dump($oFile->getImageDataByTypes( $aData['iPage'], 1, false ));
-var_dump($oFile->getImageDataByTypes( $aData['iPage'], 2, false ));
-print "//-->";

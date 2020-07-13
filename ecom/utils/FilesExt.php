@@ -1,6 +1,7 @@
 <?php
 
-class FilesExt extends Files {
+class FilesExt extends Files
+{
     protected static $oInstance;
 
     public static function getInstance( $mValue = null, $bProduct = null ){  

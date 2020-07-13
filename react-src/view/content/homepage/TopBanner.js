@@ -12,8 +12,8 @@ const TopBanner = () => {
         );
     };
 
-    imagesLeft = sImages.left.map(convert);
-    imagesRight = sImages.right.map(convert);
+    imagesLeft = oImages.left.map(convert);
+    imagesRight = oImages.right.map(convert);
 
     return (
         <div className="TopBanner">
