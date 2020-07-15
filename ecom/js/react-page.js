@@ -29,7 +29,7 @@ const Footer = () => {
         return content;
     }
 
-    const pages = renderPages(oPages);
+    const pages = renderPages(oMenu);
 
     return (
         <div className="Footer">
@@ -128,7 +128,7 @@ const Header = () => {
   );
 };
 const About = () => {
-    const aboutus = oAboutUs.map(element => {
+    const aboutus = oPages.map(element => {
         return (
             <li>
                 <div>

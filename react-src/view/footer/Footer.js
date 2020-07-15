@@ -29,7 +29,7 @@ const Footer = () => {
         return content;
     }
 
-    const pages = renderPages(oPages);
+    const pages = renderPages(oMenu);
 
     return (
         <div className="Footer">

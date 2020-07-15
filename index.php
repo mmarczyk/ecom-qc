@@ -19,10 +19,14 @@ $lang = [
 
 $aData = [
     'iPage' => 1,
-    'iProducts' => 5
+    'iProducts' => 5,
+    'iSubpagesShow' => 1
 ];
 
-$GLOBALS['aMenuTypes'][3] = $sTitle;
+$GLOBALS['aMenuTypes'] = [
+    3 => $sTitle,
+    2 => $sTitle
+];
 
 $iContent = 2;
 class Pages

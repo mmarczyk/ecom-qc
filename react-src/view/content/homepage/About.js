@@ -1,5 +1,5 @@
 const About = () => {
-    const aboutus = oAboutUs.map(element => {
+    const aboutus = oPages.map(element => {
         return (
             <li>
                 <div>
