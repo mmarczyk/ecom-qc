@@ -48,7 +48,43 @@ $vars = [
     '<?IMAGES?>' =>  json_encode([
         'left' => $oFile->getImageDataByTypes( $aData['iPage'], 1, false ),
         'right' => $oFile->getImageDataByTypes( $aData['iPage'], 2, false )
-    ])
+    ]),
+    '<?ABOUTUS?>' => json_encode(array_map(
+        function($aEntry) use ($oPage) {
+            $aData = $oPage->aPages[$aEntry];
+
+            $aData['sDescriptionShort'] = changeTxt( $aData['sDescriptionShort'], 'nlNds' );
+            
+            return [
+                'sName' => $aData['sName'],
+                'sDescriptionShort' => $aData['sDescriptionShort']
+            ];
+        },
+        $oPage->aPagesChildrens[$aData['iPage']]
+    )),
+    '<?PAGES?>' => json_encode(array_map(
+        function($aEntry) {
+            $result = [
+                'sName' => $aEntry['sName'],
+                'sLinkName' => $aEntry['sLinkName'],
+                'sSubContent' => null
+            ];
+            if(isset($aEntry['sSubContent'])) {
+                $result['sSubContent'] = array_map(
+                    function($aSubEntry){
+                        return [
+                            'sName' => $aSubEntry['sName'],
+                            'sLinkName' => $aSubEntry['sLinkName']
+                        ];
+                    },
+                    $aEntry['sSubContent']
+                );
+            }
+
+            return $result;
+        },
+        $oPage->getMenuData(2, $iContent, 1)['items']
+    ))
 ];
 
 if( isset( $aData['iProducts'] ) ){
@@ -71,3 +107,7 @@ if( isset( $aData['iProducts'] ) ){
 
 $template = file_get_contents(__DIR__.'/react-page.html');
 print str_replace(array_keys($vars), array_values($vars), $template);
+
+print "<!--";
+var_dump($oPage->getMenuData(2, $iContent, 1));
+print "-->";

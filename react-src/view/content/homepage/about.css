@@ -1,0 +1,24 @@
+.About {
+    margin: 20px 0;
+    position: relative;}
+    .About::before {
+        content: '';
+        height: 100%;
+        background: #e9fbd1;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        z-index: -1;}
+    .About li {
+        width: 24.5%;
+        display: inline-block;
+        vertical-align: top; }
+        .About li > div {
+            padding: 20px;
+            font-style: italic;}
+    .About h1 {
+        font-size: 1.7em;
+        font-weight: normal;}
+    .About p {
+        font-size: 0.95em;
+        line-height: 1.4em;}

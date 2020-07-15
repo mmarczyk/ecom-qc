@@ -6,6 +6,7 @@ $dstJS = "ecom/js/react-page.js";
 $dstCSS = "ecom/style.css";
 
 $orderJS = [
+    "view/footer/Footer.js",
     "view/header/Categories.js",
     "view/header/Search.js",
     "view/header/CartIcon.js",
@@ -24,6 +25,7 @@ $orderJS = [
 $orderCSS = [
     "view/content/homepage/topbanner.css",
     "view/content/homepage/popular.css",
+    "view/content/homepage/about.css",
     "view/header/logo.css",
     "view/header/logo-tablet.css",
     "view/header/search.css",
@@ -34,7 +36,8 @@ $orderCSS = [
     "view/header/categories-tablet.css",
     "view/header/categories-phone.css",
     "view/header/header.css",
-    "style.css"
+    "view/footer/footer.css",
+      "style.css"
 ];
 
 $bundle = function($src, $order, $dst) {

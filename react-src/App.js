@@ -3,6 +3,7 @@ const App = () => {
         <div className="App">
             <Header/>
             <Content/>
+            <Footer/>
         </div>
     );
 };

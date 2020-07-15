@@ -59,6 +59,31 @@
     .Popular li strong {
         margin: 0 3px 0 5px;}
 
+.About {
+    margin: 20px 0;
+    position: relative;}
+    .About::before {
+        content: '';
+        height: 100%;
+        background: #e9fbd1;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        z-index: -1;}
+    .About li {
+        width: 24.5%;
+        display: inline-block;
+        vertical-align: top; }
+        .About li > div {
+            padding: 20px;
+            font-style: italic;}
+    .About h1 {
+        font-size: 1.7em;
+        font-weight: normal;}
+    .About p {
+        font-size: 0.95em;
+        line-height: 1.4em;}
+
 .Logo {
     width: 50%;
     text-align: left;}
@@ -220,6 +245,26 @@
     border-bottom: 1px solid #ddd;}
     .Header .container > div {
         display: inline-block;}
+.Footer {
+    padding: 0 25%;
+    margin: 50px 0 0px;
+    font-size: 0.8em;
+    line-height: 1.5em;
+    text-align: left;
+    background: #dadeec;
+    box-shadow: 0px -11px 17px 5px #dadeec;}
+    .Footer a {
+        color: #9a98a9;}
+    .Footer > ul > li {
+        width: 25%;
+        display: inline-block;
+        vertical-align: top; }
+    .Footer h1 {
+        font-size: 1.4em;}
+    .Footer li > div {
+        padding: 0 30%;}
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -238,7 +283,8 @@ a:active {
 .App {
     font-family: sans-serif;
     text-align: center;
-    padding: 0;}
+    padding: 0;
+    overflow-x: hidden;}
 
 .container {
     margin: auto;

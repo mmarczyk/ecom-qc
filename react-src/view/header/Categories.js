@@ -23,7 +23,8 @@ const Categories = () => {
         return content;
     }
 
-    let menu = renderMenu(oCategories);
+    const menu = renderMenu(oCategories);
+
     return (
         <div className="Categories">
             <div className="nav">
