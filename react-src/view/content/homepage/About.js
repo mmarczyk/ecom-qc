@@ -1,19 +1,21 @@
 const About = () => {
-    const aboutus = oPages.map(element => {
+    if (oPageData && oPageData.aPages) {
+        const aboutus = oPageData.aPages.map(element => {
+            return (
+                <li>
+                    <div>
+                        <h1>{element.sName}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: element.sDescriptionShort }} />
+                    </div>
+                </li>
+            );
+        });
         return (
-            <li>
-                <div>
-                    <h1>{element.sName}</h1>
-                    <div dangerouslySetInnerHTML={{__html: element.sDescriptionShort}}/>
-                </div>
-            </li>
+            <div className="About">
+                <ul>
+                    {aboutus}
+                </ul>
+            </div>
         );
-    });
-    return (
-        <div className="About">
-            <ul>
-                {aboutus}
-            </ul>
-        </div>
-    );
+    }
 };

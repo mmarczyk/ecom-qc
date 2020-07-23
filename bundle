@@ -6,6 +6,9 @@ $dstJS = "ecom/js/react-page.js";
 $dstCSS = "ecom/style.css";
 
 $orderJS = [
+    "navigation/BrowserHistory.js",
+    "navigation/Animation.js",
+    "navigation/Link.js",
     "view/footer/Footer.js",
     "view/header/Categories.js",
     "view/header/Search.js",
@@ -13,6 +16,12 @@ $orderJS = [
     "view/header/UserInfo.js",
     "view/header/Logo.js",
     "view/header/Header.js",
+    "view/content/shared/ProductList.js",
+    "view/content/category/Subcategories.js",
+    "view/content/category/Description.js",
+    "view/content/category/Category.js",
+    "view/content/cmspage/CmsPage.js",
+    "view/content/product/Product.js",
     "view/content/homepage/About.js",
     "view/content/homepage/Popular.js",
     "view/content/homepage/TopBanner.js",
@@ -23,6 +32,9 @@ $orderJS = [
 ];
 
 $orderCSS = [
+    "view/content/category/subcategories.css",
+    "view/content/category/description.css",
+    "view/content/content.css",
     "view/content/homepage/topbanner.css",
     "view/content/homepage/popular.css",
     "view/content/homepage/about.css",

@@ -1,3 +1,30 @@
+.Subcategories {
+    text-align: left;}
+    .Subcategories li {
+        display: inline-block;
+        width: 270px;
+        margin: 0 10px;
+        padding: 10px;
+        vertical-align: top;
+        border: 1px solid #e2e2e2;
+        box-shadow: 3px 4px 6px 2px #c0c0c0}
+        .Subcategories li img {
+            max-width: 100%;
+            border-radius: 5px;}
+        .Subcategories li h1 {
+            font-size: 1.5em;
+            font-weight: normal;}
+.Description {
+    text-align: left;}
+    .Description h1 {
+        font-size: 1.8em;
+        font-weight: normal;}
+.Content > div {
+    opacity: 0;}
+
+#root.visible .Content > div {
+    opacity: 1;
+    transition: opacity 500ms;}
 .TopBanner {
     height: 300px;
     margin: 20px 0;}
@@ -279,6 +306,7 @@ a,
 a:visited,
 a:active {
     text-decoration: none;
+    color: black;
 }
 .App {
     font-family: sans-serif;
@@ -290,3 +318,4 @@ a:active {
     margin: auto;
     max-width: 1365px;
     position: relative;}
+    

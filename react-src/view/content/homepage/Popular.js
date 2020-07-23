@@ -1,23 +1,25 @@
 const Popular = () => {
-    const products = oProducts.map(element => {
-        return (
-            <li>
-                <h2>
-                    <a href={element.sLinkName}>{element.sName}</a>
-                </h2>
-                <div class="photo">
-                    <a href={element.sLinkName}>
-                        <img src={element.sImage.sFileName} alt={element.sName}/>
-                    </a>
-                </div>
-                <div class="price">
-                    <em>Cena: </em>
-                    <strong>{element.mPrice}</strong>
-                    <span>zł</span>
-                </div>
-            </li>
-        );
-    });
+    if (oPageData && oPageData.aProducts) {
+        const products = oPageData.aProducts.map(element => {
+            return (
+                <li>
+                    <h2>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
+                    </h2>
+                    <div class="photo">
+                        <Link href={element.sLinkName}>
+                            <img src={element.sImage.sFileName} alt={element.sName} />
+                        </Link>
+                    </div>
+                    <div class="price">
+                        <em>Cena: </em>
+                        <strong>{element.mPrice}</strong>
+                        <span>zł</span>
+                    </div>
+                </li>
+            );
+        });
+    
     return (
         <div className="Popular">
             <span>Popularne</span>
@@ -28,4 +30,5 @@ const Popular = () => {
             </div>
         </div>
     );
+    }
 };

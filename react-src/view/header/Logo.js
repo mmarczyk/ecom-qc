@@ -2,7 +2,9 @@ const Logo = () => {
     const logo = sDirImg + "/logo.png";
     return (
         <div className="Logo">
-            <img src={logo} alt="logo" />
+            <Link href="./">
+                <img src={logo} alt="logo" />
+            </Link>
         </div>
     );
 };

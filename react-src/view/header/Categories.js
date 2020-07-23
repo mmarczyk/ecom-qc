@@ -5,7 +5,7 @@ const Categories = () => {
             if(element.sSubContent) {
                 content.push(
                     <li>
-                        <a href={element.sLinkName}>{element.sName}</a>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
                         <ul class="sub1">
                             {renderMenu(element.sSubContent)}
                         </ul>
@@ -14,7 +14,7 @@ const Categories = () => {
             } else {
                 content.push (
                     <li>
-                        <a href={element.sLinkName}>{element.sName}</a>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
                     </li>
                 );            
             }

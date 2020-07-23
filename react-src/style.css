@@ -12,6 +12,7 @@ a,
 a:visited,
 a:active {
     text-decoration: none;
+    color: black;
 }
 .App {
     font-family: sans-serif;
@@ -23,3 +24,4 @@ a:active {
     margin: auto;
     max-width: 1365px;
     position: relative;}
+    

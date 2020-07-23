@@ -1,5 +1,5 @@
 const Homepage = () => {
-  return (
+    return (
     <div className="Homepage">
       <TopBanner />
       <Popular />

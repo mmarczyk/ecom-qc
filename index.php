@@ -17,18 +17,27 @@ $lang = [
     'cf_wrong_value' => 'Podaj poprawną wartość1'
 ];
 
+$iContent = 1;
 $aData = [
-    'iPage' => 1,
+    'iPage' => $iContent,
     'iProducts' => 5,
     'iSubpagesShow' => 1
 ];
+
+if(count($_GET) > 0) {
+    $id = explode(',', array_keys($_GET)[0])[1];
+    if(is_numeric($id)) {
+        $iContent = $id;
+        $aPages = unserialize(file_get_contents("aPages.dat"));
+        $aData = $aPages[$iContent];
+    }
+}
 
 $GLOBALS['aMenuTypes'] = [
     3 => $sTitle,
     2 => $sTitle
 ];
 
-$iContent = 2;
 class Pages
 {
     public $mData;
@@ -61,7 +70,8 @@ class Pages
         ];
         $this->aPages = unserialize(file_get_contents("aPages.dat"));
         $this->aPagesChildrens = [
-            1 => [20, 21, 22, 23]
+            1 => [20, 21, 22, 23],
+            7 => [13, 14]
         ];
     }
 
@@ -213,6 +223,16 @@ class Files
                 ],
                 [
                     'sFileName' => 'top3.jpg',
+                    'iSizeValue1' => ''
+                ]
+            ],
+            1 => [
+                13 => [
+                    'sFileName' => 'top1.jpg',
+                    'iSizeValue1' => ''
+                ],
+                14 => [
+                    'sFileName' => 'top2.jpg',
                     'iSizeValue1' => ''
                 ]
             ]

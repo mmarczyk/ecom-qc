@@ -1,3 +1,41 @@
+
+const Animation = {
+    init: () => {
+        rootElement.classList.add("visible"), 100;
+    },
+    start: () => {
+        rootElement.classList.remove("visible");
+        setTimeout(() => rootElement.classList.add("visible"), 100);
+    }
+};
+const Link = ({href, children}) => {
+    const appendHref = (target) => {
+        return [
+            target.href,
+            target.origin + "/json/" + target.pathname + target.search
+        ];
+    }
+    const navigateTo = (event) => {
+        event.preventDefault();
+
+        const [orgHref, href] = appendHref(event.currentTarget);
+
+        fetch(href)
+            .then(response => response.json())
+            .then((data) => {
+                history.pushState({href: orgHref}, '', orgHref);
+                oPageData = data;
+                Animation.start();
+                renderApp();
+            });
+
+        return false;
+    }
+
+    return (
+        <a href={href} onClick={navigateTo}>{children}</a>
+    );
+}
 const Footer = () => {
     function renderPages(item) {
         let content = [];
@@ -46,7 +84,7 @@ const Categories = () => {
             if(element.sSubContent) {
                 content.push(
                     <li>
-                        <a href={element.sLinkName}>{element.sName}</a>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
                         <ul class="sub1">
                             {renderMenu(element.sSubContent)}
                         </ul>
@@ -55,7 +93,7 @@ const Categories = () => {
             } else {
                 content.push (
                     <li>
-                        <a href={element.sLinkName}>{element.sName}</a>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
                     </li>
                 );            
             }
@@ -111,7 +149,9 @@ const Logo = () => {
     const logo = sDirImg + "/logo.png";
     return (
         <div className="Logo">
-            <img src={logo} alt="logo" />
+            <Link href="./">
+                <img src={logo} alt="logo" />
+            </Link>
         </div>
     );
 };
@@ -127,46 +167,112 @@ const Header = () => {
     </div>
   );
 };
-const About = () => {
-    const aboutus = oPages.map(element => {
-        return (
-            <li>
-                <div>
-                    <h1>{element.sName}</h1>
-                    <div dangerouslySetInnerHTML={{__html: element.sDescriptionShort}}/>
-                </div>
-            </li>
-        );
-    });
+const ProductList = () => {
     return (
-        <div className="About">
-            <ul>
-                {aboutus}
-            </ul>
+        <div className="ProductList">
+            ProductList
         </div>
     );
 };
+const Subcategories = () => {
+    if ('aPages' in oPageData) {
+        const subcategories = oPageData.aPages.map(element => {
+            return (
+                <li>
+                    <Link href={element.sLinkName}>
+                        <h1>{element.sName}</h1>
+                        <img src={element.sImage.sFileName}/>
+                        <div dangerouslySetInnerHTML={{ __html: element.sDescriptionShort }} />
+                    </Link>
+                </li>
+            )
+        });
+        return (
+            <div className="Subcategories">
+                <ul>
+                    {subcategories}
+                </ul>
+            </div>
+        );
+    }
+
+    return null;
+};
+const Description = () => {
+    return (
+        <div className="Description">
+            <h1>{oPageData.sName}</h1>
+            <div dangerouslySetInnerHTML={{ __html: oPageData.sDescriptionShort }} />
+        </div>
+    );
+};
+const Category = () => {
+    return (
+        <div className="Category">
+            <Description/>
+            <Subcategories/>
+            <ProductList/>
+        </div>
+    );
+};
+const CmsPage = () => {
+    return (
+        <div className="CmsPage">
+            CMS
+        </div>
+    );
+};
+const Product = () => {
+    return (
+        <div className="Product">
+            produc
+        </div>
+    );
+};
+const About = () => {
+    if (oPageData && oPageData.aPages) {
+        const aboutus = oPageData.aPages.map(element => {
+            return (
+                <li>
+                    <div>
+                        <h1>{element.sName}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: element.sDescriptionShort }} />
+                    </div>
+                </li>
+            );
+        });
+        return (
+            <div className="About">
+                <ul>
+                    {aboutus}
+                </ul>
+            </div>
+        );
+    }
+};
 
 const Popular = () => {
-    const products = oProducts.map(element => {
-        return (
-            <li>
-                <h2>
-                    <a href={element.sLinkName}>{element.sName}</a>
-                </h2>
-                <div class="photo">
-                    <a href={element.sLinkName}>
-                        <img src={element.sImage.sFileName} alt={element.sName}/>
-                    </a>
-                </div>
-                <div class="price">
-                    <em>Cena: </em>
-                    <strong>{element.mPrice}</strong>
-                    <span>zł</span>
-                </div>
-            </li>
-        );
-    });
+    if (oPageData && oPageData.aProducts) {
+        const products = oPageData.aProducts.map(element => {
+            return (
+                <li>
+                    <h2>
+                        <Link href={element.sLinkName}>{element.sName}</Link>
+                    </h2>
+                    <div class="photo">
+                        <Link href={element.sLinkName}>
+                            <img src={element.sImage.sFileName} alt={element.sName} />
+                        </Link>
+                    </div>
+                    <div class="price">
+                        <em>Cena: </em>
+                        <strong>{element.mPrice}</strong>
+                        <span>zł</span>
+                    </div>
+                </li>
+            );
+        });
+    
     return (
         <div className="Popular">
             <span>Popularne</span>
@@ -177,39 +283,46 @@ const Popular = () => {
             </div>
         </div>
     );
+    }
 };
 const TopBanner = () => {
-    let imagesLeft = null;
-    let imagesRight = null;
-
     const convert = element => {
         return (
             <li>
-                <a href={element.sFullImageLink}>
-                    <img src={element.sSizedImageLink}/>
-                </a>
+                <img src={element.sSizedImageLink} />
             </li>
         );
     };
 
-    imagesLeft = oImages.left.map(convert);
-    imagesRight = oImages.right.map(convert);
+    let imagesLeft = null;
+    if (oPageData && oPageData.aImages && oPageData.aImages.left) {
+        imagesLeft = (
+            <ul class="imagesList" id="imagesList1">
+                {oPageData.aImages.left.map(convert)}
+            </ul>
+        );
+    }
+
+    let imagesRight = null;
+    if (oPageData && oPageData.aImages && oPageData.aImages.right) {
+        imagesRight = (
+            <ul class="imagesList" id="imagesList2">
+                {oPageData.aImages.right.map(convert)}
+            </ul>
+        );
+    }
 
     return (
         <div className="TopBanner">
             <div>
-                <ul class="imagesList" id="imagesList1">
-                    {imagesLeft}
-                </ul>
-                <ul class="imagesList" id="imagesList2">
-                    {imagesRight}
-                </ul>
+                {imagesLeft}
+                {imagesRight}
             </div>
         </div>
     );
 };
 const Homepage = () => {
-  return (
+    return (
     <div className="Homepage">
       <TopBanner />
       <Popular />
@@ -218,11 +331,27 @@ const Homepage = () => {
   );
 };
 const Content = () => {
-  return (
-    <div className="Content container">
-        <Homepage />
-    </div>
-  );
+    /*useEffect(() => {
+        rootElement.classList.add("visible");
+    });*/
+
+    let content = <Homepage />;
+    if (window.location.search !== '') {
+        content = null;
+        if (window.location.search.match(/^\?\d+,.*$/)) {
+            content = <Product />;
+        } else if (oPageData.iProducts) {
+            content = <Category />;
+        } else {
+            content = <CmsPage />;
+        }
+    }
+
+    return (
+        <div className="Content container">
+            {content}
+        </div>
+    );
 };
 const App = () => {
     return (
@@ -234,11 +363,24 @@ const App = () => {
     );
 };
 const useState = React.useState;
+const useEffect = React.useEffect;
+const useRef = React.useRef;
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  rootElement
-);
+const renderApp = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        rootElement
+    );
+};
+
+Animation.init();
+renderApp();
+
+window.onpopstate = (event) => {
+    console.log(event.currentTarget);
+    Animation.start();
+    renderApp();
+}

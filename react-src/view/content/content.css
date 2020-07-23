@@ -1,0 +1,6 @@
+.Content > div {
+    opacity: 0;}
+
+#root.visible .Content > div {
+    opacity: 1;
+    transition: opacity 500ms;}

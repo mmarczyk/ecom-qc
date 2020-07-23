@@ -1,29 +1,35 @@
 const TopBanner = () => {
-    let imagesLeft = null;
-    let imagesRight = null;
-
     const convert = element => {
         return (
             <li>
-                <a href={element.sFullImageLink}>
-                    <img src={element.sSizedImageLink}/>
-                </a>
+                <img src={element.sSizedImageLink} />
             </li>
         );
     };
 
-    imagesLeft = oImages.left.map(convert);
-    imagesRight = oImages.right.map(convert);
+    let imagesLeft = null;
+    if (oPageData && oPageData.aImages && oPageData.aImages.left) {
+        imagesLeft = (
+            <ul class="imagesList" id="imagesList1">
+                {oPageData.aImages.left.map(convert)}
+            </ul>
+        );
+    }
+
+    let imagesRight = null;
+    if (oPageData && oPageData.aImages && oPageData.aImages.right) {
+        imagesRight = (
+            <ul class="imagesList" id="imagesList2">
+                {oPageData.aImages.right.map(convert)}
+            </ul>
+        );
+    }
 
     return (
         <div className="TopBanner">
             <div>
-                <ul class="imagesList" id="imagesList1">
-                    {imagesLeft}
-                </ul>
-                <ul class="imagesList" id="imagesList2">
-                    {imagesRight}
-                </ul>
+                {imagesLeft}
+                {imagesRight}
             </div>
         </div>
     );
