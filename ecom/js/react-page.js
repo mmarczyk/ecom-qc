@@ -10,9 +10,10 @@ const Animation = {
 };
 const Link = ({href, children}) => {
     const appendHref = (target) => {
+        const json = target.search === '' ? '?json' :'&json';
         return [
             target.href,
-            target.origin + "/json/" + target.pathname + target.search
+            target.href + json
         ];
     }
     const navigateTo = (event) => {
