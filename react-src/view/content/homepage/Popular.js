@@ -23,11 +23,7 @@ const Popular = () => {
     return (
         <div className="Popular">
             <span>Popularne</span>
-            <div>
-                <ul>
-                    {products}
-                </ul>
-            </div>
+            <ProductList notitle/>
         </div>
     );
     }

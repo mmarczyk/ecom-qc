@@ -21,6 +21,7 @@ $orderJS = [
     "view/content/category/Description.js",
     "view/content/category/Category.js",
     "view/content/cmspage/CmsPage.js",
+    "view/content/product/Gallery.js",
     "view/content/product/Product.js",
     "view/content/homepage/About.js",
     "view/content/homepage/Popular.js",
@@ -32,8 +33,10 @@ $orderJS = [
 ];
 
 $orderCSS = [
+    "view/content/shared/productlist.css",
     "view/content/category/subcategories.css",
     "view/content/category/description.css",
+    "view/content/category/category.css",
     "view/content/content.css",
     "view/content/homepage/topbanner.css",
     "view/content/homepage/popular.css",

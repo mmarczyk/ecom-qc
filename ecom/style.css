@@ -1,3 +1,38 @@
+.ProductList {
+    text-align: left;
+    margin: auto;}
+    .ProductList li {
+        display: inline-block;
+        margin-bottom: 20px;
+        width: calc(100% / 6);
+        vertical-align: top;}
+    .ProductList li > div {
+        margin: 0 10px;
+        text-align: right;}
+    .ProductList .photo {
+        height: 135px;
+        margin-bottom: 8px;}
+    .ProductList li img {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px 1px #bbb;}
+    .ProductList li:hover img {
+        box-shadow: 0 0 6px 4px #bbb;
+        opacity: 0.8;
+        transition: box-shadow 1s;}
+    .ProductList li strong {
+        margin: 0 3px 0 5px;}
+    .ProductList li h3 {
+        font-size: 1em;
+        white-space: nowrap;
+        margin: 2px 0 5px;
+        text-align: left;
+        font-weight: normal;
+        font-style: italic;}
+
 .Subcategories {
     text-align: left;}
     .Subcategories li {
@@ -19,6 +54,9 @@
     .Description h1 {
         font-size: 1.8em;
         font-weight: normal;}
+.Category > div {
+    margin: 10px 0;
+}
 .Content > div {
     opacity: 0;}
 
@@ -55,37 +93,6 @@
         line-height: 2em;
         font-weight: bold;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
-    .Popular .sort,
-    .Popular .description,
-    .Popular li h2,
-    .Popular .basket,
-    .Popular em {
-        display: none;}
-    .Popular li {
-        display: inline-block;
-        margin-bottom: 20px;
-        width: 200px;
-        vertical-align: top;}
-    .Popular li > div {
-        margin: 0 10px;
-        text-align: right;}
-    .Popular .photo {
-        height: 135px;
-        margin-bottom: 8px;}
-    .Popular li img {
-        max-width: 100%;
-        max-height: 100%;
-        margin: auto;
-        display: block;
-        border-radius: 5px;
-        box-shadow: 1px 1px 3px 1px #bbb;}
-    .Popular li:hover img {
-        box-shadow: 0 0 6px 4px #bbb;
-        opacity: 0.8;
-        transition: box-shadow 1s;}
-    .Popular li strong {
-        margin: 0 3px 0 5px;}
-
 .About {
     margin: 20px 0;
     position: relative;}

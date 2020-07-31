@@ -1,7 +1,40 @@
-const ProductList = () => {
+const ProductList = (config) => {
+    if (oPageData && oPageData.aProducts) {
+        const products = oPageData.aProducts.map(element => {
+            const img = element.sImage ? element.sImage.sFileName : sDirImg + 'no-image.png';
+            const name = element.sName.length > 27 ? element.sName.substring(0, 25) + '...' : element.sName;
+            
+            const nameBlock =
+                config.notitle ?
+                null :                     
+                <div class="name">
+                    <h3>
+                        <Link href={element.sLinkName}>{name}</Link>
+                    </h3>
+                </div>;
+
+            return (
+                <li>
+                    <div class="photo">
+                        <Link href={element.sLinkName}>
+                            <img src={img} alt={element.sName} />
+                        </Link>
+                    </div>
+                    {nameBlock}
+                    <div class="price">
+                        <strong>{element.mPrice}</strong>
+                        <span>zł</span>
+                    </div>
+                </li>
+            );
+        });
+    
     return (
         <div className="ProductList">
-            ProductList
+            <ul>
+                {products}
+            </ul>
         </div>
     );
+    }
 };

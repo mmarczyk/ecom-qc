@@ -27,8 +27,17 @@ function renderProducts($aData)
 }
 function renderImages($aData, $oFile)
 {
-    $left = $oFile->getImageDataByTypes($aData['iPage'], 1, false);
-    $right = $oFile->getImageDataByTypes($aData['iPage'], 2, false);
+    $iItem = -1;
+    if(isset($aData['iPage']))
+        $iItem = $aData['iPage'];
+    else if(isset($aData['iProduct']))
+        $iItem = $aData['iProduct'];
+    else
+        return $aData;
+
+
+    $left = $oFile->getImageDataByTypes($iItem, 1, false);
+    $right = $oFile->getImageDataByTypes($iItem, 2, false);  
 
     $images = [];
 
@@ -48,7 +57,7 @@ function renderImages($aData, $oFile)
 
 function renderPages($aData, $oPage, $oFile)
 {
-    if ($aData['iSubpagesShow'] > 0 && isset($oPage->aPagesChildrens[$aData['iPage']])) {
+    if (isset($aData['iSubpagesShow']) && $aData['iSubpagesShow'] > 0 && isset($oPage->aPagesChildrens[$aData['iPage']])) {
         $aData['aPages'] = array_map(
             function ($aEntry) use ($oPage, $oFile) {
                 $aData = $oPage->aPages[$aEntry];
@@ -56,17 +65,18 @@ function renderPages($aData, $oPage, $oFile)
                 $result = [
                     'iPage' => $aData['iPage'],
                     'sName' => $aData['sName'],
-                    'sLinkName' => $aData['sLinkName'],
-                    'sImage' => [
-                        'sFileName' =>
-                            DIR_FILES .
-                            $oFile->aImagesDefault[1][$aData['iPage']]['iSizeValue1'] . '/' .
-                            $oFile->aImagesDefault[1][$aData['iPage']]['sFileName']
-                    ]
+                    'sLinkName' => $aData['sLinkName']
                 ];
 
                 if(isset($aData['sDescriptionShort'])) {
                     $result['sDescriptionShort'] = changeTxt($aData['sDescriptionShort'], 'nlNds');
+                }
+
+                if(isset($oFile->aImagesDefault[1][$aData['iPage']]['sFileName']) && !empty($oFile->aImagesDefault[1][$aData['iPage']]['sFileName'])) {
+                    $result['sImage']['sFileName'] = 
+                        DIR_FILES .
+                        $oFile->aImagesDefault[1][$aData['iPage']]['iSizeValue1'] . '/' .
+                        $oFile->aImagesDefault[1][$aData['iPage']]['sFileName'];
                 }
 
                 return $result;

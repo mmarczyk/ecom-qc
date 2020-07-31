@@ -17,7 +17,6 @@ class FilesExt extends Files
 
     public function getImageDataByTypes( $iLink, $iType = 1, $bLinks = true ){
         if( isset( $this->aImagesTypes[$iLink][$iType] ) ){
-            $content = null;
             $iCount = count( $this->aImagesTypes[$iLink][$iType] );
             $aDataList = [];
 

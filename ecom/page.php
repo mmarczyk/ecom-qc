@@ -1,46 +1,89 @@
-<?php 
-// More about design modifications - www.opensolution.org/Quick.Cart/docs/ext_6.6/?id=en-design
-if( !defined( 'CUSTOMER_PAGE' ) )
-  exit;
-
-require_once DIR_SKIN.'_header.php'; // include design of header
-?>
-<div id="page">
 <?php
-if( isset( $aData['sName'] ) ){ // displaying pages and subpages content
+if (!defined('CUSTOMER_PAGE')) {
+    exit;
+}
 
-  echo '<h1>'.$aData['sName'].'</h1>'; // displaying page name
+require_once __DIR__ . "/utils/PagesExt.php";
+require_once __DIR__ . "/utils/FilesExt.php";
+require_once __DIR__ . "/utils/ProductsExt.php";
+require_once __DIR__ . "/utils/renderers.php";
 
-  if( isset( $aData['sPagesTree'] ) )
-    echo '<div class="breadcrumb">'.$aData['sPagesTree'].'</div>'; // displaying page tree (breadcrumb)
-  
-  echo $oFile->listImagesByTypes( $aData['iPage'], 1 ); // displaying images with type: left
-  
-  echo $oFile->listImagesByTypes( $aData['iPage'], 2 ); // displaying images with type: right
-  
-  if( isset( $aData['sDescriptionFull'] ) )
-    echo '<div class="content" id="pageDescription">'.$aData['sDescriptionFull'].'</div>'; // full description
-
-  if( isset( $aData['sPages'] ) )
-    echo '<div class="pages">'.$lang['Pages'].': <ul>'.$aData['sPages'].'</ul></div>'; // full description pagination
-  
-  echo $oFile->listFiles( $aData['iPage'] ); // display files included to the page
-  
-  if( $aData['iSubpagesShow'] > 0 )
-    echo $oPage->listSubpages( $aData['iPage'], $aData['iSubpagesShow'] ); // displaying subpages
-
-  if( isset( $aData['iProducts'] ) ){
-    $oProduct = Products::getInstance( );
-    $_SESSION['sLastProductsPageUrl'] = $_SERVER['REQUEST_URI'];
-    $_SERVER['REQUEST_URI'] = str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] );
-    echo $oProduct->listProducts( $aData['iPage'], isset( $bViewAll ) ? 999 : null ); // displaying products
-  }
+$oPage = PagesExt::getInstance();
+if( isset( $iProduct ) ){
+  $oFile = FilesExt::getInstance( $iProduct, true );
 }
 else{
-  echo '<div class="message" id="error"><h2>'.$lang['Data_not_found'].'</h2></div>'; // displaying 404 error
+  $oFile = FilesExt::getInstance( $iContent );
 }
-?>
-</div>
-<?php
-require_once DIR_SKIN.'_footer.php'; // include design of footer
-?>
+
+$vars = [
+    '<?LANGUAGE?>' => $config['language'],
+    '<?TITLE?>' => $sTitle . $config['title'],
+    '<?DESCRIPTION?>' => $sDescription,
+    '<?QUICKCART-VERSION?>' => $config['version'],
+    '<?CSS?>' => $config['dir_skin'] . $config['style'],
+    '<?FONT-CSS?>' => $config['dir_skin'] . 'fonts/icofont/icofont.min.css',
+    '<?JS?>' => $config['dir_skin'] . 'js',
+    '<?WARNING?>' => $lang['cf_no_word'],
+    '<?EMAIL?>' => $lang['cf_mail'],
+    '<?WRONG-VALUE?>' => $lang['cf_wrong_value'],
+    '<?IMG?>' => $config['dir_skin'] . 'img/',
+    '<?CATEGORIES?>' => json_encode(array_map(
+        function ($aEntry) {
+            $result = [
+                'sName' => $aEntry['sName'],
+                'sLinkName' => $aEntry['sLinkName'],
+                'sSubContent' => null
+            ];
+            if (isset($aEntry['sSubContent'])) {
+                $result['sSubContent'] = array_map(
+                    function ($aSubEntry) {
+                        return [
+                            'sName' => $aSubEntry['sName'],
+                            'sLinkName' => $aSubEntry['sLinkName']
+                        ];
+                    },
+                    $aEntry['sSubContent']
+                );
+            }
+
+            return $result;
+        },
+        $oPage->getMenuData(3, $iContent, 1)['items']
+    )),
+    '<?MENU?>' => json_encode(array_map(
+        function ($aEntry) {
+            $result = [
+                'sName' => $aEntry['sName'],
+                'sLinkName' => $aEntry['sLinkName'],
+                'sSubContent' => null
+            ];
+            if (isset($aEntry['sSubContent'])) {
+                $result['sSubContent'] = array_map(
+                    function ($aSubEntry) {
+                        return [
+                            'sName' => $aSubEntry['sName'],
+                            'sLinkName' => $aSubEntry['sLinkName']
+                        ];
+                    },
+                    $aEntry['sSubContent']
+                );
+            }
+
+            return $result;
+        },
+        $oPage->getMenuData(2, $iContent, 1)['items']
+    ))
+];
+
+$aData = renderProducts($aData);
+$aData = renderImages($aData, $oFile);
+$aData = renderPages($aData, $oPage, $oFile);
+$vars['<?DATA?>'] = json_encode($aData);
+
+if(isset($_GET['json'])) {
+    print $vars['<?DATA?>'];
+} else {
+    $template = file_get_contents(__DIR__ . '/react-page.html');
+    print str_replace(array_keys($vars), array_values($vars), $template);
+}

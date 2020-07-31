@@ -82,3 +82,7 @@ if(isset($_GET['json'])) {
     $template = file_get_contents(__DIR__ . '/react-page.html');
     print str_replace(array_keys($vars), array_values($vars), $template);
 }
+
+print "<!--";
+var_dump($_GET);
+print "-->";
