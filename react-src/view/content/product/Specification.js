@@ -1,7 +1,6 @@
-const Specification = props => {
-  const css = "Specification " + props.type;
+const Specification = () => {
   return (
-    <div className={css}>
+    <div className="Specification">
       <ul>
         <li>
           <h1>Materiał</h1>

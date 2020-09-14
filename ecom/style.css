@@ -1,3 +1,201 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+    color: black;
+}
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 0;
+    overflow-x: hidden;}
+
+.container {
+    margin: auto;
+    max-width: 1365px;
+    position: relative;}
+    
+.Category > div {
+    margin: 10px 0;
+}
+.Description {
+    text-align: left;}
+    .Description h1 {
+        font-size: 1.8em;
+        font-weight: normal;}
+.Subcategories {
+    text-align: left;}
+    .Subcategories li {
+        display: inline-block;
+        width: 270px;
+        margin: 0 10px;
+        padding: 10px;
+        vertical-align: top;
+        border: 1px solid #e2e2e2;
+        box-shadow: 3px 4px 6px 2px #c0c0c0}
+        .Subcategories li img {
+            max-width: 100%;
+            border-radius: 5px;}
+        .Subcategories li h1 {
+            font-size: 1.5em;
+            font-weight: normal;}
+.Content > div {
+    opacity: 0;}
+
+#root.visible .Content > div {
+    opacity: 1;
+    transition: opacity 500ms;}
+.About {
+    margin: 20px 0;
+    position: relative;}
+    .About::before {
+        content: '';
+        height: 100%;
+        background: #e9fbd1;
+        position: absolute;
+        left: -50%;
+        right: -50%;
+        z-index: -1;}
+    .About li {
+        width: 24.5%;
+        display: inline-block;
+        vertical-align: top; }
+        .About li > div {
+            padding: 20px;
+            font-style: italic;}
+    .About h1 {
+        font-size: 1.7em;
+        font-weight: normal;}
+    .About p {
+        font-size: 0.95em;
+        line-height: 1.4em;}
+
+.Popular {
+    text-align: left;
+    max-width: 1100px;
+    margin: auto;}
+    .Popular > span {
+        padding-left: 10px;
+        font-size: 1.5em;
+        line-height: 2em;
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+.TopBanner {
+    height: 300px;
+    margin: 20px 0;}
+    .TopBanner > div {
+        height: 100%;}
+    .TopBanner img {
+        max-height: 100%;
+        border-radius: 5px;}
+    .TopBanner .imagesList {
+        height: 100%;
+        display: inline-block;}
+        .TopBanner #imagesList1 li {
+            height: 100%;}
+    .TopBanner #imagesList2 {
+        margin-left: 10px;}
+    .TopBanner #imagesList2 li:first-child {
+        height: 67%;
+        margin-bottom: 5%;}
+    .TopBanner #imagesList2 li:last-child {
+        height: 30%;}
+.Gallery {
+    position: relative;}
+    .Gallery li .nav {
+        width: 100px;
+        margin: 5px 0;}
+        .Gallery li .nav img {
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 2px 2px 3px 1px #808080ad;
+            opacity: 0.5;}
+    .Gallery .main {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: none;
+        z-index: 99;}
+        .Gallery .main img {
+            margin-left: -50%;}
+    .Gallery li:first-child .main {
+      display: block;
+      z-index: 1;}  
+    .Gallery li:hover .main {
+        display: block;}
+    .Gallery li:hover .nav img {
+        opacity: 1;}
+
+.Product {
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;}
+    .Product > div {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;}
+    .Product .Gallery,
+    .Product .Reviews {
+        width: 70%;}
+    .Product .Title,
+    .Product .Specification,
+    .Product .Shipping {
+        width: 30%;}
+    .Product .Specification,
+    .Product .Shipping {
+        float: right;}
+    .Product .Reviews,
+    .Product .Shipping {
+        margin-bottom: 50px;}
+    .Product .Reviews {
+        float: left;}
+
+.Specification .desc {
+    margin-top: 50px;}
+    .Specification .desc h1 {
+        font-size: 1.5em;}
+    .Specification .desc span {
+        font-size: 0.9em;}
+
+.Title > h1 {
+    font-size: 1.85em;
+    font-weight: normal;}
+.Title > span {
+    font-weight: bold;
+    font-size: 1.5em;
+    display: block;}
+.Title a {
+    width: 80%;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid;
+    background: black;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px grey;
+    line-height: 3em;
+    display: block;
+    text-align: center;
+    text-decoration: none;}
+    .Title a:hover {
+        box-shadow: 2px 2px 5px grey;
+        opacity: 0.8;}
+    .Title a:focus {
+        outline: none;
+        box-shadow: none;}
+
 .ProductList {
     text-align: left;
     margin: auto;}
@@ -33,201 +231,26 @@
         font-weight: normal;
         font-style: italic;}
 
-.Subcategories {
-    text-align: left;}
-    .Subcategories li {
-        display: inline-block;
-        width: 270px;
-        margin: 0 10px;
-        padding: 10px;
-        vertical-align: top;
-        border: 1px solid #e2e2e2;
-        box-shadow: 3px 4px 6px 2px #c0c0c0}
-        .Subcategories li img {
-            max-width: 100%;
-            border-radius: 5px;}
-        .Subcategories li h1 {
-            font-size: 1.5em;
-            font-weight: normal;}
-.Description {
-    text-align: left;}
-    .Description h1 {
-        font-size: 1.8em;
-        font-weight: normal;}
-.Category > div {
-    margin: 10px 0;
-}
-.Content > div {
-    opacity: 0;}
-
-#root.visible .Content > div {
-    opacity: 1;
-    transition: opacity 500ms;}
-.TopBanner {
-    height: 300px;
-    margin: 20px 0;}
-    .TopBanner > div {
-        height: 100%;}
-    .TopBanner img {
-        max-height: 100%;
-        border-radius: 5px;}
-    .TopBanner .imagesList {
-        height: 100%;
-        display: inline-block;}
-        .TopBanner #imagesList1 li {
-            height: 100%;}
-    .TopBanner #imagesList2 {
-        margin-left: 10px;}
-    .TopBanner #imagesList2 li:first-child {
-        height: 67%;
-        margin-bottom: 5%;}
-    .TopBanner #imagesList2 li:last-child {
-        height: 30%;}
-.Popular {
+.Footer {
+    padding: 0 25%;
+    margin: 50px 0 0px;
+    font-size: 0.8em;
+    line-height: 1.5em;
     text-align: left;
-    max-width: 1100px;
-    margin: auto;}
-    .Popular > span {
-        padding-left: 10px;
-        font-size: 1.5em;
-        line-height: 2em;
-        font-weight: bold;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
-.About {
-    margin: 20px 0;
-    position: relative;}
-    .About::before {
-        content: '';
-        height: 100%;
-        background: #e9fbd1;
-        position: absolute;
-        left: -50%;
-        right: -50%;
-        z-index: -1;}
-    .About li {
-        width: 24.5%;
+    background: #dadeec;
+    box-shadow: 0px -11px 17px 5px #dadeec;
+    clear:both;}
+    .Footer a {
+        color: #9a98a9;}
+    .Footer > ul > li {
+        width: 25%;
         display: inline-block;
         vertical-align: top; }
-        .About li > div {
-            padding: 20px;
-            font-style: italic;}
-    .About h1 {
-        font-size: 1.7em;
-        font-weight: normal;}
-    .About p {
-        font-size: 0.95em;
-        line-height: 1.4em;}
+    .Footer h1 {
+        font-size: 1.4em;}
+    .Footer li > div {
+        padding: 0 30%;}
 
-.Logo {
-    width: 50%;
-    text-align: left;}
-    .Logo img {
-        height: 100px;
-        vertical-align: middle; }
-
-@media(max-width: 868px) {
-    .Logo img {
-        height: 70px;}
-}
-.Search {
-    position: absolute;
-    left: 0;
-    top: 2em;
-    width: 60%;
-    margin: 0 20%;}
-    .Search .wrapper {
-        background: #ddd;
-        border-radius: 20px;
-        padding: 0 20px;}
-        .Search input {
-            font-size: 16px;
-            outline: none;
-            border: none;
-            background: transparent;
-            line-height: 2.2em;
-            width: 100%;}
-            .Search .wrapper:hover,
-            .Search .wrapper:focus-within {
-                background: white;
-                border: 1px solid #ddd;}
-@media(max-width: 868px) {
-    .Search {
-        top: 1em;}
-}
-@media(max-width: 635px) {
-    .Search {
-        top: 4em;
-        width: 70%;
-        margin: 0;
-        left: 20%}
-}
-.UserInfo {
-    width: 50%;
-    text-align: right;}
-    .UserInfo > div {
-        display: inline-block;
-        margin: 0 10px;}
-    .UserInfo span {
-        font-size: 0.8em;
-        font-weight: 900;}
-    .UserInfo i {
-        font-size: 1.8em;
-        vertical-align: middle;}
-
-.Categories{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.9em;
-    margin-top: -15px;
-    width: 100%;}
-    .Categories a {
-        color: black;}
-    .Categories .nav {
-        display: none;
-        font-size: 1.4em;
-        width: 20%;
-        text-align: center;
-        margin-bottom: 0.5em;}
-    .Categories div > ul > li {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0 15px;
-        line-height: 2.5em;
-        cursor: pointer;}
-    .Categories div > ul li:hover > a {
-      border-bottom: 2px solid #000;}
-        .Categories div > ul > li > a {
-            padding-bottom: 8px;}
-        .Categories div > ul > li .sub1 {
-            position: absolute;
-            display: none;
-            background: #fff;
-            border: 2px solid #ddd;
-            border-top: 1px solid #ddd;
-            border-radius: 0 0 8px 8px;
-            padding: 10px;
-            line-height: 2em;
-            font-size: 0.8em;
-            z-index: 9999999;}
-        .Categories div > ul > li:hover .sub1 {
-            display: block;}
-@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
-    .Categories {
-        padding-bottom: 20px;}
-    .Categories div > ul > li > a {
-        padding: 0;}
-    .Categories a:not(:only-child):hover ~ .sub1 {
-        display: none;}
-    .Categories a:not(:only-child)::after {
-        content: "\ea5b";
-        pointer-events: none;
-        position: absolute;
-        bottom: -8px;
-        margin-left: -50px;
-        font-family: IcoFont;
-        font-size: 1.5em;}
-    .Categories div > ul li > ul.sub1 {
-        margin-top: 20px;}
-}
 @media(max-width: 635px) {
     .Categories {
         text-align: left;
@@ -275,54 +298,116 @@
                 width: 100%;
                 transition: left 0.5s;}
 }
+@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
+    .Categories {
+        padding-bottom: 20px;}
+    .Categories div > ul > li > a {
+        padding: 0;}
+    .Categories a:not(:only-child):hover ~ .sub1 {
+        display: none;}
+    .Categories a:not(:only-child)::after {
+        content: "\ea5b";
+        pointer-events: none;
+        position: absolute;
+        bottom: -8px;
+        margin-left: -50px;
+        font-family: IcoFont;
+        font-size: 1.5em;}
+    .Categories div > ul li > ul.sub1 {
+        margin-top: 20px;}
+}
+.Categories{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9em;
+    margin-top: -15px;
+    width: 100%;}
+    .Categories a {
+        color: black;}
+    .Categories .nav {
+        display: none;
+        font-size: 1.4em;
+        width: 20%;
+        text-align: center;
+        margin-bottom: 0.5em;}
+    .Categories div > ul > li {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 15px;
+        line-height: 2.5em;
+        cursor: pointer;}
+    .Categories div > ul li:hover > a {
+      border-bottom: 2px solid #000;}
+        .Categories div > ul > li > a {
+            padding-bottom: 8px;}
+        .Categories div > ul > li .sub1 {
+            position: absolute;
+            display: none;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            padding: 10px;
+            line-height: 2em;
+            font-size: 0.8em;
+            z-index: 9999999;}
+        .Categories div > ul > li:hover .sub1 {
+            display: block;}
 .Header {
     border-bottom: 1px solid #ddd;}
     .Header .container > div {
         display: inline-block;}
-.Footer {
-    padding: 0 25%;
-    margin: 50px 0 0px;
-    font-size: 0.8em;
-    line-height: 1.5em;
-    text-align: left;
-    background: #dadeec;
-    box-shadow: 0px -11px 17px 5px #dadeec;}
-    .Footer a {
-        color: #9a98a9;}
-    .Footer > ul > li {
-        width: 25%;
+@media(max-width: 868px) {
+    .Logo img {
+        height: 70px;}
+}
+.Logo {
+    width: 50%;
+    text-align: left;}
+    .Logo img {
+        height: 100px;
+        vertical-align: middle; }
+
+@media(max-width: 635px) {
+    .Search {
+        top: 4em;
+        width: 70%;
+        margin: 0;
+        left: 20%}
+}
+@media(max-width: 868px) {
+    .Search {
+        top: 1em;}
+}
+.Search {
+    position: absolute;
+    left: 0;
+    top: 2em;
+    width: 60%;
+    margin: 0 20%;}
+    .Search .wrapper {
+        background: #ddd;
+        border-radius: 20px;
+        padding: 0 20px;}
+        .Search input {
+            font-size: 16px;
+            outline: none;
+            border: none;
+            background: transparent;
+            line-height: 2.2em;
+            width: 100%;}
+            .Search .wrapper:hover,
+            .Search .wrapper:focus-within {
+                background: white;
+                border: 1px solid #ddd;}
+.UserInfo {
+    width: 50%;
+    text-align: right;}
+    .UserInfo > div {
         display: inline-block;
-        vertical-align: top; }
-    .Footer h1 {
-        font-size: 1.4em;}
-    .Footer li > div {
-        padding: 0 30%;}
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-a,
-a:visited,
-a:active {
-    text-decoration: none;
-    color: black;
-}
-.App {
-    font-family: sans-serif;
-    text-align: center;
-    padding: 0;
-    overflow-x: hidden;}
-
-.container {
-    margin: auto;
-    max-width: 1365px;
-    position: relative;}
-    
+        margin: 0 10px;}
+    .UserInfo span {
+        font-size: 0.8em;
+        font-weight: 900;}
+    .UserInfo i {
+        font-size: 1.8em;
+        vertical-align: middle;}

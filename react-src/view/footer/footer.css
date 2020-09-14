@@ -5,7 +5,8 @@
     line-height: 1.5em;
     text-align: left;
     background: #dadeec;
-    box-shadow: 0px -11px 17px 5px #dadeec;}
+    box-shadow: 0px -11px 17px 5px #dadeec;
+    clear:both;}
     .Footer a {
         color: #9a98a9;}
     .Footer > ul > li {
@@ -16,4 +17,3 @@
         font-size: 1.4em;}
     .Footer li > div {
         padding: 0 30%;}
-}

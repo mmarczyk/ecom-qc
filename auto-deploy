@@ -1,0 +1,77 @@
+<?php
+$collect = function($src, $ext, $excluded = []) use (&$collect){
+    $dst = [];
+    $children = scandir($src);
+    foreach($children as $node) {
+        if($node !== '.' && $node !== '..' && !in_array($node, $excluded)) {
+            if(is_dir($src.$node)) {
+                $sub = $collect($src.$node.'/', $ext);
+                $dst = array_merge($dst, $sub);
+            } else if(substr($node, -strlen($ext)) === $ext) {
+                array_push($dst, $src.$node);
+            }
+        }
+    }
+
+    return $dst;
+};
+
+
+$bundle = function($order, $dst) {
+    $bundle = [];
+
+    foreach($order as $file) {
+        $bundle[] = file_get_contents($file);
+    }
+    file_put_contents($dst, implode("\n", $bundle));
+};
+
+$deploy = function($src, $dst) use (&$deploy) {
+    $children = scandir($src);
+
+    foreach($children as $node) {
+        if($node !== '.' && $node !== '..') {
+            if(is_dir($src.$node)) {
+                if(!is_dir($dst.$node)) {
+                    mkdir($dst.$node);
+                }
+                $deploy($src.$node.'/', $dst.$node.'/');
+            } else {
+                copy($src.$node, $dst.$node);
+            }
+        }
+    }
+};
+
+$check = function($files, $tstamp) {
+    foreach($files as $node) {
+        if(filemtime($node) > $tstamp) {
+            return true;
+        }
+    }
+};
+
+$src = __DIR__."/react-src/";
+$bin = __DIR__."/ecom/";
+$dstJS = __DIR__."/ecom/js/react-page.js";
+$dstCSS = __DIR__."/ecom/style.css";
+$target = __DIR__."/../shop/templates/ecom/";
+
+
+while(true) {
+    $tstamp = time();
+    $newer = false;
+
+    $css = $collect($src, 'css');
+    $js = $collect($src, 'js', ['index.js']);
+    $js[] = $src.'index.js';
+
+    if($check(array_merge($css, $js), $newer)) {
+        $bundle($js, $dstJS);
+        $bundle($css, $dstCSS);
+
+        $deploy($bin, $target);
+    }
+
+    sleep(10);
+}

@@ -2,7 +2,10 @@ const Product = () => {
     return (
         <div className="Product">
             <Gallery/>
-            produc
+            <Title/>
+            <Specification/>
+            <Reviews/>
+            <Shipping/>
         </div>
     );
 };

@@ -1,0 +1,26 @@
+.Gallery {
+    position: relative;}
+    .Gallery li .nav {
+        width: 100px;
+        margin: 5px 0;}
+        .Gallery li .nav img {
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 2px 2px 3px 1px #808080ad;
+            opacity: 0.5;}
+    .Gallery .main {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: none;
+        z-index: 99;}
+        .Gallery .main img {
+            margin-left: -50%;}
+    .Gallery li:first-child .main {
+      display: block;
+      z-index: 1;}  
+    .Gallery li:hover .main {
+        display: block;}
+    .Gallery li:hover .nav img {
+        opacity: 1;}

@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 $src = $argv[1];
@@ -18,9 +17,13 @@ $orderJS = [
     "view/header/Header.js",
     "view/content/shared/ProductList.js",
     "view/content/category/Subcategories.js",
-    "view/content/category/Description.js",
     "view/content/category/Category.js",
     "view/content/cmspage/CmsPage.js",
+    "view/content/product/Shipping.js",
+    "view/content/product/Specification.js",
+    "view/content/product/Title.js",
+    "view/content/category/Description.js",
+    "view/content/product/Reviews.js",
     "view/content/product/Gallery.js",
     "view/content/product/Product.js",
     "view/content/homepage/About.js",
@@ -38,6 +41,10 @@ $orderCSS = [
     "view/content/category/description.css",
     "view/content/category/category.css",
     "view/content/content.css",
+    "view/content/product/product.css",
+    "view/content/product/gallery.css",
+    "view/content/product/title.css",
+    "view/content/product/specification.css",
     "view/content/homepage/topbanner.css",
     "view/content/homepage/popular.css",
     "view/content/homepage/about.css",

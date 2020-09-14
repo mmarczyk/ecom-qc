@@ -1,5 +1,5 @@
 const Gallery = () => {
-    if (oPageData && oPageData.aImages) {
+    if (oPageData && oPageData.aImages && oPageData.aImages.left) {
         const images = oPageData.aImages.left.map(element => {
             return (
                 <li>
@@ -7,7 +7,7 @@ const Gallery = () => {
                         <img src={element.sSizedImageLink} alt={element.sAlt} />
                     </div>
                     <div className="main">
-                        <img src={element.sFullImageLink} alt={element.sAlt} />
+                        <img src={element.sSizedImageLink} alt={element.sAlt} />
                     </div>
                 </li>
             );
@@ -21,4 +21,8 @@ const Gallery = () => {
             </div>
         );
     }
+
+    return (
+        <div className="Gallery"/>
+    );
 };

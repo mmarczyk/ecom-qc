@@ -1,0 +1,23 @@
+.Product {
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;}
+    .Product > div {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;}
+    .Product .Gallery,
+    .Product .Reviews {
+        width: 70%;}
+    .Product .Title,
+    .Product .Specification,
+    .Product .Shipping {
+        width: 30%;}
+    .Product .Specification,
+    .Product .Shipping {
+        float: right;}
+    .Product .Reviews,
+    .Product .Shipping {
+        margin-bottom: 50px;}
+    .Product .Reviews {
+        float: left;}
