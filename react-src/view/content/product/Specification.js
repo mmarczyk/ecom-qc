@@ -13,7 +13,7 @@ const Specification = () => {
       </ul>
       <div className="desc">
         <h1>Opis</h1>
-        <span>Babuszka dla maluszka, niewielka ale przyjemna</span>
+        <span>{oPageData.sDescriptionFull}</span>
       </div>
     </div>
   );

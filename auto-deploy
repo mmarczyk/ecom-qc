@@ -58,7 +58,7 @@ $dstCSS = __DIR__."/ecom/style.css";
 $target = __DIR__."/../shop/templates/ecom/";
 
 
-while(true) {
+//while(true) {
     $tstamp = time();
     $newer = false;
 
@@ -73,5 +73,5 @@ while(true) {
         $deploy($bin, $target);
     }
 
-    sleep(10);
-}
+//    sleep(10);
+//}

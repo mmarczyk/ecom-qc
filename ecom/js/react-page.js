@@ -1,12 +1,47 @@
 const App = () => {
+    const dialog = showDialog ? showDialog : null;
     return (
         <div className="App">
             <Header/>
             <Content/>
             <Footer/>
+            {dialog}
         </div>
     );
 };
+const addToCart = (event) => {
+    event.preventDefault();
+
+    alert('ala');
+
+    navigateTo(event);
+    
+    return false;
+};
+const navigateTo = (event) => {
+    event.preventDefault();
+
+    const appendHref = (target) => {
+        const json = target.search === '' ? '?json' :'&json';
+        return [
+            target.href,
+            target.href + json
+        ];
+    }
+    
+    const [orgHref, href] = appendHref(event.currentTarget);
+
+    fetch(href)
+        .then(response => response.json())
+        .then((data) => {
+            history.pushState({href: orgHref}, '', orgHref);
+            oPageData = data;
+            Animation.start();
+            renderApp();
+        });
+
+    return false;
+}
 const Animation = {
     init: () => {
         rootElement.classList.add("visible"), 100;
@@ -18,39 +53,16 @@ const Animation = {
 };
 
 const Link = ({href, children}) => {
-    const appendHref = (target) => {
-        const json = target.search === '' ? '?json' :'&json';
-        return [
-            target.href,
-            target.href + json
-        ];
-    }
-    const navigateTo = (event) => {
-        event.preventDefault();
-
-        const [orgHref, href] = appendHref(event.currentTarget);
-
-        fetch(href)
-            .then(response => response.json())
-            .then((data) => {
-                history.pushState({href: orgHref}, '', orgHref);
-                oPageData = data;
-                Animation.start();
-                renderApp();
-            });
-
-        return false;
-    }
-
     return (
         <a href={href} onClick={navigateTo}>{children}</a>
     );
 }
+const Submit = ({href, action, children}) => {
+    return (
+        <a href={href} onClick={action}>{children}</a>
+    );
+}
 const Content = () => {
-    /*useEffect(() => {
-        rootElement.classList.add("visible");
-    });*/
-
     let content = <Homepage />;
     if (window.location.search !== '') {
         content = null;
@@ -429,7 +441,7 @@ const Specification = () => {
       </ul>
       <div className="desc">
         <h1>Opis</h1>
-        <span>Babuszka dla maluszka, niewielka ale przyjemna</span>
+        <span>{oPageData.sDescriptionFull}</span>
       </div>
     </div>
   );
@@ -437,9 +449,9 @@ const Specification = () => {
 const Title = () => {
   return (
     <div className="Title">
-        <h1>Babuszka duża</h1>
-        <span>220 PLN</span>
-        <Link to="/cart">Dodaj do koszyka</Link>
+        <h1>{oPageData.sName}</h1>
+        <span>{oPageData.mPrice} PLN</span>
+        <Submit href={sCartPage} action={addToCart}>Dodaj do koszyka</Submit>
     </div>
   );
 };
@@ -482,6 +494,11 @@ const ProductList = (config) => {
         </div>
     );
     }
+};
+const ConfirmCartAdd = () => {
+    return (
+        <div class="ConfirmCartAdd dialog">Dialog</div>
+    );
 };
 const Footer = () => {
     function renderPages(item) {
@@ -618,6 +635,8 @@ const useState = React.useState;
 const useEffect = React.useEffect;
 const useRef = React.useRef;
 
+var showDialog = false;
+
 const rootElement = document.getElementById("root");
 const renderApp = () => {
     ReactDOM.render(
@@ -632,7 +651,6 @@ Animation.init();
 renderApp();
 
 window.onpopstate = (event) => {
-    console.log(event.currentTarget);
     Animation.start();
     renderApp();
 }

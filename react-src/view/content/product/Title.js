@@ -1,9 +1,9 @@
 const Title = () => {
   return (
     <div className="Title">
-        <h1>Babuszka duża</h1>
-        <span>220 PLN</span>
-        <Link to="/cart">Dodaj do koszyka</Link>
+        <h1>{oPageData.sName}</h1>
+        <span>{oPageData.mPrice} PLN</span>
+        <Submit href={sCartPage} action={addToCart}>Dodaj do koszyka</Submit>
     </div>
   );
 };

@@ -73,7 +73,8 @@ $vars = [
             return $result;
         },
         $oPage->getMenuData(2, $iContent, 1)['items']
-    ))
+    )),
+    '<?CARTPAGE?>' => $oPage->aPages[$config['basket_page']]['sLinkName']
 ];
 
 $aData = renderProducts($aData);

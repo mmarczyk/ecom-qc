@@ -1,8 +1,4 @@
 const Content = () => {
-    /*useEffect(() => {
-        rootElement.classList.add("visible");
-    });*/
-
     let content = <Homepage />;
     if (window.location.search !== '') {
         content = null;
