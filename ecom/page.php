@@ -80,6 +80,7 @@ $vars = [
 $aData = renderProducts($aData);
 $aData = renderImages($aData, $oFile);
 $aData = renderPages($aData, $oPage, $oFile);
+$aData = renderCart($aData, $oOrder, $config);
 $vars['<?DATA?>'] = json_encode($aData);
 
 if(isset($_GET['json'])) {

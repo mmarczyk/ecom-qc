@@ -6,6 +6,8 @@ const Content = () => {
             content = <Product />;
         } else if (oPageData.iProducts) {
             content = <Category />;
+        } else if (oPageData.aCart) {
+            content = <Cart />;
         } else {
             content = <CmsPage />;
         }

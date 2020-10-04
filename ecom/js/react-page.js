@@ -9,39 +9,54 @@ const App = () => {
         </div>
     );
 };
-const addToCart = (event) => {
+const addToCart = (target, productId) => {
     event.preventDefault();
-
-    alert('ala');
-
-    navigateTo(event);
+    
+    genericFetch(
+        target,
+        (data, href) => {
+            history.pushState({href: href}, '', href);
+            oPageData = data;
+            Animation.start();
+            renderApp();
+        },
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'iProductAdd='+productId+'&iQuantity=1'
+        }
+    );
     
     return false;
 };
 const navigateTo = (event) => {
     event.preventDefault();
 
-    const appendHref = (target) => {
-        const json = target.search === '' ? '?json' :'&json';
-        return [
-            target.href,
-            target.href + json
-        ];
-    }
-    
-    const [orgHref, href] = appendHref(event.currentTarget);
-
-    fetch(href)
-        .then(response => response.json())
-        .then((data) => {
-            history.pushState({href: orgHref}, '', orgHref);
+    genericFetch(
+        event.currentTarget,
+        (data, href) => {
+            history.pushState({href: href}, '', href);
             oPageData = data;
             Animation.start();
             renderApp();
-        });
+        }
+    );
 
     return false;
 }
+const genericFetch = (target, callback, options) => {
+    const json = target.search === '' ? '?json' :'&json';
+    const [orgHref, href] = [
+        target.href,
+        target.href + json
+    ];
+    
+    fetch(href, options)
+        .then(response => response.json())
+        .then((data) => callback(data, orgHref));
+};
 const Animation = {
     init: () => {
         rootElement.classList.add("visible"), 100;
@@ -70,6 +85,8 @@ const Content = () => {
             content = <Product />;
         } else if (oPageData.iProducts) {
             content = <Category />;
+        } else if (oPageData.aCart) {
+            content = <Cart />;
         } else {
             content = <CmsPage />;
         }
@@ -80,6 +97,171 @@ const Content = () => {
             {content}
         </div>
     );
+};
+const Cart = () => {
+    return (
+        <div className="Cart">
+            <List />
+            <div>
+                <Shipping editable />
+                <Payments />
+            </div>
+            <Contact />
+            <Summary />
+        </div>
+    );
+};
+const Contact = () => {
+  return (
+      <div className="Contact">
+        <div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Imię i nazwisko / Nazwa"
+            onChange={event => handleInputChange(event, formatName)}
+          />
+          <input
+            type="text"
+            name="street"
+            placeholder="Ulica i nr domu"
+            onChange={event => handleInputChange(event, formatStreet)}
+          />
+          <input
+            type="text"
+            name="zip"
+            placeholder="__-___"
+            onChange={event => handleInputChange(event, formatZipCode)}
+          />
+          <input
+            type="text"
+            name="city"
+            placeholder="Miejscowość"
+            onChange={event => handleInputChange(event, formatCity)}
+          />
+        </div>
+        <div>
+          <textarea
+            rows="5"
+            placeholder="Wpisz tutaj dodatkowe informacje"
+            name="info"
+          />
+        </div>
+        <div>
+          <div>
+            <label for="rules">
+              <Checkbox name="rules" />
+              Akceptuję regulamin sklepu dostępny tutaj.
+            </label>
+          </div>
+          <div>
+            <label for="gdpr">
+              <Checkbox name="gdpr" />
+              Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+              realizacji zamówienia.
+            </label>
+          </div>
+        </div>
+      </div>
+    );
+};
+const Payments = () => {
+  return (
+    <div className="Payments">
+      <h1>Płatność</h1>
+      <ul>
+        <li>
+          <Radio name="payment" />
+          <span>Płatność przy odbiorze</span>
+        </li>
+        <li>
+          <Radio name="payment" />
+          <span>PayU</span>
+        </li>
+        <li>
+          <Radio name="payment" />
+          <span>Przelew tradycyjny</span>
+        </li>
+      </ul>
+    </div>
+  );
+};
+const Summary = () => {
+    return (
+        <div className="Summary">
+            <h1>Podsumowanie</h1>
+            <div>
+                <div>
+                    <span>Koszt zakupów</span>
+                    <span>1000 zł</span>
+                </div>
+                <div>
+                    <span>Koszt dostawy</span>
+                    <span>10 zł</span>
+                </div>
+                <div>
+                    <span>Do zapłaty</span>
+                    <span>1000 zł</span>
+                </div>
+                <div>
+                    <a>Zapłać</a>
+                </div>
+            </div>
+        </div>
+    );
+};
+const Amount = () => {
+  return (
+    <div className="Amount">
+      <button>
+        <i className="icofont-rounded-down" />
+      </button>
+      <span>2</span>
+      <button>
+        <i className="icofont-rounded-up" />
+      </button>
+    </div>
+  );
+};
+const List = () => {
+  return (
+    <div className="List">
+      <div>
+        <ul>
+          <li>
+            <ProductItem />
+          </li>
+          <li>
+            <ProductItem />
+          </li>
+          <li>
+            <ProductItem />
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+const ProductItem = () => {
+  return (
+    <div className="ProductItem">
+      <div>
+        <Link href="/product/10">
+          <img src="/gfx/product.jpg" alt="product" />
+        </Link>
+      </div>
+      <div>
+        <div>
+          <span>Babuszka duża</span>
+        </div>
+        <div>
+          <span>220 zł </span>
+          <Amount />
+          <span>440 zł</span>
+        </div>
+      </div>
+    </div>
+  );
 };
 const Category = () => {
     return (
@@ -129,6 +311,28 @@ const CmsPage = () => {
             CMS
         </div>
     );
+};
+const Checkbox = props => {
+  const { name } = props;
+
+  return (
+    <div className="Checkbox">
+      <input type="checkbox" name={name} />
+      <i className="icofont-tick-boxed" />
+      <i className="empty" />
+    </div>
+  );
+};
+const Radio = props => {
+  const { name } = props;
+
+  return (
+    <div className="Radio">
+      <input type="radio" name={name} />
+      <i className="icofont-tick-boxed" />
+      <i className="empty" />
+    </div>
+  );
 };
 const About = () => {
     if (oPageData && oPageData.aPages) {
@@ -407,25 +611,6 @@ const Reviews = () => {
   );
 };
 
-const Shipping = props => {
-  let css = "Shipping ";
-  return (
-    <div className={css}>
-      <h1>Dostawa</h1>
-      <ul>
-        <li>
-          <span>Kurier: 10zł</span>
-        </li>
-        <li>
-          <span>Kurier za pobraniem: 15zł</span>
-        </li>
-        <li>
-          <span>Paczkomaty: 9zł</span>
-        </li>
-      </ul>
-    </div>
-  );
-};
 const Specification = () => {
   return (
     <div className="Specification">
@@ -451,7 +636,11 @@ const Title = () => {
     <div className="Title">
         <h1>{oPageData.sName}</h1>
         <span>{oPageData.mPrice} PLN</span>
-        <Submit href={sCartPage} action={addToCart}>Dodaj do koszyka</Submit>
+        <Submit
+            href={sCartPage}
+            action={(event) => addToCart(event.currentTarget, oPageData.iProduct)}>
+            Dodaj do koszyka
+        </Submit>
     </div>
   );
 };
@@ -495,10 +684,24 @@ const ProductList = (config) => {
     );
     }
 };
-const ConfirmCartAdd = () => {
-    return (
-        <div class="ConfirmCartAdd dialog">Dialog</div>
-    );
+const Shipping = props => {
+  let css = "Shipping ";
+  return (
+    <div className={css}>
+      <h1>Dostawa</h1>
+      <ul>
+        <li>
+          <span>Kurier: 10zł</span>
+        </li>
+        <li>
+          <span>Kurier za pobraniem: 15zł</span>
+        </li>
+        <li>
+          <span>Paczkomaty: 9zł</span>
+        </li>
+      </ul>
+    </div>
+  );
 };
 const Footer = () => {
     function renderPages(item) {
@@ -544,7 +747,9 @@ const Footer = () => {
 const CartIcon = () => {
   return (
     <div className="CartIcon">
-        <i className="icofont-shopping-cart" />
+        <Link href={sCartPage}>
+            <i className="icofont-shopping-cart" />
+        </Link>
     </div>
   );
 };

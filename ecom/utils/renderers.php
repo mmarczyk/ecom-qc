@@ -87,3 +87,26 @@ function renderPages($aData, $oPage, $oFile)
 
     return $aData;
 }
+
+function renderCart($aData, $oOrder, $config)
+{
+    if(isset($config['this_is_basket_page']) && $config['this_is_basket_page'] === true) {
+        $aCart = [];
+        if( isset( $oOrder->aProducts ) ){
+            foreach( $oOrder->aProducts as $aProductData ){
+                $aProductData['sPrice'] = displayPrice(
+                    normalizePrice( $aProductData['fPrice']
+                ));
+                $aProductData['sSummary'] = displayPrice(
+                    normalizePrice( $aProductData['fSummary']
+                ));
+
+                $aCart[] = $aProductData;
+            }
+
+            $aData['aCart'] = $aCart;
+        }
+    }
+
+    return $aData;
+}

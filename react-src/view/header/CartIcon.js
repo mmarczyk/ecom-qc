@@ -1,7 +1,9 @@
 const CartIcon = () => {
   return (
     <div className="CartIcon">
-        <i className="icofont-shopping-cart" />
+        <Link href={sCartPage}>
+            <i className="icofont-shopping-cart" />
+        </Link>
     </div>
   );
 };
