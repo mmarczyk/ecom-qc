@@ -1,0 +1,15 @@
+.Cart {
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;}
+  .Cart > div {
+    display: inline-block;
+    vertical-align: top;}
+  .Cart .List {
+    width: 75%;}
+  .Cart > div:nth-child(2) {
+    width: 20%;
+    padding-left: 5%;
+    margin-top: 20px;}
+  .Cart .Payments {
+    margin-top: 30px;}

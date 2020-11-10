@@ -1,21 +1,26 @@
 const Payments = () => {
-  return (
-    <div className="Payments">
-      <h1>Płatność</h1>
-      <ul>
-        <li>
-          <Radio name="payment" />
-          <span>Płatność przy odbiorze</span>
-        </li>
-        <li>
-          <Radio name="payment" />
-          <span>PayU</span>
-        </li>
-        <li>
-          <Radio name="payment" />
-          <span>Przelew tradycyjny</span>
-        </li>
-      </ul>
-    </div>
-  );
+    if(oPageData && oPageData.aPayments) {
+        const payments = oPageData.aPayments.map(element => {
+            return (
+                <li>
+                    <Radio
+                        name="payment"
+                        action={() => setPayment(element.iIdPayment)}
+                        checked={
+                            oPageData.aCart.oOrder.payment === element.iIdPayment
+                    }/>
+                    <span>{element.sName}</span>
+                </li>
+            );
+        });
+        
+        return (
+            <div className="Payments">
+                <h1>Płatność</h1>
+                <ul>
+                    {payments}
+                </ul>
+            </div>
+        );
+    }
 };

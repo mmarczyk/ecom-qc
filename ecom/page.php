@@ -6,6 +6,7 @@ if (!defined('CUSTOMER_PAGE')) {
 require_once __DIR__ . "/utils/PagesExt.php";
 require_once __DIR__ . "/utils/FilesExt.php";
 require_once __DIR__ . "/utils/ProductsExt.php";
+require_once __DIR__ . "/utils/OrdersExt.php";
 require_once __DIR__ . "/utils/renderers.php";
 
 $oPage = PagesExt::getInstance();
@@ -24,6 +25,7 @@ $vars = [
     '<?CSS?>' => $config['dir_skin'] . $config['style'],
     '<?FONT-CSS?>' => $config['dir_skin'] . 'fonts/icofont/icofont.min.css',
     '<?JS?>' => $config['dir_skin'] . 'js',
+    '<?CORE?>' => $config['dir_core'],
     '<?WARNING?>' => $lang['cf_no_word'],
     '<?EMAIL?>' => $lang['cf_mail'],
     '<?WRONG-VALUE?>' => $lang['cf_wrong_value'],
@@ -74,13 +76,17 @@ $vars = [
         },
         $oPage->getMenuData(2, $iContent, 1)['items']
     )),
-    '<?CARTPAGE?>' => $oPage->aPages[$config['basket_page']]['sLinkName']
+    '<?CARTPAGE?>' => $oPage->aPages[$config['basket_page']]['sLinkName'],
+    '<?ORDERPAGE?>' => $oPage->aPages[$config['order_page']]['sLinkName'],
+    '<?ORDERPRINTPAGE?>' => $oPage->aPages[$config['order_print']]['sLinkName']
 ];
 
 $aData = renderProducts($aData);
 $aData = renderImages($aData, $oFile);
 $aData = renderPages($aData, $oPage, $oFile);
-$aData = renderCart($aData, $oOrder, $config);
+$aData = renderCart($aData, $oOrder, $config, $oFile);
+$aData = renderShipping($aData, $oOrder);
+$aData = renderPayments($aData, $oOrder);
 $vars['<?DATA?>'] = json_encode($aData);
 
 if(isset($_GET['json'])) {

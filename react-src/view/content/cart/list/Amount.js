@@ -1,13 +1,25 @@
-const Amount = () => {
-  return (
-    <div className="Amount">
-      <button>
-        <i className="icofont-rounded-down" />
-      </button>
-      <span>2</span>
-      <button>
-        <i className="icofont-rounded-up" />
-      </button>
-    </div>
-  );
+const Amount = props => {
+    return (
+        <div className="Amount">
+            <Submit
+                href={sCartPage}
+                action={(event) => removeFromCartSingle(
+                    event.currentTarget, 
+                    props.product.iProduct,
+                    props.product.iQuantity
+                )}
+                disabled={props.product.iQuantity === 1}>
+                <i className="icofont-rounded-down" />
+            </Submit>
+            <span>{props.product.iQuantity}</span>
+            <Submit
+                href={sCartPage}
+                action={(event) => addToCart(
+                    event.currentTarget, 
+                    props.product.iProduct
+                )}>
+                <i className="icofont-rounded-up" />
+            </Submit>
+        </div>
+    );
 };

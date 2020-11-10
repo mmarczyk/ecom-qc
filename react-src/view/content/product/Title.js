@@ -5,7 +5,7 @@ const Title = () => {
         <span>{oPageData.mPrice} PLN</span>
         <Submit
             href={sCartPage}
-            action={(event) => addToCart(event.currentTarget, oPageData.iProduct)}>
+            action={(event) => addNavigateToCart(event.currentTarget, oPageData.iProduct)}>
             Dodaj do koszyka
         </Submit>
     </div>

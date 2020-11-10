@@ -9,7 +9,7 @@ const App = () => {
         </div>
     );
 };
-const addToCart = (target, productId) => {
+const addNavigateToCart = (target, productId) => {
     event.preventDefault();
     
     genericFetch(
@@ -31,6 +31,64 @@ const addToCart = (target, productId) => {
     
     return false;
 };
+const addToCart = (target, productId) => {
+    event.preventDefault();
+    
+    genericFetch(
+        target,
+        (data, href) => {
+            oPageData = data;
+            renderApp();
+        },
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'iProductAdd='+productId+'&iQuantity=1'
+        }
+    );
+    
+    return false;
+};
+const checkoutCart = (target) => {
+    event.preventDefault();
+    
+    genericFetch(
+        target,
+        (data, href) => {
+            oPageData = data;
+            renderApp();
+        },
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: jsonToForm({
+                sFirstName: oPageData.aCart.oOrder.name,
+                sLastName: oPageData.aCart.oOrder.name,
+                sCompanyName: oPageData.aCart.oOrder.name,
+                sStreet: oPageData.aCart.oOrder.street,
+                sZipCode: oPageData.aCart.oOrder.zip,
+                sCity: oPageData.aCart.oOrder.city,
+                sPhone: '',
+                sEmail: '',
+                sComment: '',
+                sShippingPayment: [
+                    oPageData.aCart.oOrder.shipping.id,
+                    oPageData.aCart.oOrder.payment,
+                    oPageData.aCart.oOrder.shipping.price
+                ].join(';'),
+                iRules: 1,
+                iRulesAccept: 1,
+                sOrderSend: true
+            })
+        }
+    );
+        
+    return false;
+};
 const navigateTo = (event) => {
     event.preventDefault();
 
@@ -46,6 +104,78 @@ const navigateTo = (event) => {
 
     return false;
 }
+const removeFromCart = (target) => {
+    event.preventDefault();
+    
+    genericFetch(
+        target,
+        (data, href) => {
+            oPageData = data;
+            renderApp();
+        }
+    );
+    
+    return false;
+};
+const removeFromCartSingle = (target, productId, quantity) => {
+    event.preventDefault();
+    
+    quantity -= 1;
+
+    if(quantity > 0) { 
+        genericFetch(
+            target,
+            (data, href) => {
+                oPageData = data;
+                renderApp();
+            },
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'aProducts['+productId+']='+quantity
+            }
+        );
+    }
+    
+    return false;
+};
+const setAcceptGdpr = () => {
+    oPageData.aCart.bAcceptGdpr = !oPageData.aCart.bAcceptGdpr;
+    renderApp();
+}
+const setAcceptRules = () => {
+    oPageData.aCart.bAcceptRules = !oPageData.aCart.bAcceptRules;
+    renderApp();
+};
+const setCity = (text) => {
+    oPageData.aCart.oOrder.city = text;
+    renderApp();
+};
+const setOrderName = (text) => {
+    oPageData.aCart.oOrder.name = text;
+    renderApp();
+};
+const setPayment = (element) => {
+    oPageData.aCart.oOrder.payment = element;
+    renderApp();
+};
+const setShippingCost = (element) => {
+    oPageData.aCart.oOrder.shipping = {
+        price: element.fPrice,
+        id: element.iIdShipping
+    };
+    renderApp();
+};
+const setStreet = (text) => {
+    oPageData.aCart.oOrder.street = text;
+    renderApp();
+};
+const setZip = (text) => {
+    oPageData.aCart.oOrder.zip = text;
+    renderApp();
+};
 const genericFetch = (target, callback, options) => {
     const json = target.search === '' ? '?json' :'&json';
     const [orgHref, href] = [
@@ -56,6 +186,52 @@ const genericFetch = (target, callback, options) => {
     fetch(href, options)
         .then(response => response.json())
         .then((data) => callback(data, orgHref));
+};
+
+const jsonToForm = json => {
+    let form = '';
+    for(let name in json) {
+        form += name + '=' + encodeURIComponent(json[name]) + '&';
+    };
+
+    return form.substring(0, form.length - 1);
+};
+const formatCity = (text, caretPos) => {
+  return [
+      text.replace(/[^A-Za-z\s-ąćęłóśżźń]/g, ""),
+      caretPos
+  ];
+};
+const formatName = (text, caretPos) => {
+  return [
+      text.replace(/[^A-Za-z\s-ąćęłóśżźń]/g, ""),
+      caretPos
+  ];
+};
+const formatStreet = (text, caretPos) => {
+  return [
+      text.replace(/[^A-Za-z\s-ąćęłóśżźń0-9/]/g, ""),
+      caretPos
+  ];
+};
+const formatZipCode = (text, caretPos) => {
+  text = text.replace(/\D/g, "");
+
+  for (let ind = text.length; ind < 5; ind++) {
+    text += "_";
+  }
+
+  text = text.substr(0, 2) + "-" + text.substr(2, 3);
+  if(text == '__-___') {
+      caretPos = 0;
+  } else if(caretPos == 3 && text.charAt(3) != '_') {
+      caretPos += 1;
+  }
+  
+  return [
+      text,
+      caretPos
+  ];
 };
 const Animation = {
     init: () => {
@@ -72,9 +248,19 @@ const Link = ({href, children}) => {
         <a href={href} onClick={navigateTo}>{children}</a>
     );
 }
-const Submit = ({href, action, children}) => {
+const Submit = ({className, href, action, disabled, children}) => {
+    if(disabled) {
+        if(className)
+            className += " disabled";
+        else
+            className = "disabled";
+
+        return (
+            <a className={className}>{children}</a>
+        );
+    }
     return (
-        <a href={href} onClick={action}>{children}</a>
+        <a className={className} href={href} onClick={action}>{children}</a>
     );
 }
 const Content = () => {
@@ -99,169 +285,245 @@ const Content = () => {
     );
 };
 const Cart = () => {
-    return (
-        <div className="Cart">
-            <List />
-            <div>
-                <Shipping editable />
-                <Payments />
+    useEffect(() => window.scrollTo(0, 0));
+
+    if(oPageData.aCart && (typeof oPageData.aCart === 'object')){
+        return (
+            <div className="Cart">
+                <List />
+                <div>
+                    <Shipping editable />
+                    <Payments />
+                </div>
+                <Contact />
+                <Summary />
             </div>
-            <Contact />
-            <Summary />
-        </div>
-    );
+        );
+    }
+    else {
+        return (
+            <div className="Cart">
+                Koszyk jest pusty
+            </div>
+        )
+    }
 };
 const Contact = () => {
-  return (
-      <div className="Contact">
-        <div>
-          <input
-            type="text"
-            name="name"
-            placeholder="Imię i nazwisko / Nazwa"
-            onChange={event => handleInputChange(event, formatName)}
-          />
-          <input
-            type="text"
-            name="street"
-            placeholder="Ulica i nr domu"
-            onChange={event => handleInputChange(event, formatStreet)}
-          />
-          <input
-            type="text"
-            name="zip"
-            placeholder="__-___"
-            onChange={event => handleInputChange(event, formatZipCode)}
-          />
-          <input
-            type="text"
-            name="city"
-            placeholder="Miejscowość"
-            onChange={event => handleInputChange(event, formatCity)}
-          />
+    return (
+        <div className="Contact">
+            <div>
+                <Textinput
+                    name="name"
+                    placeholder="Imię i nazwisko / Nazwa"
+                    formatter={formatName}
+                    bind={setOrderName}
+                    value={oPageData.aCart.oOrder.name}
+                />
+                <Textinput
+                    name="street"
+                    placeholder="Ulica i nr domu"
+                    formatter={formatStreet}
+                    bind={setStreet}
+                    value={oPageData.aCart.oOrder.street}
+                />
+                <Textinput
+                    name="zip"
+                    placeholder="__-___"
+                    formatter={formatZipCode}
+                    bind={setZip}
+                    value={oPageData.aCart.oOrder.zip}
+                />
+                <Textinput
+                    name="city"
+                    placeholder="Miejscowość"
+                    formatter={formatCity}
+                    bind={setCity}
+                    value={oPageData.aCart.oOrder.city}
+                />
+            </div>
+            <div>
+                <Textinput
+                    rows="5"
+                    placeholder="Wpisz tutaj dodatkowe informacje"
+                    name="info"
+                />
+            </div>
+            <div>
+                <div>
+                    <label for="rules">
+                        <Checkbox
+                            name="rules"
+                            action={() => setAcceptRules()}
+                            checked={oPageData.aCart.bAcceptRules}/>
+                        Akceptuję regulamin sklepu dostępny tutaj.
+                    </label>
+                </div>
+                <div>
+                    <label for="gdpr">
+                        <Checkbox
+                            name="gdpr"
+                            action={() => setAcceptGdpr()}
+                            checked={oPageData.aCart.bAcceptGdpr}/>
+                        Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+                        realizacji zamówienia.
+                    </label>
+                </div>
+            </div>
         </div>
-        <div>
-          <textarea
-            rows="5"
-            placeholder="Wpisz tutaj dodatkowe informacje"
-            name="info"
-          />
-        </div>
-        <div>
-          <div>
-            <label for="rules">
-              <Checkbox name="rules" />
-              Akceptuję regulamin sklepu dostępny tutaj.
-            </label>
-          </div>
-          <div>
-            <label for="gdpr">
-              <Checkbox name="gdpr" />
-              Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
-              realizacji zamówienia.
-            </label>
-          </div>
-        </div>
-      </div>
     );
 };
 const Payments = () => {
-  return (
-    <div className="Payments">
-      <h1>Płatność</h1>
-      <ul>
-        <li>
-          <Radio name="payment" />
-          <span>Płatność przy odbiorze</span>
-        </li>
-        <li>
-          <Radio name="payment" />
-          <span>PayU</span>
-        </li>
-        <li>
-          <Radio name="payment" />
-          <span>Przelew tradycyjny</span>
-        </li>
-      </ul>
-    </div>
-  );
+    if(oPageData && oPageData.aPayments) {
+        const payments = oPageData.aPayments.map(element => {
+            return (
+                <li>
+                    <Radio
+                        name="payment"
+                        action={() => setPayment(element.iIdPayment)}
+                        checked={
+                            oPageData.aCart.oOrder.payment === element.iIdPayment
+                    }/>
+                    <span>{element.sName}</span>
+                </li>
+            );
+        });
+        
+        return (
+            <div className="Payments">
+                <h1>Płatność</h1>
+                <ul>
+                    {payments}
+                </ul>
+            </div>
+        );
+    }
 };
 const Summary = () => {
+    const [amount, shipping, total] = [
+        oPageData.aCart.fTotalAmount,
+        oPageData.aCart.oOrder.shipping.price,
+        changePriceFormat(parseFloat(oPageData.aCart.fTotalAmount)
+            + parseFloat(oPageData.aCart.oOrder.shipping.price))
+    ];
+    const isOrderReady = () =>
+        oPageData.aCart.bAcceptRules == true &&
+        oPageData.aCart.bAcceptGdpr == true &&
+        oPageData.aCart.oOrder.shipping.id > 0 &&
+        oPageData.aCart.oOrder.payment > 0 &&
+        oPageData.aCart.oOrder.name.length > 0 &&
+        oPageData.aCart.oOrder.street.length > 0 &&
+        oPageData.aCart.oOrder.zip.length == 6 &&
+        oPageData.aCart.oOrder.city.length > 0;
+    
     return (
         <div className="Summary">
             <h1>Podsumowanie</h1>
             <div>
                 <div>
                     <span>Koszt zakupów</span>
-                    <span>1000 zł</span>
+                    <span>{amount} zł</span>
                 </div>
                 <div>
                     <span>Koszt dostawy</span>
-                    <span>10 zł</span>
+                    <span>{shipping} zł</span>
                 </div>
                 <div>
                     <span>Do zapłaty</span>
-                    <span>1000 zł</span>
+                    <span>{total} zł</span>
                 </div>
                 <div>
-                    <a>Zapłać</a>
+                    <Submit
+                        href={sOrderPage}
+                        action={(event) => checkoutCart(
+                            event.currentTarget
+                        )}
+                        disabled={
+                            !isOrderReady()}
+                    >
+                        Zamów
+                    </Submit>
                 </div>
             </div>
         </div>
     );
 };
-const Amount = () => {
-  return (
-    <div className="Amount">
-      <button>
-        <i className="icofont-rounded-down" />
-      </button>
-      <span>2</span>
-      <button>
-        <i className="icofont-rounded-up" />
-      </button>
-    </div>
-  );
+const Amount = props => {
+    return (
+        <div className="Amount">
+            <Submit
+                href={sCartPage}
+                action={(event) => removeFromCartSingle(
+                    event.currentTarget, 
+                    props.product.iProduct,
+                    props.product.iQuantity
+                )}
+                disabled={props.product.iQuantity === 1}>
+                <i className="icofont-rounded-down" />
+            </Submit>
+            <span>{props.product.iQuantity}</span>
+            <Submit
+                href={sCartPage}
+                action={(event) => addToCart(
+                    event.currentTarget, 
+                    props.product.iProduct
+                )}>
+                <i className="icofont-rounded-up" />
+            </Submit>
+        </div>
+    );
 };
 const List = () => {
-  return (
-    <div className="List">
-      <div>
-        <ul>
-          <li>
-            <ProductItem />
-          </li>
-          <li>
-            <ProductItem />
-          </li>
-          <li>
-            <ProductItem />
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+    if(oPageData.aCart && (typeof oPageData.aCart === 'object')) {
+        const products = oPageData.aCart.aProducts.map( (element, idx) => {
+            return (
+                <li>
+                    <ProductItem index={idx}/>
+                </li>
+            );
+        });
+        return (
+            <div className="List">
+                <div>
+                    <ul>
+                        {products}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 };
-const ProductItem = () => {
-  return (
-    <div className="ProductItem">
-      <div>
-        <Link href="/product/10">
-          <img src="/gfx/product.jpg" alt="product" />
-        </Link>
-      </div>
-      <div>
-        <div>
-          <span>Babuszka duża</span>
-        </div>
-        <div>
-          <span>220 zł </span>
-          <Amount />
-          <span>440 zł</span>
-        </div>
-      </div>
-    </div>
-  );
+const ProductItem = props => {
+    if(oPageData.aCart && (typeof oPageData.aCart === 'object')) {
+        if(props.index in oPageData.aCart.aProducts) {
+            const product = oPageData.aCart.aProducts[props.index];
+            return (
+                <div className="ProductItem">
+                <div>
+                    <Link href={product.sLinkName}>
+                        <img src={product.sImage} alt={product.sName} />
+                    </Link>
+                </div>
+                <div>
+                    <div>
+                        <span>{product.sName}</span>
+                    </div>
+                    <div>
+                        <span>{product.fPrice} zł</span>
+                        <Amount product={product}/>
+                        <span>{product.fSummary} zł</span>
+                        <Submit
+                            className="Remove"
+                            href={product.sLinkDelete}
+                            action={(event) =>
+                                removeFromCart(event.currentTarget)}>
+                            <i className="icofont-trash" />
+                        </Submit>
+                    </div>
+                </div>
+                </div>
+            );
+        }
+    }
 };
 const Category = () => {
     return (
@@ -313,26 +575,62 @@ const CmsPage = () => {
     );
 };
 const Checkbox = props => {
-  const { name } = props;
+  const { name, action, checked } = props;
 
   return (
     <div className="Checkbox">
-      <input type="checkbox" name={name} />
+      <input type="checkbox" name={name} onClick={action} checked={checked}/>
       <i className="icofont-tick-boxed" />
       <i className="empty" />
     </div>
   );
 };
 const Radio = props => {
-  const { name } = props;
+  const { name, action, checked } = props;
 
   return (
     <div className="Radio">
-      <input type="radio" name={name} />
+      <input type="radio" name={name} onClick={action} checked={checked}/>
       <i className="icofont-tick-boxed" />
       <i className="empty" />
     </div>
   );
+};
+const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
+    const onChangeHandler = event => {
+        if(formatter) {
+            let caretPos = event.target.selectionStart;
+            [event.target.value, caretPos] =
+                formatter(event.target.value, caretPos);
+            event.target.selectionEnd = event.target.selectionStart = caretPos;
+        }
+
+        if(bind) {
+            bind(event.target.value);
+        }
+    };
+    if(rows && rows > 1) {
+        return (
+            <textarea
+                name={name}
+                placeholder={placeholder}
+                rows={rows}
+                onChange={onChangeHandler}
+            >
+                {value}
+            </textarea>
+        );
+    } else {
+        return (
+            <input
+                type="text"
+                name={name}
+                placeholder={placeholder}
+                onChange={onChangeHandler}
+                value={value}
+            />
+        );
+    }
 };
 const About = () => {
     if (oPageData && oPageData.aPages) {
@@ -638,7 +936,7 @@ const Title = () => {
         <span>{oPageData.mPrice} PLN</span>
         <Submit
             href={sCartPage}
-            action={(event) => addToCart(event.currentTarget, oPageData.iProduct)}>
+            action={(event) => addNavigateToCart(event.currentTarget, oPageData.iProduct)}>
             Dodaj do koszyka
         </Submit>
     </div>
@@ -685,23 +983,30 @@ const ProductList = (config) => {
     }
 };
 const Shipping = props => {
-  let css = "Shipping ";
-  return (
-    <div className={css}>
-      <h1>Dostawa</h1>
-      <ul>
-        <li>
-          <span>Kurier: 10zł</span>
-        </li>
-        <li>
-          <span>Kurier za pobraniem: 15zł</span>
-        </li>
-        <li>
-          <span>Paczkomaty: 9zł</span>
-        </li>
-      </ul>
-    </div>
-  );
+    if(oPageData && oPageData.aShipping) {
+        const shipping = oPageData.aShipping.map(element => {
+            return (
+                <li>
+                    {props.editable && <Radio name="carrier"
+                        action={() => setShippingCost(element)}
+                        checked={
+                            oPageData.aCart.oOrder.shipping.id === element.iIdShipping
+                        }/>
+                    }
+                    <span>{element.sName}: {element.fPrice} zł</span>
+                </li>
+            );
+        });
+
+        return (
+            <div className={props.editable ? "Shipping editable" : "Shipping"}>
+                <h1>Dostawa</h1>
+                <ul>
+                    {shipping}
+                </ul>
+            </div>
+        );
+    }
 };
 const Footer = () => {
     function renderPages(item) {

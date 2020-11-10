@@ -1,19 +1,26 @@
 const Shipping = props => {
-  let css = "Shipping ";
-  return (
-    <div className={css}>
-      <h1>Dostawa</h1>
-      <ul>
-        <li>
-          <span>Kurier: 10zł</span>
-        </li>
-        <li>
-          <span>Kurier za pobraniem: 15zł</span>
-        </li>
-        <li>
-          <span>Paczkomaty: 9zł</span>
-        </li>
-      </ul>
-    </div>
-  );
+    if(oPageData && oPageData.aShipping) {
+        const shipping = oPageData.aShipping.map(element => {
+            return (
+                <li>
+                    {props.editable && <Radio name="carrier"
+                        action={() => setShippingCost(element)}
+                        checked={
+                            oPageData.aCart.oOrder.shipping.id === element.iIdShipping
+                        }/>
+                    }
+                    <span>{element.sName}: {element.fPrice} zł</span>
+                </li>
+            );
+        });
+
+        return (
+            <div className={props.editable ? "Shipping editable" : "Shipping"}>
+                <h1>Dostawa</h1>
+                <ul>
+                    {shipping}
+                </ul>
+            </div>
+        );
+    }
 };

@@ -1,10 +1,12 @@
-const addToCart = (target, productId) => {
+const addNavigateToCart = (target, productId) => {
     event.preventDefault();
     
     genericFetch(
         target,
         (data, href) => {
+            history.pushState({href: href}, '', href);
             oPageData = data;
+            Animation.start();
             renderApp();
         },
         {

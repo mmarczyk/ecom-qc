@@ -1,0 +1,17 @@
+.Shipping {
+    text-align: left;}
+  .Shipping h1 {
+    font-size: 1.3em;
+    margin: 5px 0;}
+  .Shipping span {
+    font-size: 0.8em;
+    line-height: 1.8em;
+    font-style: italic;}
+  .Shipping:not(.editable) li::before {
+    display: inline-block;
+    width: 6px;
+    height: 1px;
+    background: black;
+    content: " ";
+    vertical-align: middle;
+    margin-right: 5px;}

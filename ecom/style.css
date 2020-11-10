@@ -25,6 +25,181 @@ a:active {
     max-width: 1365px;
     position: relative;}
     
+.Cart {
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;}
+  .Cart > div {
+    display: inline-block;
+    vertical-align: top;}
+  .Cart .List {
+    width: 75%;}
+  .Cart > div:nth-child(2) {
+    width: 20%;
+    padding-left: 5%;
+    margin-top: 20px;}
+  .Cart .Payments {
+    margin-top: 30px;}
+.Contact {
+  width: 100%;
+  text-align: left;}
+  .Contact > div {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;}
+    .Contact > div:last-child {
+      width: 100%;
+      margin-bottom: 20px;}
+  .Contact input[type=text] {
+    display: block;
+    margin: 20px;
+    border-radius: 3px;
+    line-height: 1.8em;
+    border: 1px solid grey;
+    padding: 0 10px;
+    box-shadow: 1px 1px 5px 0 grey;}
+    .Contact input[name=name] {
+      width: 300px;}
+    .Contact input[name=street] {
+      width: 200px;}
+    .Contact input[name=zip] {
+      display: inline-block;
+      margin-top: 0;
+      margin-right: 0;
+      width: 45px;
+      text-align: center;}
+    .Contact input[name=city] {
+      display: inline-block;
+      margin-top: 0;
+      width: 213px;}
+  .Contact textarea {
+    margin: 20px;
+    width: 80%;
+    height: auto;
+    border-radius: 3px;
+    line-height: 1.8em;
+    border: 1px solid grey; 
+    resize: none;
+    box-shadow: 1px 1px 5px 0 grey;
+    padding: 0 10px;}
+  .Contact label {
+    font-size: 0.9em;
+    margin: 0 20px;}
+  .Contact input[type=checkbox] {
+    margin-right: 10px;}
+.Amount {
+    display: inline-block;}
+    .Amount span {
+        margin: 0 10px;
+        vertical-align:middle;
+        font-weight: bold;}
+    .Amount a {
+        border-radius: 5px;
+        background: white;
+        outline: none;
+        box-shadow: 1px 1px 1px grey;
+        border: 1px solid grey;
+        font-size: 0.6em;
+        vertical-align:middle;
+        padding: 5px 7px;}
+        .Amount a:hover {
+            box-shadow: 1px 1px 1px lightgrey;}
+    .Amount a.disabled {
+        box-shadow: none;
+        opacity: 0.5;
+        cursor: default;}
+
+.ProductItem {
+  position: relative;
+  text-align: left;
+  margin: 5px 0;
+  height: 100px;}
+  .ProductItem > div {
+    display: inline-block;}
+    .ProductItem > div:first-child {
+      height: 100%;
+      vertical-align: top;
+      max-width: 17%;}
+      .ProductItem > div:first-child img {
+        vertical-align: middle;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px 1px #bbb;
+        width: 100%}
+    .ProductItem > div:last-child {
+      width: 83%;
+      position: relative;
+      height: 100%;}
+     .ProductItem > div:last-child span {
+        margin: 0 12px;
+        text-transform: uppercase;
+        font-style: italic;
+        font-size: 0.95em;
+        vertical-align: middle;}  
+      .ProductItem > div:last-child > div{
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        margin-top: -1em;}        
+        .ProductItem > div:last-child > div:last-child {
+          right: 0;}
+    .ProductItem .Remove {
+        border: none;
+        cursor: pointer;
+        margin-left: 20px;}
+.Payments {
+    text-align: left;}
+  .Payments h1 {
+    font-size: 1.3em;
+    margin: 5px 0;}
+  .Payments span {
+    font-size: 0.8em;
+    line-height: 1.8em;
+    font-style: italic;}
+.Summary {
+  width: 100%;}
+  .Summary h1 {
+    font-size: 1.5em;
+    margin: 5px 0;}
+  .Summary span {
+    font-size: 0.9em;
+    display: inline-block;}
+    .Summary span:first-child {
+      width: 80%;
+      text-align: left;}
+    .Summary span:last-child {
+      width: 20%;
+      text-align: right;}
+  .Summary div:nth-child(3) {
+    margin: 5px 0;
+    line-height: 1.5em;
+    font-weight: bold;}
+    .Summary div:nth-child(3) span:last-child {
+      border-top: 1px solid black;}
+  .Summary a {
+    width: 200px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: 1px solid;
+    background: black;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px grey;
+    line-height: 2.8em;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;}
+    .Summary a:hover {
+      box-shadow: 2px 2px 5px grey;
+      opacity: 0.8;}
+    .Summary a:focus {
+      outline: none;
+      box-shadow: none;}
+    .Summary a.disabled {
+        box-shadow: none;
+        opacity: 0.5;
+        cursor: default;}
 .Category > div {
     margin: 10px 0;
 }
@@ -55,6 +230,60 @@ a:active {
 #root.visible .Content > div {
     opacity: 1;
     transition: opacity 500ms;}
+.Checkbox {
+  display: inline;
+  color: green;
+  position: relative;
+  vertical-align: middle;}
+  .Checkbox .empty {
+    content: " ";
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.5px solid #bbb;
+    display: inline-block;
+    position: absolute;
+    top: 0.015em;
+    left: 0.05em;
+    z-index: -1;}
+  .Checkbox i.icofont-tick-boxed {
+    display: none;
+    position:absolute;
+    left: 0;
+    top: 0;}
+  .Checkbox input {
+    opacity:0;
+    z-index: 9999;
+    position: relative;}
+    .Checkbox input:checked ~ i.icofont-tick-boxed {
+      display: inline;}
+    .Checkbox input:checked ~ i.empty {
+      display: none;}
+.Radio {
+  display: inline;
+  color: green;
+  position: relative;
+  vertical-align: middle;}
+  .Radio .empty {
+    content: " ";
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.5px solid #bbb;
+    display: inline-block;
+    position: absolute;
+    top: 0.015em;
+    left: 0.05em;
+    z-index: -1;}
+  .Radio i.icofont-tick-boxed {
+    display: none;
+    position:absolute;
+    left: 0;
+    top: 0;}
+  .Radio input {
+    opacity:0;}
+    .Radio input:checked ~ i.icofont-tick-boxed {
+      display: inline;}
+    .Radio input:checked ~ i.empty {
+      display: none;}
 .About {
     margin: 20px 0;
     position: relative;}
@@ -161,10 +390,15 @@ a:active {
     .Product .Reviews {
         float: left;}
 
+.Specification h1 {
+    font-size: 1.1em;
+    margin: 30px 0 5px;
+    text-transform: uppercase;}
 .Specification .desc {
     margin-top: 50px;}
     .Specification .desc h1 {
-        font-size: 1.5em;}
+        font-size: 1.5em;
+        text-transform: capitalize;}
     .Specification .desc span {
         font-size: 0.9em;}
 
@@ -231,6 +465,23 @@ a:active {
         font-weight: normal;
         font-style: italic;}
 
+.Shipping {
+    text-align: left;}
+  .Shipping h1 {
+    font-size: 1.3em;
+    margin: 5px 0;}
+  .Shipping span {
+    font-size: 0.8em;
+    line-height: 1.8em;
+    font-style: italic;}
+  .Shipping:not(.editable) li::before {
+    display: inline-block;
+    width: 6px;
+    height: 1px;
+    background: black;
+    content: " ";
+    vertical-align: middle;
+    margin-right: 5px;}
 .Footer {
     padding: 0 25% 50px;
     margin: 50px 0 0;

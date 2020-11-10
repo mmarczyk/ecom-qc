@@ -1,0 +1,9 @@
+.Payments {
+    text-align: left;}
+  .Payments h1 {
+    font-size: 1.3em;
+    margin: 5px 0;}
+  .Payments span {
+    font-size: 0.8em;
+    line-height: 1.8em;
+    font-style: italic;}

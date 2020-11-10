@@ -1,0 +1,26 @@
+.Radio {
+  display: inline;
+  color: green;
+  position: relative;
+  vertical-align: middle;}
+  .Radio .empty {
+    content: " ";
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.5px solid #bbb;
+    display: inline-block;
+    position: absolute;
+    top: 0.015em;
+    left: 0.05em;
+    z-index: -1;}
+  .Radio i.icofont-tick-boxed {
+    display: none;
+    position:absolute;
+    left: 0;
+    top: 0;}
+  .Radio input {
+    opacity:0;}
+    .Radio input:checked ~ i.icofont-tick-boxed {
+      display: inline;}
+    .Radio input:checked ~ i.empty {
+      display: none;}

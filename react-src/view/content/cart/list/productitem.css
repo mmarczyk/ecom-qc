@@ -1,0 +1,37 @@
+.ProductItem {
+  position: relative;
+  text-align: left;
+  margin: 5px 0;
+  height: 100px;}
+  .ProductItem > div {
+    display: inline-block;}
+    .ProductItem > div:first-child {
+      height: 100%;
+      vertical-align: top;
+      max-width: 17%;}
+      .ProductItem > div:first-child img {
+        vertical-align: middle;
+        border-radius: 5px;
+        box-shadow: 1px 1px 3px 1px #bbb;
+        width: 100%}
+    .ProductItem > div:last-child {
+      width: 83%;
+      position: relative;
+      height: 100%;}
+     .ProductItem > div:last-child span {
+        margin: 0 12px;
+        text-transform: uppercase;
+        font-style: italic;
+        font-size: 0.95em;
+        vertical-align: middle;}  
+      .ProductItem > div:last-child > div{
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        margin-top: -1em;}        
+        .ProductItem > div:last-child > div:last-child {
+          right: 0;}
+    .ProductItem .Remove {
+        border: none;
+        cursor: pointer;
+        margin-left: 20px;}

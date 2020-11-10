@@ -1,5 +1,9 @@
 <?php
 
+function renderProductImage($sImage) {
+    return DIR_FILES . $sImage['iSizeValue1'] . '/' . $sImage['sFileName'];
+}
+
 function renderProducts($aData)
 {
     if (isset($aData['iProducts'])) {
@@ -13,7 +17,7 @@ function renderProducts($aData)
                 ];
                 if (isset($aEntry['sImage'])) {
                     $result['sImage'] = [
-                        'sFileName' => DIR_FILES . $aEntry['sImage']['iSizeValue1'] . '/' . $aEntry['sImage']['sFileName']
+                        'sFileName' => renderProductImage($aEntry['sImage'])
                     ];
                 }
 
@@ -88,10 +92,11 @@ function renderPages($aData, $oPage, $oFile)
     return $aData;
 }
 
-function renderCart($aData, $oOrder, $config)
+function renderCart($aData, $oOrder, $config, $oFile)
 {
     if(isset($config['this_is_basket_page']) && $config['this_is_basket_page'] === true) {
         $aCart = [];
+        $fTotalAmount = 0;
         if( isset( $oOrder->aProducts ) ){
             foreach( $oOrder->aProducts as $aProductData ){
                 $aProductData['sPrice'] = displayPrice(
@@ -100,13 +105,69 @@ function renderCart($aData, $oOrder, $config)
                 $aProductData['sSummary'] = displayPrice(
                     normalizePrice( $aProductData['fSummary']
                 ));
+                $aProductData['sImage'] = renderProductImage(
+                    $oFile->aImagesDefault[2][$aProductData['iProduct']]
+                );
+                $aProductData['sLinkDelete'] = htmlspecialchars_decode(
+                    $aProductData['sLinkDelete']
+                );
 
                 $aCart[] = $aProductData;
+                $fTotalAmount += $aProductData['fPrice']*$aProductData['iQuantity'];
             }
 
-            $aData['aCart'] = $aCart;
+            $aData['aCart'] = [
+                'aProducts' => $aCart,
+                'fTotalAmount' => displayPrice(
+                    normalizePrice($fTotalAmount)
+                ),
+                'oOrder' => [
+                    'name' => '',
+                    'street' => '',
+                    'zip' => '',
+                    'city' => '',
+                    'payment' => -1,
+                    'shipping' => [
+                        'price' => 0.0,
+                        'id' => -1
+                    ]
+                ]
+            ];
+        } else {
+            $aData['aCart'] = 'empty';
         }
     }
 
+    return $aData;
+}
+
+function renderShipping($aData, $oOrder)
+{
+    $oOrder = new OrdersExt();
+    $aData['aShipping'] = array_map(
+        function($aEntry) {
+            return [
+                'iIdShipping' => $aEntry['iId'],
+                'sName' => $aEntry['sName'],
+                'fPrice' => displayPrice($aEntry['fPrice'])
+            ];
+        },
+        $oOrder->getShippingData()
+    );
+    return $aData;
+}
+
+function renderPayments($aData, $oOrder)
+{
+    $oOrder = new OrdersExt();
+    $aData['aPayments'] = array_map(
+        function($aEntry) {
+            return [
+                'iIdPayment' => $aEntry['iId'],
+                'sName' => $aEntry['sName']
+            ];
+        },
+        $oOrder->getPaymentsData()
+    );
     return $aData;
 }
