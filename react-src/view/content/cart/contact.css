@@ -18,8 +18,20 @@
     box-shadow: 1px 1px 5px 0 grey;}
     .Contact input[name=name] {
       width: 300px;}
+    .Contact input[name=email] {
+      display: inline-block;
+      margin-top: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 158px;}
+    .Contact input[name=tel] {
+      display: inline-block;
+      margin-top: 0;
+      margin-bottom: 0;
+      width: 100px;
+      text-align: center;}
     .Contact input[name=street] {
-      width: 200px;}
+      width: 300px;}
     .Contact input[name=zip] {
       display: inline-block;
       margin-top: 0;

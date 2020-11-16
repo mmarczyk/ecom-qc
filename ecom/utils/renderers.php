@@ -123,6 +123,8 @@ function renderCart($aData, $oOrder, $config, $oFile)
                 ),
                 'oOrder' => [
                     'name' => '',
+                    'email' => '',
+                    'phone' => '',
                     'street' => '',
                     'zip' => '',
                     'city' => '',
@@ -130,8 +132,11 @@ function renderCart($aData, $oOrder, $config, $oFile)
                     'shipping' => [
                         'price' => 0.0,
                         'id' => -1
-                    ]
-                ]
+                    ],
+                    'comment' => ''
+                ],
+                'bAcceptRules' => false,
+                'bAcceptGdpr' => false
             ];
         } else {
             $aData['aCart'] = 'empty';
@@ -169,5 +174,39 @@ function renderPayments($aData, $oOrder)
         },
         $oOrder->getPaymentsData()
     );
+    return $aData;
+}
+
+function renderOrder($aData, $oOrder, $config, $oFile, $iOrder) {
+    if($config['this_is_order_page'] && $config['this_is_order_page'] === true && isset($iOrder) && $iOrder > 0) {
+        $aData['aOrder'] = $oOrder->throwOrder($iOrder);
+
+        $aData['aOrder']['aProducts'] = [];
+        $fTotalAmount = 0;
+
+        foreach($oOrder->aProducts as $iId => $aProductData) {
+            $aEntry = [
+                'iProduct' => $aProductData['iProduct'],
+                'iQuantity' => $aProductData['iQuantity'],
+                'sName' => $aProductData['sName'],
+                'sImage' => $aProductData['sImage'],
+                'sLinkName' => $aProductData['sLinkName'],
+                'sLinkDelete' => $aProductData['sLinkDelete'],
+                'fPrice' => $aProductData['fPrice'],
+                'fSummary' => $aProductData['fSummary'],
+                'sImage' => renderProductImage(
+                    $oFile->aImagesDefault[2][$aProductData['iProduct']]
+                )
+            ];
+
+            $aData['aOrder']['aProducts'][] = $aEntry;
+            $fTotalAmount += $aProductData['fPrice']*$aProductData['iQuantity']; 
+        }
+
+        $aData['aOrder']['fTotalAmount'] = displayPrice(
+            normalizePrice($fTotalAmount)
+        );
+    }
+
     return $aData;
 }

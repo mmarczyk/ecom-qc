@@ -10,7 +10,7 @@ const TopBanner = () => {
     let imagesLeft = null;
     if (oPageData && oPageData.aImages && oPageData.aImages.left) {
         imagesLeft = (
-            <ul class="imagesList" id="imagesList1">
+            <ul className="imagesList" id="imagesList1">
                 {oPageData.aImages.left.map(convert)}
             </ul>
         );
@@ -19,7 +19,7 @@ const TopBanner = () => {
     let imagesRight = null;
     if (oPageData && oPageData.aImages && oPageData.aImages.right) {
         imagesRight = (
-            <ul class="imagesList" id="imagesList2">
+            <ul className="imagesList" id="imagesList2">
                 {oPageData.aImages.right.map(convert)}
             </ul>
         );

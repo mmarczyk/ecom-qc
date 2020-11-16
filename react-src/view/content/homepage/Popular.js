@@ -6,12 +6,12 @@ const Popular = () => {
                     <h2>
                         <Link href={element.sLinkName}>{element.sName}</Link>
                     </h2>
-                    <div class="photo">
+                    <div className="photo">
                         <Link href={element.sLinkName}>
                             <img src={element.sImage.sFileName} alt={element.sName} />
                         </Link>
                     </div>
-                    <div class="price">
+                    <div className="price">
                         <em>Cena: </em>
                         <strong>{element.mPrice}</strong>
                         <span>zł</span>

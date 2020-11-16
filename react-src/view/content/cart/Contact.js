@@ -10,6 +10,20 @@ const Contact = () => {
                     value={oPageData.aCart.oOrder.name}
                 />
                 <Textinput
+                    name="email"
+                    placeholder="Adres email"
+                    formatter={formatEmail}
+                    bind={setEmail}
+                    value={oPageData.aCart.oOrder.email}
+                />
+                <Textinput
+                    name="tel"
+                    placeholder="Nr telefonu"
+                    formatter={formatPhone}
+                    bind={setPhone}
+                    value={oPageData.aCart.oOrder.phone}
+                />
+                <Textinput
                     name="street"
                     placeholder="Ulica i nr domu"
                     formatter={formatStreet}
@@ -33,14 +47,16 @@ const Contact = () => {
             </div>
             <div>
                 <Textinput
-                    rows="5"
+                    rows="7"
                     placeholder="Wpisz tutaj dodatkowe informacje"
                     name="info"
+                    bind={setOrderComment}
+                    value={oPageData.aCart.oOrder.comment}
                 />
             </div>
             <div>
                 <div>
-                    <label for="rules">
+                    <label>
                         <Checkbox
                             name="rules"
                             action={() => setAcceptRules()}
@@ -49,7 +65,7 @@ const Contact = () => {
                     </label>
                 </div>
                 <div>
-                    <label for="gdpr">
+                    <label>
                         <Checkbox
                             name="gdpr"
                             action={() => setAcceptGdpr()}

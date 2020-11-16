@@ -1,8 +1,8 @@
 const Shipping = props => {
     if(oPageData && oPageData.aShipping) {
-        const shipping = oPageData.aShipping.map(element => {
+        const shipping = oPageData.aShipping.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     {props.editable && <Radio name="carrier"
                         action={() => setShippingCost(element)}
                         checked={

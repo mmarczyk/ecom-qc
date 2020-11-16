@@ -1,8 +1,8 @@
 const Gallery = () => {
     if (oPageData && oPageData.aImages && oPageData.aImages.left) {
-        const images = oPageData.aImages.left.map(element => {
+        const images = oPageData.aImages.left.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     <div className="nav">
                         <img src={element.sSizedImageLink} alt={element.sAlt} />
                     </div>

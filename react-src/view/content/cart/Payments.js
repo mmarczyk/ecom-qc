@@ -1,8 +1,8 @@
 const Payments = () => {
     if(oPageData && oPageData.aPayments) {
-        const payments = oPageData.aPayments.map(element => {
+        const payments = oPageData.aPayments.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     <Radio
                         name="payment"
                         action={() => setPayment(element.iIdPayment)}

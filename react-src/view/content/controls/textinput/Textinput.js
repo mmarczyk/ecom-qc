@@ -18,9 +18,8 @@ const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
                 placeholder={placeholder}
                 rows={rows}
                 onChange={onChangeHandler}
-            >
-                {value}
-            </textarea>
+                value={value}
+            />
         );
     } else {
         return (

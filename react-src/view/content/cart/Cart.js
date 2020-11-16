@@ -4,13 +4,13 @@ const Cart = () => {
     if(oPageData.aCart && (typeof oPageData.aCart === 'object')){
         return (
             <div className="Cart">
-                <List />
+                <CartItemList data="aCart"/>
                 <div>
                     <Shipping editable />
                     <Payments />
                 </div>
                 <Contact />
-                <Summary />
+                <Summary data='aCart'/>
             </div>
         );
     }

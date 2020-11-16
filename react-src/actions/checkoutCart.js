@@ -1,5 +1,8 @@
 const checkoutCart = (target) => {
     event.preventDefault();
+
+    const sFirstName = oPageData.aCart.oOrder.name.split(' ', 1);
+    const sLastName = oPageData.aCart.oOrder.name.split(' ').slice(1);
     
     genericFetch(
         target,
@@ -13,15 +16,15 @@ const checkoutCart = (target) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: jsonToForm({
-                sFirstName: oPageData.aCart.oOrder.name,
-                sLastName: oPageData.aCart.oOrder.name,
+                sFirstName: sFirstName,
+                sLastName: sLastName,
                 sCompanyName: oPageData.aCart.oOrder.name,
                 sStreet: oPageData.aCart.oOrder.street,
                 sZipCode: oPageData.aCart.oOrder.zip,
                 sCity: oPageData.aCart.oOrder.city,
-                sPhone: '654345653',
-                sEmail: 'my@email.com',
-                sComment: '',
+                sPhone: oPageData.aCart.oOrder.phone,
+                sEmail: oPageData.aCart.oOrder.email,
+                sComment: oPageData.aCart.oOrder.comment,
                 sShippingPayment: [
                     oPageData.aCart.oOrder.shipping.id,
                     oPageData.aCart.oOrder.payment,

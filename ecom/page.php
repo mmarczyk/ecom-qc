@@ -87,6 +87,7 @@ $aData = renderPages($aData, $oPage, $oFile);
 $aData = renderCart($aData, $oOrder, $config, $oFile);
 $aData = renderShipping($aData, $oOrder);
 $aData = renderPayments($aData, $oOrder);
+$aData = renderOrder($aData, $oOrder, $config, $oFile, $iOrder);
 $vars['<?DATA?>'] = json_encode($aData);
 
 if(isset($_GET['json'])) {

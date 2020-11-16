@@ -1,19 +1,19 @@
 const Categories = () => {
     function renderMenu(item) {
         let content = [];
-        item.forEach(element => {
+        item.forEach((element, index) => {
             if(element.sSubContent) {
                 content.push(
-                    <li>
+                    <li key={index}>
                         <Link href={element.sLinkName}>{element.sName}</Link>
-                        <ul class="sub1">
+                        <ul className="sub1">
                             {renderMenu(element.sSubContent)}
                         </ul>
                     </li>
                 );
             } else {
                 content.push (
-                    <li>
+                    <li key={index}>
                         <Link href={element.sLinkName}>{element.sName}</Link>
                     </li>
                 );            

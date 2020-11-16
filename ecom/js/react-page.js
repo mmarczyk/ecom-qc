@@ -53,6 +53,9 @@ const addToCart = (target, productId) => {
 };
 const checkoutCart = (target) => {
     event.preventDefault();
+
+    const sFirstName = oPageData.aCart.oOrder.name.split(' ', 1);
+    const sLastName = oPageData.aCart.oOrder.name.split(' ').slice(1);
     
     genericFetch(
         target,
@@ -66,15 +69,15 @@ const checkoutCart = (target) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: jsonToForm({
-                sFirstName: oPageData.aCart.oOrder.name,
-                sLastName: oPageData.aCart.oOrder.name,
+                sFirstName: sFirstName,
+                sLastName: sLastName,
                 sCompanyName: oPageData.aCart.oOrder.name,
                 sStreet: oPageData.aCart.oOrder.street,
                 sZipCode: oPageData.aCart.oOrder.zip,
                 sCity: oPageData.aCart.oOrder.city,
-                sPhone: '',
-                sEmail: '',
-                sComment: '',
+                sPhone: oPageData.aCart.oOrder.phone,
+                sEmail: oPageData.aCart.oOrder.email,
+                sComment: oPageData.aCart.oOrder.comment,
                 sShippingPayment: [
                     oPageData.aCart.oOrder.shipping.id,
                     oPageData.aCart.oOrder.payment,
@@ -86,7 +89,7 @@ const checkoutCart = (target) => {
             })
         }
     );
-        
+
     return false;
 };
 const navigateTo = (event) => {
@@ -153,12 +156,24 @@ const setCity = (text) => {
     oPageData.aCart.oOrder.city = text;
     renderApp();
 };
+const setEmail = (text) => {
+    oPageData.aCart.oOrder.email = text;
+    renderApp();
+};
+const setOrderComment = (text) => {
+    oPageData.aCart.oOrder.comment = text;
+    renderApp();
+};
 const setOrderName = (text) => {
     oPageData.aCart.oOrder.name = text;
     renderApp();
 };
 const setPayment = (element) => {
     oPageData.aCart.oOrder.payment = element;
+    renderApp();
+};
+const setPhone = (text) => {
+    oPageData.aCart.oOrder.phone = text;
     renderApp();
 };
 const setShippingCost = (element) => {
@@ -202,11 +217,59 @@ const formatCity = (text, caretPos) => {
       caretPos
   ];
 };
+const formatEmail = (text, caretPos) => {
+    const email = text.split("@");
+
+    email[0] = email[0]
+        .replace(/^\.+/g, "")
+        .replace(/\.\.+/g, ".")
+        .replace(/[^A-Za-z0-9!#$%&'*+-/=?^_`{|}~]/g, "");
+
+    if(email.length === 1) {
+        return [
+            email[0],
+            caretPos
+        ];
+    } else {
+        email[0] = email[0].replace(/\.+$/g, "");
+        email[1] = email[1]
+            .replace(/^\.+/g, "")
+            .replace(/\.\.+/g, ".")
+            .replace(/[^\.A-Za-z0-9]/g,"");
+        
+        return [
+            email[0] + "@" + email[1],
+            caretPos
+        ];
+    }
+};
 const formatName = (text, caretPos) => {
   return [
       text.replace(/[^A-Za-z\s-ąćęłóśżźń]/g, ""),
       caretPos
   ];
+};
+const formatPhone = (text, caretPos) => {
+    if(text.length > 0 && text.charAt(0) == '+') {
+        text = "+" + text.replace(/\D/g, "");
+    } else {
+        text = text.replace(/\D/g, "");
+    }
+
+    if(text.length > 0) {
+        if(text.charAt(0) === "0" && text.charAt(1) === "0") {
+            text = text.length > 13 ? text.substring(0, 13) : text;
+        } else if(text.charAt(0) === "+") {
+            text = text.length > 12 ? text.substring(0, 12) : text;
+        } else if(text.length > 9) {
+            text = text.substring(0, 9);
+        }
+    }
+
+    return [
+        text,
+        caretPos
+    ];
 };
 const formatStreet = (text, caretPos) => {
   return [
@@ -273,6 +336,8 @@ const Content = () => {
             content = <Category />;
         } else if (oPageData.aCart) {
             content = <Cart />;
+        } else if (oPageData.aOrder) {
+            content = <Order />;
         } else {
             content = <CmsPage />;
         }
@@ -290,13 +355,13 @@ const Cart = () => {
     if(oPageData.aCart && (typeof oPageData.aCart === 'object')){
         return (
             <div className="Cart">
-                <List />
+                <CartItemList data="aCart"/>
                 <div>
                     <Shipping editable />
                     <Payments />
                 </div>
                 <Contact />
-                <Summary />
+                <Summary data='aCart'/>
             </div>
         );
     }
@@ -318,6 +383,20 @@ const Contact = () => {
                     formatter={formatName}
                     bind={setOrderName}
                     value={oPageData.aCart.oOrder.name}
+                />
+                <Textinput
+                    name="email"
+                    placeholder="Adres email"
+                    formatter={formatEmail}
+                    bind={setEmail}
+                    value={oPageData.aCart.oOrder.email}
+                />
+                <Textinput
+                    name="tel"
+                    placeholder="Nr telefonu"
+                    formatter={formatPhone}
+                    bind={setPhone}
+                    value={oPageData.aCart.oOrder.phone}
                 />
                 <Textinput
                     name="street"
@@ -343,14 +422,16 @@ const Contact = () => {
             </div>
             <div>
                 <Textinput
-                    rows="5"
+                    rows="7"
                     placeholder="Wpisz tutaj dodatkowe informacje"
                     name="info"
+                    bind={setOrderComment}
+                    value={oPageData.aCart.oOrder.comment}
                 />
             </div>
             <div>
                 <div>
-                    <label for="rules">
+                    <label>
                         <Checkbox
                             name="rules"
                             action={() => setAcceptRules()}
@@ -359,7 +440,7 @@ const Contact = () => {
                     </label>
                 </div>
                 <div>
-                    <label for="gdpr">
+                    <label>
                         <Checkbox
                             name="gdpr"
                             action={() => setAcceptGdpr()}
@@ -374,9 +455,9 @@ const Contact = () => {
 };
 const Payments = () => {
     if(oPageData && oPageData.aPayments) {
-        const payments = oPageData.aPayments.map(element => {
+        const payments = oPageData.aPayments.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     <Radio
                         name="payment"
                         action={() => setPayment(element.iIdPayment)}
@@ -398,133 +479,6 @@ const Payments = () => {
         );
     }
 };
-const Summary = () => {
-    const [amount, shipping, total] = [
-        oPageData.aCart.fTotalAmount,
-        oPageData.aCart.oOrder.shipping.price,
-        changePriceFormat(parseFloat(oPageData.aCart.fTotalAmount)
-            + parseFloat(oPageData.aCart.oOrder.shipping.price))
-    ];
-    const isOrderReady = () =>
-        oPageData.aCart.bAcceptRules == true &&
-        oPageData.aCart.bAcceptGdpr == true &&
-        oPageData.aCart.oOrder.shipping.id > 0 &&
-        oPageData.aCart.oOrder.payment > 0 &&
-        oPageData.aCart.oOrder.name.length > 0 &&
-        oPageData.aCart.oOrder.street.length > 0 &&
-        oPageData.aCart.oOrder.zip.length == 6 &&
-        oPageData.aCart.oOrder.city.length > 0;
-    
-    return (
-        <div className="Summary">
-            <h1>Podsumowanie</h1>
-            <div>
-                <div>
-                    <span>Koszt zakupów</span>
-                    <span>{amount} zł</span>
-                </div>
-                <div>
-                    <span>Koszt dostawy</span>
-                    <span>{shipping} zł</span>
-                </div>
-                <div>
-                    <span>Do zapłaty</span>
-                    <span>{total} zł</span>
-                </div>
-                <div>
-                    <Submit
-                        href={sOrderPage}
-                        action={(event) => checkoutCart(
-                            event.currentTarget
-                        )}
-                        disabled={
-                            !isOrderReady()}
-                    >
-                        Zamów
-                    </Submit>
-                </div>
-            </div>
-        </div>
-    );
-};
-const Amount = props => {
-    return (
-        <div className="Amount">
-            <Submit
-                href={sCartPage}
-                action={(event) => removeFromCartSingle(
-                    event.currentTarget, 
-                    props.product.iProduct,
-                    props.product.iQuantity
-                )}
-                disabled={props.product.iQuantity === 1}>
-                <i className="icofont-rounded-down" />
-            </Submit>
-            <span>{props.product.iQuantity}</span>
-            <Submit
-                href={sCartPage}
-                action={(event) => addToCart(
-                    event.currentTarget, 
-                    props.product.iProduct
-                )}>
-                <i className="icofont-rounded-up" />
-            </Submit>
-        </div>
-    );
-};
-const List = () => {
-    if(oPageData.aCart && (typeof oPageData.aCart === 'object')) {
-        const products = oPageData.aCart.aProducts.map( (element, idx) => {
-            return (
-                <li>
-                    <ProductItem index={idx}/>
-                </li>
-            );
-        });
-        return (
-            <div className="List">
-                <div>
-                    <ul>
-                        {products}
-                    </ul>
-                </div>
-            </div>
-        );
-    }
-};
-const ProductItem = props => {
-    if(oPageData.aCart && (typeof oPageData.aCart === 'object')) {
-        if(props.index in oPageData.aCart.aProducts) {
-            const product = oPageData.aCart.aProducts[props.index];
-            return (
-                <div className="ProductItem">
-                <div>
-                    <Link href={product.sLinkName}>
-                        <img src={product.sImage} alt={product.sName} />
-                    </Link>
-                </div>
-                <div>
-                    <div>
-                        <span>{product.sName}</span>
-                    </div>
-                    <div>
-                        <span>{product.fPrice} zł</span>
-                        <Amount product={product}/>
-                        <span>{product.fSummary} zł</span>
-                        <Submit
-                            className="Remove"
-                            href={product.sLinkDelete}
-                            action={(event) =>
-                                removeFromCart(event.currentTarget)}>
-                            <i className="icofont-trash" />
-                        </Submit>
-                    </div>
-                </div>
-                </div>
-            );
-        }
-    }
-};
 const Category = () => {
     return (
         <div className="Category">
@@ -544,10 +498,10 @@ const Description = () => {
 };
 const Subcategories = () => {
     if ('aPages' in oPageData) {
-        const subcategories = oPageData.aPages.map(element => {
+        const subcategories = oPageData.aPages.map((element, index) => {
             const img = element.sImage ? <img src={element.sImage.sFileName}/> : null;
             return (
-                <li>
+                <li key={index}>
                     <Link href={element.sLinkName}>
                         <h1>{element.sName}</h1>
                         {img}
@@ -579,7 +533,7 @@ const Checkbox = props => {
 
   return (
     <div className="Checkbox">
-      <input type="checkbox" name={name} onClick={action} checked={checked}/>
+      <input type="checkbox" name={name} onChange={action} checked={checked}/>
       <i className="icofont-tick-boxed" />
       <i className="empty" />
     </div>
@@ -590,7 +544,7 @@ const Radio = props => {
 
   return (
     <div className="Radio">
-      <input type="radio" name={name} onClick={action} checked={checked}/>
+      <input type="radio" name={name} onChange={action} checked={checked}/>
       <i className="icofont-tick-boxed" />
       <i className="empty" />
     </div>
@@ -616,9 +570,8 @@ const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
                 placeholder={placeholder}
                 rows={rows}
                 onChange={onChangeHandler}
-            >
-                {value}
-            </textarea>
+                value={value}
+            />
         );
     } else {
         return (
@@ -671,12 +624,12 @@ const Popular = () => {
                     <h2>
                         <Link href={element.sLinkName}>{element.sName}</Link>
                     </h2>
-                    <div class="photo">
+                    <div className="photo">
                         <Link href={element.sLinkName}>
                             <img src={element.sImage.sFileName} alt={element.sName} />
                         </Link>
                     </div>
-                    <div class="price">
+                    <div className="price">
                         <em>Cena: </em>
                         <strong>{element.mPrice}</strong>
                         <span>zł</span>
@@ -705,7 +658,7 @@ const TopBanner = () => {
     let imagesLeft = null;
     if (oPageData && oPageData.aImages && oPageData.aImages.left) {
         imagesLeft = (
-            <ul class="imagesList" id="imagesList1">
+            <ul className="imagesList" id="imagesList1">
                 {oPageData.aImages.left.map(convert)}
             </ul>
         );
@@ -714,7 +667,7 @@ const TopBanner = () => {
     let imagesRight = null;
     if (oPageData && oPageData.aImages && oPageData.aImages.right) {
         imagesRight = (
-            <ul class="imagesList" id="imagesList2">
+            <ul className="imagesList" id="imagesList2">
                 {oPageData.aImages.right.map(convert)}
             </ul>
         );
@@ -729,11 +682,42 @@ const TopBanner = () => {
         </div>
     );
 };
+const Order = () => {
+    useEffect(() => window.scrollTo(0, 0));
+
+    if(oPageData.aOrder){
+        oPageData.aOrder.oOrder = {
+            shipping: {
+               price: oPageData.aOrder.fPaymentShippingPrice
+            }
+        };
+
+        return (
+            <div className="Order">
+                <OrderSummary />
+                <CartItemList data="aOrder" readonly/>
+                <Summary data='aOrder' readonly/>
+            </div>
+        );
+    }
+};
+const OrderSummary = () => {
+    useEffect(() => window.scrollTo(0, 0));
+
+    if(oPageData.aOrder){
+        return (
+            <div className="OrderSummary">
+                <h1>Dziękujemy za złożenie zamówienia w naszym sklepie.</h1>
+                <span>Poniżej znajdują się szczegóły:</span>
+            </div>
+        );
+    }
+};
 const Gallery = () => {
     if (oPageData && oPageData.aImages && oPageData.aImages.left) {
-        const images = oPageData.aImages.left.map(element => {
+        const images = oPageData.aImages.left.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     <div className="nav">
                         <img src={element.sSizedImageLink} alt={element.sAlt} />
                     </div>
@@ -944,28 +928,28 @@ const Title = () => {
 };
 const ProductList = (config) => {
     if (oPageData && oPageData.aProducts) {
-        const products = oPageData.aProducts.map(element => {
+        const products = oPageData.aProducts.map((element, index) => {
             const img = element.sImage ? element.sImage.sFileName : sDirImg + 'no-image.png';
             const name = element.sName.length > 27 ? element.sName.substring(0, 25) + '...' : element.sName;
             
             const nameBlock =
                 config.notitle ?
                 null :                     
-                <div class="name">
+                <div className="name">
                     <h3>
                         <Link href={element.sLinkName}>{name}</Link>
                     </h3>
                 </div>;
 
             return (
-                <li>
-                    <div class="photo">
+                <li key={index}>
+                    <div className="photo">
                         <Link href={element.sLinkName}>
                             <img src={img} alt={element.sName} />
                         </Link>
                     </div>
                     {nameBlock}
-                    <div class="price">
+                    <div className="price">
                         <strong>{element.mPrice}</strong>
                         <span>zł</span>
                     </div>
@@ -984,9 +968,9 @@ const ProductList = (config) => {
 };
 const Shipping = props => {
     if(oPageData && oPageData.aShipping) {
-        const shipping = oPageData.aShipping.map(element => {
+        const shipping = oPageData.aShipping.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     {props.editable && <Radio name="carrier"
                         action={() => setShippingCost(element)}
                         checked={
@@ -1008,13 +992,163 @@ const Shipping = props => {
         );
     }
 };
+const Summary = ({data, order}) => {
+    const [amount, cost, total] = [
+        oPageData[data].fTotalAmount,
+        oPageData[data].oOrder.shipping.price,
+        changePriceFormat(parseFloat(oPageData[data].fTotalAmount)
+            + parseFloat(oPageData[data].oOrder.shipping.price))
+    ];
+    let submit = null;
+    if(!order) {
+        const isOrderReady = () =>
+            oPageData.aCart.bAcceptRules == true &&
+            oPageData.aCart.bAcceptGdpr == true &&
+            oPageData.aCart.oOrder.shipping.id > 0 &&
+            oPageData.aCart.oOrder.payment > 0 &&
+            oPageData.aCart.oOrder.name.length > 0 &&
+            oPageData.aCart.oOrder.street.length > 0 &&
+            oPageData.aCart.oOrder.zip.length == 6 &&
+            oPageData.aCart.oOrder.city.length > 0;
+
+        submit = 
+            <div>
+                <Submit
+                    href={sOrderPage}
+                    action={(event) => checkoutCart(
+                    event.currentTarget
+                    )}
+                    disabled={
+                        !isOrderReady()}
+                >
+                    Zamów
+                </Submit>
+            </div>;
+    } else {
+        submit = 
+            <div>
+                <a href="http://wp.pl" target="_blank">
+                    Zapłać
+                </a>
+            </div>;
+    }
+
+    const shipping = oPageData[data].mShipping ? "(" + oPageData[data].mShipping + ")" : null;
+    
+    return (
+        <div className="Summary">
+            <h1>Podsumowanie</h1>
+            <div>
+                <div>
+                    <span>Koszt zakupów</span>
+                    <span>{amount} zł</span>
+                </div>
+                <div>
+                    <span>Koszt dostawy {shipping}</span>
+                    <span>{cost} zł</span>
+                </div>
+                <div>
+                    <span>Do zapłaty</span>
+                    <span>{total} zł</span>
+                </div>
+                {submit}
+            </div>
+        </div>
+    );
+};
+const Amount = ({product, readonly}) => {
+    const buttonQuantityAdd = readonly ? null :
+            <Submit
+                href={sCartPage}
+                action={(event) => removeFromCartSingle(
+                    event.currentTarget, 
+                    product.iProduct,
+                    product.iQuantity
+                )}
+                disabled={product.iQuantity === 1}>
+                <i className="icofont-rounded-down" />
+            </Submit>;
+    const buttonQuantityReduce = readonly ? null :
+            <Submit
+                href={sCartPage}
+                action={(event) => addToCart(
+                    event.currentTarget, 
+                    product.iProduct
+                )}>
+                <i className="icofont-rounded-up" />
+            </Submit>;
+
+    return (
+        <div className="Amount">
+            {buttonQuantityAdd}
+            <span>{product.iQuantity}</span>
+            {buttonQuantityReduce}
+        </div>
+    );
+};
+const CartItemList = ({data, readonly}) => {
+    if(data in oPageData && (typeof oPageData[data] === 'object')) {
+        const products = oPageData[data].aProducts.map( (element, idx) => {
+            return (
+                <li key={idx}>
+                    <ProductItem index={idx} data={data} readonly={readonly}/>
+                </li>
+            );
+        });
+        return (
+            <div className="List">
+                <div>
+                    <ul>
+                        {products}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+};
+const ProductItem = ({data, index, readonly}) => {
+    if(data in oPageData && (typeof oPageData[data] === 'object')) {
+        if(index in oPageData[data].aProducts) {
+            const product = oPageData[data].aProducts[index];
+            const submit = readonly ? null : 
+                <Submit
+                    className="Remove"
+                    href={product.sLinkDelete}
+                    action={(event) =>
+                            removeFromCart(event.currentTarget)}>
+                    <i className="icofont-trash" />
+                </Submit>;
+
+            return (
+                <div className="ProductItem">
+                <div>
+                    <Link href={product.sLinkName}>
+                        <img src={product.sImage} alt={product.sName} />
+                    </Link>
+                </div>
+                <div>
+                    <div>
+                        <span>{product.sName}</span>
+                    </div>
+                    <div>
+                        <span>{product.fPrice} zł</span>
+                        <Amount product={product} readonly={readonly}/>
+                        <span>{product.fSummary} zł</span>
+                        {submit}
+                    </div>
+                </div>
+                </div>
+            );
+        }
+    }
+};
 const Footer = () => {
     function renderPages(item) {
         let content = [];
-        item.forEach(element => {
+        item.forEach((element, index) => {
             if(element.sSubContent) {
                 content.push(
-                    <li>
+                    <li key={index}>
                         <div>
                             <h1>
                                 <a href={element.sLinkName}>{element.sName}</a>
@@ -1027,7 +1161,7 @@ const Footer = () => {
                 );
             } else {
                 content.push (
-                    <li>
+                    <li key={index}>
                         <span>
                             <a href={element.sLinkName}>{element.sName}</a>
                         </span>
@@ -1061,19 +1195,19 @@ const CartIcon = () => {
 const Categories = () => {
     function renderMenu(item) {
         let content = [];
-        item.forEach(element => {
+        item.forEach((element, index) => {
             if(element.sSubContent) {
                 content.push(
-                    <li>
+                    <li key={index}>
                         <Link href={element.sLinkName}>{element.sName}</Link>
-                        <ul class="sub1">
+                        <ul className="sub1">
                             {renderMenu(element.sSubContent)}
                         </ul>
                     </li>
                 );
             } else {
                 content.push (
-                    <li>
+                    <li key={index}>
                         <Link href={element.sLinkName}>{element.sName}</Link>
                     </li>
                 );            

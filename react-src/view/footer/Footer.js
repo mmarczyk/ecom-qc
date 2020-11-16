@@ -1,10 +1,10 @@
 const Footer = () => {
     function renderPages(item) {
         let content = [];
-        item.forEach(element => {
+        item.forEach((element, index) => {
             if(element.sSubContent) {
                 content.push(
-                    <li>
+                    <li key={index}>
                         <div>
                             <h1>
                                 <a href={element.sLinkName}>{element.sName}</a>
@@ -17,7 +17,7 @@ const Footer = () => {
                 );
             } else {
                 content.push (
-                    <li>
+                    <li key={index}>
                         <span>
                             <a href={element.sLinkName}>{element.sName}</a>
                         </span>
