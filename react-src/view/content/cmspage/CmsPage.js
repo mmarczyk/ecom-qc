@@ -1,7 +1,7 @@
 const CmsPage = () => {
     return (
         <div className="CmsPage">
-            CMS
+            <Description full/>
         </div>
     );
 };

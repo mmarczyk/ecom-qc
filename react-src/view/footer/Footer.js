@@ -7,7 +7,7 @@ const Footer = () => {
                     <li key={index}>
                         <div>
                             <h1>
-                                <a href={element.sLinkName}>{element.sName}</a>
+                                <Link href={element.sLinkName}>{element.sName}</Link>
                             </h1>
                             <ul>
                                 {renderPages(element.sSubContent)}
@@ -16,10 +16,14 @@ const Footer = () => {
                     </li>
                 );
             } else {
+                const name = element.sImage ? 
+                    <img src={element.sImage} alt={element.sName}/> :
+                    element.sName;
+
                 content.push (
                     <li key={index}>
                         <span>
-                            <a href={element.sLinkName}>{element.sName}</a>
+                            <Link href={element.sLinkName}>{name}</Link>
                         </span>
                     </li>
                 );            

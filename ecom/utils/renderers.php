@@ -1,7 +1,10 @@
 <?php
 
 function renderProductImage($sImage) {
-    return DIR_FILES . $sImage['iSizeValue1'] . '/' . $sImage['sFileName'];
+    if($sImage)
+        return DIR_FILES . $sImage['iSizeValue1'] . '/' . $sImage['sFileName'];
+
+    return null;
 }
 
 function renderProducts($aData)

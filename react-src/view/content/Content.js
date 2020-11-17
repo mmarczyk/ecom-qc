@@ -1,6 +1,6 @@
 const Content = () => {
     let content = <Homepage />;
-    if (window.location.search !== '') {
+    if (!oPageData.isStartPage) {
         content = null;
         if (window.location.search.match(/^\?\d+,.*$/)) {
             content = <Product />;

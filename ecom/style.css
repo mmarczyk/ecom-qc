@@ -138,60 +138,6 @@ a:active {
 #root.visible .Content > div {
     opacity: 1;
     transition: opacity 500ms;}
-.Checkbox {
-  display: inline;
-  color: green;
-  position: relative;
-  vertical-align: middle;}
-  .Checkbox .empty {
-    content: " ";
-    width: 0.72em;
-    height: 0.72em;
-    border: 0.5px solid #bbb;
-    display: inline-block;
-    position: absolute;
-    top: 0.015em;
-    left: 0.05em;
-    z-index: -1;}
-  .Checkbox i.icofont-tick-boxed {
-    display: none;
-    position:absolute;
-    left: 0;
-    top: 0;}
-  .Checkbox input {
-    opacity:0;
-    z-index: 9999;
-    position: relative;}
-    .Checkbox input:checked ~ i.icofont-tick-boxed {
-      display: inline;}
-    .Checkbox input:checked ~ i.empty {
-      display: none;}
-.Radio {
-  display: inline;
-  color: green;
-  position: relative;
-  vertical-align: middle;}
-  .Radio .empty {
-    content: " ";
-    width: 0.72em;
-    height: 0.72em;
-    border: 0.5px solid #bbb;
-    display: inline-block;
-    position: absolute;
-    top: 0.015em;
-    left: 0.05em;
-    z-index: -1;}
-  .Radio i.icofont-tick-boxed {
-    display: none;
-    position:absolute;
-    left: 0;
-    top: 0;}
-  .Radio input {
-    opacity:0;}
-    .Radio input:checked ~ i.icofont-tick-boxed {
-      display: inline;}
-    .Radio input:checked ~ i.empty {
-      display: none;}
 .About {
     margin: 20px 0;
     position: relative;}
@@ -384,7 +330,7 @@ a:active {
         vertical-align: middle;
         border-radius: 5px;
         box-shadow: 1px 1px 3px 1px #bbb;
-        height: 100%}
+        width: 100%}
     .ProductItem > div:last-child {
       width: 83%;
       position: relative;
@@ -503,6 +449,60 @@ a:active {
         box-shadow: none;
         opacity: 0.5;
         cursor: default;}
+.Checkbox {
+  display: inline;
+  color: green;
+  position: relative;
+  vertical-align: middle;}
+  .Checkbox .empty {
+    content: " ";
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.5px solid #bbb;
+    display: inline-block;
+    position: absolute;
+    top: 0.015em;
+    left: 0.05em;
+    z-index: -1;}
+  .Checkbox i.icofont-tick-boxed {
+    display: none;
+    position:absolute;
+    left: 0;
+    top: 0;}
+  .Checkbox input {
+    opacity:0;
+    z-index: 9999;
+    position: relative;}
+    .Checkbox input:checked ~ i.icofont-tick-boxed {
+      display: inline;}
+    .Checkbox input:checked ~ i.empty {
+      display: none;}
+.Radio {
+  display: inline;
+  color: green;
+  position: relative;
+  vertical-align: middle;}
+  .Radio .empty {
+    content: " ";
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.5px solid #bbb;
+    display: inline-block;
+    position: absolute;
+    top: 0.015em;
+    left: 0.05em;
+    z-index: -1;}
+  .Radio i.icofont-tick-boxed {
+    display: none;
+    position:absolute;
+    left: 0;
+    top: 0;}
+  .Radio input {
+    opacity:0;}
+    .Radio input:checked ~ i.icofont-tick-boxed {
+      display: inline;}
+    .Radio input:checked ~ i.empty {
+      display: none;}
 .Footer {
     padding: 0 25% 50px;
     margin: 50px 0 0;
@@ -515,7 +515,7 @@ a:active {
     .Footer a {
         color: #9a98a9;}
     .Footer > ul > li {
-        width: 25%;
+        width: 33.3333%;
         display: inline-block;
         vertical-align: top; }
     .Footer h1 {

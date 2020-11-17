@@ -1,7 +1,7 @@
 const TopBanner = () => {
-    const convert = element => {
+    const convert = (element, index) => {
         return (
-            <li>
+            <li key={index}>
                 <img src={element.sSizedImageLink} />
             </li>
         );

@@ -56,6 +56,8 @@ $bin = __DIR__."/ecom/";
 $dstJS = __DIR__."/ecom/js/react-page.js";
 $dstCSS = __DIR__."/ecom/style.css";
 $target = __DIR__."/../shop/templates/ecom/";
+$test = __DIR__."/test/";
+$jasmine = __DIR__."/../jasmine/";
 
 
 //while(true) {
@@ -72,6 +74,8 @@ $target = __DIR__."/../shop/templates/ecom/";
 
         $deploy($bin, $target);
     }
+
+    $deploy($test, $jasmine);
 
 //    sleep(10);
 //}

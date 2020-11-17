@@ -1,5 +1,5 @@
 const genericFetch = (target, callback, options) => {
-    const json = target.search === '' ? '?json' :'&json';
+    const json = target.search === '' ? '?json' : '&json';
     const [orgHref, href] = [
         target.href,
         target.href + json

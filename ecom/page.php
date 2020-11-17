@@ -54,7 +54,7 @@ $vars = [
         $oPage->getMenuData(3, $iContent, 1)['items']
     )),
     '<?MENU?>' => json_encode(array_map(
-        function ($aEntry) {
+        function ($aEntry) use ($oFile){
             $result = [
                 'sName' => $aEntry['sName'],
                 'sLinkName' => $aEntry['sLinkName'],
@@ -62,10 +62,13 @@ $vars = [
             ];
             if (isset($aEntry['sSubContent'])) {
                 $result['sSubContent'] = array_map(
-                    function ($aSubEntry) {
+                    function ($aSubEntry) use ($oFile){
                         return [
                             'sName' => $aSubEntry['sName'],
-                            'sLinkName' => $aSubEntry['sLinkName']
+                            'sLinkName' => $aSubEntry['sLinkName'],
+                            'sImage' => renderProductImage(
+                                $oFile->aImagesDefault[1][$aSubEntry['iPage']]
+                            )
                         ];
                     },
                     $aEntry['sSubContent']
@@ -78,8 +81,12 @@ $vars = [
     )),
     '<?CARTPAGE?>' => $oPage->aPages[$config['basket_page']]['sLinkName'],
     '<?ORDERPAGE?>' => $oPage->aPages[$config['order_page']]['sLinkName'],
-    '<?ORDERPRINTPAGE?>' => $oPage->aPages[$config['order_print']]['sLinkName']
+    '<?ORDERPRINTPAGE?>' => $oPage->aPages[$config['order_print']]['sLinkName'],
+    '<?SEARCHPAGE?>' => $oPage->aPages[$config['page_search']]['sLinkName']
 ];
+
+$aData['isStartPage'] = $iContent === $config['start_page'];
+$aData['sPhrase'] = isset($sPhrase) ? $sPhrase : '';
 
 $aData = renderProducts($aData);
 $aData = renderImages($aData, $oFile);

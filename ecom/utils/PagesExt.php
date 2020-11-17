@@ -24,6 +24,7 @@ class PagesExt extends Pages
 
                 $aData['sSubContent'] = isset( $this->aPagesChildrens[$iPage] ) ? $this->getSubMenuData( $iPage, $iPageCurrent, $iDepth + 1 ) : null;
                 $aData['iDepth'] = $iDepth;
+                $aData['iPage'] = $iPage;
 
                 $aJson[] = $aData;
             }

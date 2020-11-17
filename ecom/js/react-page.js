@@ -92,6 +92,24 @@ const checkoutCart = (target) => {
 
     return false;
 };
+const fetchProducts = (text, search) => {
+    /*const href = text.length > 3 ?
+        search + '&sPhrase=' + encodeURIComponent(text) :
+        search;*/
+    const href = search + '&sPhrase=' + encodeURIComponent(text);
+    genericFetch(
+        {
+            href: href,
+            search: href
+        },
+        (data, href) => {
+            history.pushState({href: href}, '', href);
+            oPageData = data;
+            Animation.start();
+            renderApp();
+        }
+    );
+}
 const navigateTo = (event) => {
     event.preventDefault();
 
@@ -192,7 +210,7 @@ const setZip = (text) => {
     renderApp();
 };
 const genericFetch = (target, callback, options) => {
-    const json = target.search === '' ? '?json' :'&json';
+    const json = target.search === '' ? '?json' : '&json';
     const [orgHref, href] = [
         target.href,
         target.href + json
@@ -328,7 +346,7 @@ const Submit = ({className, href, action, disabled, children}) => {
 }
 const Content = () => {
     let content = <Homepage />;
-    if (window.location.search !== '') {
+    if (!oPageData.isStartPage) {
         content = null;
         if (window.location.search.match(/^\?\d+,.*$/)) {
             content = <Product />;
@@ -488,11 +506,17 @@ const Category = () => {
         </div>
     );
 };
-const Description = () => {
+const Description = ({full}) => {
     return (
         <div className="Description">
             <h1>{oPageData.sName}</h1>
-            <div dangerouslySetInnerHTML={{ __html: oPageData.sDescriptionShort }} />
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: full ?
+                        oPageData.sDescriptionFull :
+                        oPageData.sDescriptionShort
+                }}
+            />
         </div>
     );
 };
@@ -524,72 +548,15 @@ const Subcategories = () => {
 const CmsPage = () => {
     return (
         <div className="CmsPage">
-            CMS
+            <Description full/>
         </div>
     );
 };
-const Checkbox = props => {
-  const { name, action, checked } = props;
-
-  return (
-    <div className="Checkbox">
-      <input type="checkbox" name={name} onChange={action} checked={checked}/>
-      <i className="icofont-tick-boxed" />
-      <i className="empty" />
-    </div>
-  );
-};
-const Radio = props => {
-  const { name, action, checked } = props;
-
-  return (
-    <div className="Radio">
-      <input type="radio" name={name} onChange={action} checked={checked}/>
-      <i className="icofont-tick-boxed" />
-      <i className="empty" />
-    </div>
-  );
-};
-const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
-    const onChangeHandler = event => {
-        if(formatter) {
-            let caretPos = event.target.selectionStart;
-            [event.target.value, caretPos] =
-                formatter(event.target.value, caretPos);
-            event.target.selectionEnd = event.target.selectionStart = caretPos;
-        }
-
-        if(bind) {
-            bind(event.target.value);
-        }
-    };
-    if(rows && rows > 1) {
-        return (
-            <textarea
-                name={name}
-                placeholder={placeholder}
-                rows={rows}
-                onChange={onChangeHandler}
-                value={value}
-            />
-        );
-    } else {
-        return (
-            <input
-                type="text"
-                name={name}
-                placeholder={placeholder}
-                onChange={onChangeHandler}
-                value={value}
-            />
-        );
-    }
-};
 const About = () => {
     if (oPageData && oPageData.aPages) {
-        const aboutus = oPageData.aPages.map(element => {
+        const aboutus = oPageData.aPages.map((element, index) => {
             return (
-                <li>
+                <li key={index}>
                     <div>
                         <h1>{element.sName}</h1>
                         <div dangerouslySetInnerHTML={{ __html: element.sDescriptionShort }} />
@@ -647,9 +614,9 @@ const Popular = () => {
     }
 };
 const TopBanner = () => {
-    const convert = element => {
+    const convert = (element, index) => {
         return (
-            <li>
+            <li key={index}>
                 <img src={element.sSizedImageLink} />
             </li>
         );
@@ -696,7 +663,7 @@ const Order = () => {
             <div className="Order">
                 <OrderSummary />
                 <CartItemList data="aOrder" readonly/>
-                <Summary data='aOrder' readonly/>
+                <Summary data='aOrder' order/>
             </div>
         );
     }
@@ -1142,6 +1109,63 @@ const ProductItem = ({data, index, readonly}) => {
         }
     }
 };
+const Checkbox = props => {
+  const { name, action, checked } = props;
+
+  return (
+    <div className="Checkbox">
+      <input type="checkbox" name={name} onChange={action} checked={checked}/>
+      <i className="icofont-tick-boxed" />
+      <i className="empty" />
+    </div>
+  );
+};
+const Radio = props => {
+  const { name, action, checked } = props;
+
+  return (
+    <div className="Radio">
+      <input type="radio" name={name} onChange={action} checked={checked}/>
+      <i className="icofont-tick-boxed" />
+      <i className="empty" />
+    </div>
+  );
+};
+const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
+    const onChangeHandler = event => {
+        if(formatter) {
+            let caretPos = event.target.selectionStart;
+            [event.target.value, caretPos] =
+                formatter(event.target.value, caretPos);
+            event.target.selectionEnd = event.target.selectionStart = caretPos;
+        }
+
+        if(bind) {
+            bind(event.target.value);
+        }
+    };
+    if(rows && rows > 1) {
+        return (
+            <textarea
+                name={name}
+                placeholder={placeholder}
+                rows={rows}
+                onChange={onChangeHandler}
+                value={value}
+            />
+        );
+    } else {
+        return (
+            <input
+                type="text"
+                name={name}
+                placeholder={placeholder}
+                onChange={onChangeHandler}
+                value={value}
+            />
+        );
+    }
+};
 const Footer = () => {
     function renderPages(item) {
         let content = [];
@@ -1151,7 +1175,7 @@ const Footer = () => {
                     <li key={index}>
                         <div>
                             <h1>
-                                <a href={element.sLinkName}>{element.sName}</a>
+                                <Link href={element.sLinkName}>{element.sName}</Link>
                             </h1>
                             <ul>
                                 {renderPages(element.sSubContent)}
@@ -1160,10 +1184,14 @@ const Footer = () => {
                     </li>
                 );
             } else {
+                const name = element.sImage ? 
+                    <img src={element.sImage} alt={element.sName}/> :
+                    element.sName;
+
                 content.push (
                     <li key={index}>
                         <span>
-                            <a href={element.sLinkName}>{element.sName}</a>
+                            <Link href={element.sLinkName}>{name}</Link>
                         </span>
                     </li>
                 );            
@@ -1260,7 +1288,11 @@ const Search = () => {
   return (
     <div className="Search">
         <div className="wrapper">
-            <input type="text" name="query" />
+            <Textinput
+                name="sPhrase"
+                bind={text => fetchProducts(text, sSearchPage)}
+                value={oPageData.sPhrase}
+            />
         </div>
     </div>
   );
@@ -1268,9 +1300,6 @@ const Search = () => {
 const UserInfo = () => {
   return (
     <div className="UserInfo">
-        <div>
-            <span>Zaloguj</span>
-        </div>
         <CartIcon/>
     </div>
   );
