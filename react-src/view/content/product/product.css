@@ -16,8 +16,20 @@
     .Product .Specification,
     .Product .Shipping {
         float: right;}
+    .Product .Specification {
+        margin-bottom: 50px;}
     .Product .Reviews,
     .Product .Shipping {
         margin-bottom: 50px;}
     .Product .Reviews {
         float: left;}
+    .Product .desc {
+        float: left;
+        width: 70%;
+        margin-bottom: 50px;}
+        .Product .desc h1 {
+            font-size: 1.5em;
+            text-transform: capitalize;}
+        .Product .desc div {
+            font-size: 0.9em;
+            padding-right: 20px;}

@@ -66,9 +66,10 @@ $vars = [
                         return [
                             'sName' => $aSubEntry['sName'],
                             'sLinkName' => $aSubEntry['sLinkName'],
-                            'sImage' => renderProductImage(
-                                $oFile->aImagesDefault[1][$aSubEntry['iPage']]
-                            )
+                            'sImage' =>
+                                isset($oFile->aImagesDefault[1][$aSubEntry['iPage']]) ?renderProductImage(
+                                    $oFile->aImagesDefault[1][$aSubEntry['iPage']]
+                                ) : null
                         ];
                     },
                     $aEntry['sSubContent']
@@ -94,7 +95,11 @@ $aData = renderPages($aData, $oPage, $oFile);
 $aData = renderCart($aData, $oOrder, $config, $oFile);
 $aData = renderShipping($aData, $oOrder);
 $aData = renderPayments($aData, $oOrder);
-$aData = renderOrder($aData, $oOrder, $config, $oFile, $iOrder);
+
+if(isset($iOrder)) {
+    $aData = renderOrder($aData, $oOrder, $config, $oFile, $iOrder);
+}
+
 $vars['<?DATA?>'] = json_encode($aData);
 
 if(isset($_GET['json'])) {

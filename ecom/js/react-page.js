@@ -356,6 +356,8 @@ const Content = () => {
             content = <Cart />;
         } else if (oPageData.aOrder) {
             content = <Order />;
+        } else if (oPageData.isReviewPage) {
+            content = <Review />;
         } else {
             content = <CmsPage />;
         }
@@ -503,20 +505,6 @@ const Category = () => {
             <Description/>
             <Subcategories/>
             <ProductList/>
-        </div>
-    );
-};
-const Description = ({full}) => {
-    return (
-        <div className="Description">
-            <h1>{oPageData.sName}</h1>
-            <div
-                dangerouslySetInnerHTML={{
-                    __html: full ?
-                        oPageData.sDescriptionFull :
-                        oPageData.sDescriptionShort
-                }}
-            />
         </div>
     );
 };
@@ -714,7 +702,10 @@ const Product = () => {
             <Gallery/>
             <Title/>
             <Specification/>
-            <Reviews/>
+            <div className="desc">
+                <h1>Opis</h1>
+                <div dangerouslySetInnerHTML={{__html: oPageData.sDescriptionFull}} />
+            </div>
             <Shipping/>
         </div>
     );
@@ -873,10 +864,6 @@ const Specification = () => {
           <span>Wysokość: 20cm</span>
         </li>
       </ul>
-      <div className="desc">
-        <h1>Opis</h1>
-        <span>{oPageData.sDescriptionFull}</span>
-      </div>
     </div>
   );
 };
@@ -892,6 +879,46 @@ const Title = () => {
         </Submit>
     </div>
   );
+};
+const Review = () => {
+    return (
+        <div className="Review">
+            <h1>{oPageData.sName}</h1>
+            <div>
+                <Textinput
+                    name="author"
+                    placeholder="Twoje imię / pseudonim"
+                />
+                <Textinput
+                    name="title"
+                    placeholder="Tytuł"
+                />
+                <Rating
+                    name="rating"
+                />
+                <Textinput
+                    name="description"
+                    placeholder="Opis"
+                    rows="5"
+                />
+                <Submit>Wyślij</Submit>
+            </div>
+        </div>
+    );
+}
+const Description = ({full}) => {
+    return (
+        <div className="Description">
+            <h1>{oPageData.sName}</h1>
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: full ?
+                        oPageData.sDescriptionFull :
+                        oPageData.sDescriptionShort
+                }}
+            />
+        </div>
+    );
 };
 const ProductList = (config) => {
     if (oPageData && oPageData.aProducts) {
@@ -1130,6 +1157,17 @@ const Radio = props => {
       <i className="empty" />
     </div>
   );
+};
+const Rating = () => {
+    return (
+        <div class="Rating">
+            <input name="stars" id="e5" type="radio"/><a/><label for="e5">☆</label>
+            <input name="stars" id="e4" type="radio"/><a/><label for="e4">☆</label>
+            <input name="stars" id="e3" type="radio"/><a/><label for="e3">☆</label>
+            <input name="stars" id="e2" type="radio"/><a/><label for="e2">☆</label>
+            <input name="stars" id="e1" type="radio"/><a/><label for="e1">☆</label>
+        </div>
+    )
 };
 const Textinput = ({name, placeholder, formatter, bind, rows, value }) => {
     const onChangeHandler = event => {

@@ -11,10 +11,6 @@ const Specification = () => {
           <span>Wysokość: 20cm</span>
         </li>
       </ul>
-      <div className="desc">
-        <h1>Opis</h1>
-        <span>{oPageData.sDescriptionFull}</span>
-      </div>
     </div>
   );
 };

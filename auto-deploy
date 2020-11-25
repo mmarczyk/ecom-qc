@@ -1,5 +1,8 @@
 <?php
-$collect = function($src, $ext, $excluded = []) use (&$collect){
+$collect = function($src, $ext = null, $excluded = []) use (&$collect){
+    if(!is_null($ext) && !is_array($ext)) {
+        $ext = [$ext];
+    }
     $dst = [];
     $children = scandir($src);
     foreach($children as $node) {
@@ -7,7 +10,8 @@ $collect = function($src, $ext, $excluded = []) use (&$collect){
             if(is_dir($src.$node)) {
                 $sub = $collect($src.$node.'/', $ext);
                 $dst = array_merge($dst, $sub);
-            } else if(substr($node, -strlen($ext)) === $ext) {
+            } else if(is_null($ext) || 
+                in_array(substr($node, strrpos($node, '.') + 1), $ext)) {
                 array_push($dst, $src.$node);
             }
         }
@@ -51,31 +55,56 @@ $check = function($files, $tstamp) {
     }
 };
 
-$src = __DIR__."/react-src/";
-$bin = __DIR__."/ecom/";
-$dstJS = __DIR__."/ecom/js/react-page.js";
-$dstCSS = __DIR__."/ecom/style.css";
-$target = __DIR__."/../shop/templates/ecom/";
-$test = __DIR__."/test/";
-$jasmine = __DIR__."/../jasmine/";
+$deployNewer = function($src, $dst, $newer) use (&$deploy, &$collect, &$check){
+    $files = $collect($src);
+    if($check($files, $newer)) {
+        print "Deploying $src to $dst".PHP_EOL;
+        $deploy($src, $dst);
+    }
+};
 
+$react = [
+    'src' => __DIR__."/react-src/",
+    'dstJS' => __DIR__."/ecom/js/react-page.js",
+    'dstCSS' => __DIR__."/ecom/style.css"
+];
 
-//while(true) {
-    $tstamp = time();
-    $newer = false;
+$template = [
+    'src' => __DIR__."/ecom/",
+    'target' => __DIR__."/../shop/templates/ecom/"
+];
 
-    $css = $collect($src, 'css');
-    $js = $collect($src, 'js', ['index.js']);
-    $js[] = $src.'index.js';
+$test = [
+    'src' => __DIR__."/test/",
+    'target' => __DIR__."/../jasmine/"
+];
 
-    if($check(array_merge($css, $js), $newer)) {
-        $bundle($js, $dstJS);
-        $bundle($css, $dstCSS);
+$admin = [
+    'src' => __DIR__."/admin/",
+    'target' => __DIR__."/../shop/templates/admin/"
+];
 
-        $deploy($bin, $target);
+$plugins = [
+    'src' => __DIR__."/plugins/",
+    'target' => __DIR__."/../shop/plugins/"
+];
+
+$tstamp = 0;
+while(true) {
+    $css = $collect($react['src'], 'css');
+    $js = $collect($react['src'], 'js', ['index.js']);
+    $js[] = $react['src'].'index.js';
+
+    if($check(array_merge($css, $js), $tstamp)) {
+        $bundle($js, $react['dstJS']);
+        $bundle($css, $react['dstCSS']);
     }
 
-    $deploy($test, $jasmine);
+    $deployNewer($template['src'], $template['target'], $tstamp);
+    $deployNewer($test['src'], $test['target'], $tstamp);
+    $deployNewer($admin['src'], $admin['target'], $tstamp);
+    $deployNewer($plugins['src'], $plugins['target'], $tstamp);
 
-//    sleep(10);
-//}
+    $tstamp = time();
+    sleep(10);
+}

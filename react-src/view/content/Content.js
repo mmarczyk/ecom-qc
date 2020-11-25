@@ -10,6 +10,8 @@ const Content = () => {
             content = <Cart />;
         } else if (oPageData.aOrder) {
             content = <Order />;
+        } else if (oPageData.isReviewPage) {
+            content = <Review />;
         } else {
             content = <CmsPage />;
         }

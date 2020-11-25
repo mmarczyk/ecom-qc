@@ -1,0 +1,27 @@
+.Rating {
+    width: 105px;
+    margin: 20px;
+    font-size: 25px;
+    overflow:hidden;}
+    .Rating input {
+        float: right;
+        opacity: 0;
+        position: absolute;}
+    .Rating a,
+    .Rating label {
+        float:right;
+        color: #aaa;
+        text-decoration: none;
+        -webkit-transition: color .4s;
+        -moz-transition: color .4s;
+        -o-transition: color .4s;
+        transition: color .4s;}
+    .Rating label:hover ~ label,
+    .Rating input:focus ~ label,
+    .Rating label:hover,
+    .Rating a:hover,
+    .Rating a:hover ~ a,
+    .Rating a:focus,
+    .Rating a:focus ~ a	{
+        color: orange;
+        cursor: pointer;}

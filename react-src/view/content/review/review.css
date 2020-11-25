@@ -1,0 +1,23 @@
+.Review {
+    text-align: left;}
+    .Review h1 {
+        font-size: 1.8em;
+        font-weight: normal;}
+    .Review input[type=text] {
+        display: block;
+        margin: 20px;
+        border-radius: 3px;
+        line-height: 1.8em;
+        border: 1px solid grey;
+        padding: 0 10px;
+        box-shadow: 1px 1px 5px 0 grey;}
+    .Review textarea {
+        margin: 20px;
+        width: 80%;
+        height: auto;
+        border-radius: 3px;
+        line-height: 1.8em;
+        border: 1px solid grey; 
+        resize: none;
+        box-shadow: 1px 1px 5px 0 grey;
+        padding: 0 10px;}
