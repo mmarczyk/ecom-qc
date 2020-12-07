@@ -192,7 +192,6 @@ function renderOrder($aData, $oOrder, $config, $oFile, $iOrder) {
                 'iProduct' => $aProductData['iProduct'],
                 'iQuantity' => $aProductData['iQuantity'],
                 'sName' => $aProductData['sName'],
-                'sImage' => $aProductData['sImage'],
                 'sLinkName' => $aProductData['sLinkName'],
                 'sLinkDelete' => $aProductData['sLinkDelete'],
                 'fPrice' => $aProductData['fPrice'],
