@@ -1,0 +1,13 @@
+@media(max-width: 400px) {
+    .Contact input[name=email],
+    .Contact input[name=tel] {
+        display: block;}
+    .Contact input[name=tel] {
+        margin: 20px;}
+    .Contact input[name=name],
+    .Contact input[name=email],
+    .Contact input[name=street] {
+        width: calc(100% - 60px);}
+    .Contact input[name=city] {
+        width: calc(100% - 149px);}
+}

@@ -20,10 +20,6 @@ a:active {
     padding: 0;
     overflow-x: hidden;}
 
-.container {
-    margin: auto;
-    max-width: 1365px;
-    position: relative;}
     
 .Cart {
     max-width: 1000px;
@@ -40,6 +36,16 @@ a:active {
     margin-top: 20px;}
   .Cart .Payments {
     margin-top: 30px;}
+@media(max-width: 846px) {
+    .Cart > div {
+        width: 100% !important;}
+    .Cart .Shipping,
+    .Cart .Payments {
+        width: 50%;
+        display: inline-block;
+        margin: 20px 0;
+        padding: 0;}
+}
 .Contact {
   width: 100%;
   text-align: left;}
@@ -99,6 +105,23 @@ a:active {
     margin: 0 20px;}
   .Contact input[type=checkbox] {
     margin-right: 10px;}
+@media(max-width: 667px) {
+    .Contact > div {
+        width: 100%;}
+}
+@media(max-width: 400px) {
+    .Contact input[name=email],
+    .Contact input[name=tel] {
+        display: block;}
+    .Contact input[name=tel] {
+        margin: 20px;}
+    .Contact input[name=name],
+    .Contact input[name=email],
+    .Contact input[name=street] {
+        width: calc(100% - 60px);}
+    .Contact input[name=city] {
+        width: calc(100% - 149px);}
+}
 .Payments {
     text-align: left;}
   .Payments h1 {
@@ -127,6 +150,12 @@ a:active {
         .Subcategories li h1 {
             font-size: 1.5em;
             font-weight: normal;}
+.Content {
+    margin: auto;
+    max-width: 1365px;
+    position: relative;
+    padding: 0 10px;}
+    
 .Content > div {
     opacity: 0;}
 
@@ -158,6 +187,18 @@ a:active {
         font-size: 0.95em;
         line-height: 1.4em;}
 
+@media(max-width: 1024px) {
+    .About {
+        padding: 0;}
+}
+@media(max-width: 846px) {
+    .About li {
+        width: 50%;}
+}
+@media(max-width: 667px) {
+    .About li {
+        width: 100%;}
+}
 .Popular {
     text-align: left;
     max-width: 1100px;
@@ -168,6 +209,12 @@ a:active {
         line-height: 2em;
         font-weight: bold;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+@media(max-width: 1024px) {
+    .Popular {
+        width: 100%;
+        margin: 0;
+        text-align: center;}
+}
 .TopBanner {
     height: 300px;
     margin: 20px 0;}
@@ -188,6 +235,29 @@ a:active {
         margin-bottom: 5%;}
     .TopBanner #imagesList2 li:last-child {
         height: 30%;}
+@media(max-width: 1024px) {
+    .TopBanner {
+        height: 275px;
+    }
+}
+@media(max-width: 846px) {
+    .TopBanner {
+        height: 200px;
+    }
+}
+@media(max-width: 667px) {
+    .TopBanner {
+        height: auto;}
+        .TopBanner li {
+            height: auto !important;
+            margin-bottom: 0 !important;}
+        .TopBanner #imagesList2 {
+            margin-left: 0;}
+        .TopBanner .imagesList {
+            width: 100%;}
+        .TopBanner img {
+            width: 100%;}
+}
 .Order {
     max-width: 1000px;
     width: 100%;
@@ -224,6 +294,23 @@ a:active {
     .Gallery li:hover .nav img {
         opacity: 1;}
 
+@media(max-width: 667px) {
+    .Gallery ul {
+        text-align: center;}
+    .Gallery li {
+        display: inline-block;
+        height: 60px;
+        padding-top: 200px;
+        margin: 0 5px;}
+        .Gallery li .nav {
+            width: 50px;
+            vertical-align: bottom;}
+        .Gallery li .main {
+            left: 0;
+            width: 100%;}
+            .Gallery li .main img {
+                margin-left: 0;}
+}
 .Product {
     max-width: 1000px;
     width: 100%;
@@ -260,6 +347,16 @@ a:active {
             font-size: 0.9em;
             padding-right: 20px;}
 
+@media(max-width: 667px) {
+    .Product > div {
+        width: 100% !important;}
+    .Product .Specification,
+    .Product .Reviews,
+    .Product .desc {
+        margin-bottom: 5px;}
+    .Product .Shipping {
+        margin-bottom: 20px;}
+}
 .Specification h1 {
     font-size: 1.1em;
     margin: 30px 0 5px;
@@ -300,6 +397,11 @@ a:active {
         outline: none;
         box-shadow: none;}
 
+@media(max-width: 667px) {
+    .Title a {
+        margin-left: auto;
+        margin-right: auto;}
+}
 .Review {
     text-align: left;}
     .Review h1 {
@@ -382,6 +484,27 @@ a:active {
         border: none;
         cursor: pointer;
         margin-left: 20px;}
+
+@media(max-width: 667px) {
+    .ProductItem {
+        height: 50px;
+        font-size: 0.8em;
+        padding: 10px 0;
+        border-bottom: 1px solid grey;}
+        .ProductItem .Remove {
+            position: absolute;
+            right: 0;
+            top: -20px;}
+        .ProductItem > div:last-child > div {
+            position: relative;
+            top: auto;}
+            .ProductItem > div:last-child > div:first-child {
+                top: 0;}
+            .ProductItem > div:last-child > div:last-child {
+                position: absolute;
+                left:0;
+                bottom:0;}
+}
 .Description {
     text-align: left;}
     .Description h1 {
@@ -422,6 +545,16 @@ a:active {
         font-weight: normal;
         font-style: italic;}
 
+@media(max-width: 667px) {
+    .ProductList li {
+        width: 50%;}
+        .ProductList .photo {
+            height: 115px;}
+}
+@media(max-width: 400px) {
+    .ProductList li a {
+        font-size: 0.9em;}
+}
 .Shipping {
     text-align: left;}
   .Shipping h1 {
@@ -585,6 +718,68 @@ a:active {
     .Footer li > div {
         padding: 0 30%;}
 
+@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
+    .Footer {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+@media(max-width: 635px) {
+    .Footer {
+        padding: 0 30px;}
+    .Footer > ul > li {
+        width: 100%;}
+    .Footer li > div {
+        padding: 0;}
+        .Footer li > div ul {
+            display: none;}
+        .Footer li:hover > div > ul {
+            display: block;}
+}
+.Categories{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9em;
+    margin-top: -15px;
+    width: 100%;}
+    .Categories a {
+        color: black;}
+    .Categories .nav {
+        display: none;
+        font-size: 1.4em;
+        width: 20%;
+        text-align: center;
+        margin-bottom: 0.5em;}
+    .Categories div > ul > li {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 15px;
+        line-height: 2.5em;
+        cursor: pointer;}
+    .Categories div > ul li:hover > a {
+      border-bottom: 2px solid #000;}
+        .Categories div > ul > li > a {
+            padding-bottom: 8px;}
+        .Categories div > ul > li .sub1 {
+            position: absolute;
+            display: none;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            padding: 10px;
+            line-height: 2em;
+            font-size: 0.8em;
+            z-index: 9999999;}
+        .Categories div > ul > li:hover .sub1 {
+            display: block;}
+@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
+    .Categories div > ul > li > a {
+        padding: 0;}
+    .Categories a:not(:only-child):hover ~ .sub1 {
+        display: none;}
+    .Categories div > ul li > ul.sub1 {
+        margin-top: 20px;}
+}
 @media(max-width: 635px) {
     .Categories {
         text-align: left;
@@ -632,68 +827,10 @@ a:active {
                 width: 100%;
                 transition: left 0.5s;}
 }
-@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
-    .Categories {
-        padding-bottom: 20px;}
-    .Categories div > ul > li > a {
-        padding: 0;}
-    .Categories a:not(:only-child):hover ~ .sub1 {
-        display: none;}
-    .Categories a:not(:only-child)::after {
-        content: "\ea5b";
-        pointer-events: none;
-        position: absolute;
-        bottom: -8px;
-        margin-left: -50px;
-        font-family: IcoFont;
-        font-size: 1.5em;}
-    .Categories div > ul li > ul.sub1 {
-        margin-top: 20px;}
-}
-.Categories{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.9em;
-    margin-top: -15px;
-    width: 100%;}
-    .Categories a {
-        color: black;}
-    .Categories .nav {
-        display: none;
-        font-size: 1.4em;
-        width: 20%;
-        text-align: center;
-        margin-bottom: 0.5em;}
-    .Categories div > ul > li {
-        display: inline-block;
-        vertical-align: top;
-        margin: 0 15px;
-        line-height: 2.5em;
-        cursor: pointer;}
-    .Categories div > ul li:hover > a {
-      border-bottom: 2px solid #000;}
-        .Categories div > ul > li > a {
-            padding-bottom: 8px;}
-        .Categories div > ul > li .sub1 {
-            position: absolute;
-            display: none;
-            background: #fff;
-            border: 2px solid #ddd;
-            border-top: 1px solid #ddd;
-            border-radius: 0 0 8px 8px;
-            padding: 10px;
-            line-height: 2em;
-            font-size: 0.8em;
-            z-index: 9999999;}
-        .Categories div > ul > li:hover .sub1 {
-            display: block;}
 .Header {
     border-bottom: 1px solid #ddd;}
     .Header .container > div {
         display: inline-block;}
-@media(max-width: 868px) {
-    .Logo img {
-        height: 70px;}
-}
 .Logo {
     width: 50%;
     text-align: left;}
@@ -701,16 +838,9 @@ a:active {
         height: 100px;
         vertical-align: middle; }
 
-@media(max-width: 635px) {
-    .Search {
-        top: 4em;
-        width: 70%;
-        margin: 0;
-        left: 20%}
-}
 @media(max-width: 868px) {
-    .Search {
-        top: 1em;}
+    .Logo img {
+        height: 70px;}
 }
 .Search {
     position: absolute;
@@ -733,6 +863,17 @@ a:active {
             .Search .wrapper:focus-within {
                 background: white;
                 border: 1px solid #ddd;}
+@media(max-width: 868px) {
+    .Search {
+        top: 1em;}
+}
+@media(max-width: 635px) {
+    .Search {
+        top: 4em;
+        width: 70%;
+        margin: 0;
+        left: 20%}
+}
 .UserInfo {
     width: 50%;
     text-align: right;}

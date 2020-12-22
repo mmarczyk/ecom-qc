@@ -1,3 +1,9 @@
+.Content {
+    margin: auto;
+    max-width: 1365px;
+    position: relative;
+    padding: 0 10px;}
+    
 .Content > div {
     opacity: 0;}
 

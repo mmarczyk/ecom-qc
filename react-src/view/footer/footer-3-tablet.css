@@ -1,0 +1,6 @@
+@media (max-width: 868px) and (min-width: 635px), (min-width: 635px) and (hover: none){
+    .Footer {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}

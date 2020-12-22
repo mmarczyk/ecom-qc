@@ -7,7 +7,7 @@ const Footer = () => {
                     <li key={index}>
                         <div>
                             <h1>
-                                <Link href={element.sLinkName}>{element.sName}</Link>
+                                <a>{element.sName}</a>
                             </h1>
                             <ul>
                                 {renderPages(element.sSubContent)}

@@ -1,0 +1,17 @@
+@media(max-width: 667px) {
+    .Gallery ul {
+        text-align: center;}
+    .Gallery li {
+        display: inline-block;
+        height: 60px;
+        padding-top: 200px;
+        margin: 0 5px;}
+        .Gallery li .nav {
+            width: 50px;
+            vertical-align: bottom;}
+        .Gallery li .main {
+            left: 0;
+            width: 100%;}
+            .Gallery li .main img {
+                margin-left: 0;}
+}

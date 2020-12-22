@@ -1,0 +1,10 @@
+@media(max-width: 846px) {
+    .Cart > div {
+        width: 100% !important;}
+    .Cart .Shipping,
+    .Cart .Payments {
+        width: 50%;
+        display: inline-block;
+        margin: 20px 0;
+        padding: 0;}
+}

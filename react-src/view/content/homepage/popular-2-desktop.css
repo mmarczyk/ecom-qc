@@ -1,0 +1,6 @@
+@media(max-width: 1024px) {
+    .Popular {
+        width: 100%;
+        margin: 0;
+        text-align: center;}
+}

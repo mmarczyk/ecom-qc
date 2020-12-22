@@ -1,0 +1,10 @@
+@media(max-width: 667px) {
+    .Product > div {
+        width: 100% !important;}
+    .Product .Specification,
+    .Product .Reviews,
+    .Product .desc {
+        margin-bottom: 5px;}
+    .Product .Shipping {
+        margin-bottom: 20px;}
+}

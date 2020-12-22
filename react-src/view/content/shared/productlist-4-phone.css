@@ -1,0 +1,6 @@
+@media(max-width: 667px) {
+    .ProductList li {
+        width: 50%;}
+        .ProductList .photo {
+            height: 115px;}
+}

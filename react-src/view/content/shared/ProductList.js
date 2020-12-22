@@ -2,7 +2,7 @@ const ProductList = (config) => {
     if (oPageData && oPageData.aProducts) {
         const products = oPageData.aProducts.map((element, index) => {
             const img = element.sImage ? element.sImage.sFileName : sDirImg + 'no-image.png';
-            const name = element.sName.length > 27 ? element.sName.substring(0, 25) + '...' : element.sName;
+            const name = element.sName.length > 25 ? element.sName.substring(0, 23) + '...' : element.sName;
             
             const nameBlock =
                 config.notitle ?

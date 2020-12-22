@@ -1,0 +1,13 @@
+@media(max-width: 667px) {
+    .TopBanner {
+        height: auto;}
+        .TopBanner li {
+            height: auto !important;
+            margin-bottom: 0 !important;}
+        .TopBanner #imagesList2 {
+            margin-left: 0;}
+        .TopBanner .imagesList {
+            width: 100%;}
+        .TopBanner img {
+            width: 100%;}
+}

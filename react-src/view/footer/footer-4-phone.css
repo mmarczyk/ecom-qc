@@ -1,0 +1,12 @@
+@media(max-width: 635px) {
+    .Footer {
+        padding: 0 30px;}
+    .Footer > ul > li {
+        width: 100%;}
+    .Footer li > div {
+        padding: 0;}
+        .Footer li > div ul {
+            display: none;}
+        .Footer li:hover > div > ul {
+            display: block;}
+}
